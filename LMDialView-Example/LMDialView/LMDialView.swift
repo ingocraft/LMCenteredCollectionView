@@ -38,20 +38,10 @@ class SPIHorizontalWheel: UIView {
     private let dialInfo = DialInfo()
     
     private var collectionView: UICollectionView!
+    private var middleLineView: UIView!
+    private var containerView: UIView!
 
-    private lazy var middleLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black
-        return view
-    }()
-    
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        
-        return view
-    }()
-    
+
     init() {
         super.init(frame: CGRect.zero)
         setupSubviews()
@@ -210,6 +200,18 @@ private extension SPIHorizontalWheel {
     func setupSubviews() {
         backgroundColor = UIColor.white
         
+        middleLineView = {
+            let view = UIView()
+            view.backgroundColor = UIColor.black
+            return view
+        }()
+        
+        containerView = {
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            return view
+        }()
+
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
             layout.minimumLineSpacing = dialInfo.minimumLineSpace
@@ -228,7 +230,6 @@ private extension SPIHorizontalWheel {
             
             return view
         }()
-
 
         addSubview(containerView)
         containerView.addSubview(collectionView)
