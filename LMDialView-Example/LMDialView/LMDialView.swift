@@ -33,15 +33,92 @@ protocol SPIHorizontalWheelDelegate: class {
  */
 class SPIHorizontalWheel: UIView {
     
+    // MARK: Properties
+    
     weak var delegate: SPIHorizontalWheelDelegate?
     private var isPanning = false
     private let dialInfo = DialInfo()
     
     private var collectionView: UICollectionView!
-    private var middleLineView: UIView!
+    private var indicatorLineView: UIView!
     private var containerView: UIView!
+    
+    var bounces: Bool = true {
+        didSet {
+            collectionView.bounces = bounces
+        }
+    }
+    
+    var isCycle: Bool = false {
+        didSet {
+            
+        }
+    }
+    
+    var indicatorHeight: CGFloat = 0 {
+        didSet {
+            
+        }
+    }
+    
+    var indicatorColor: UIColor = UIColor.clear {
+        didSet {
+            
+        }
+    }
 
-
+    var dividingLineHeight: CGFloat = 0 {
+        didSet {
+            
+        }
+    }
+    
+    var dividingLineColor: UIColor = UIColor.clear {
+        didSet {
+            
+        }
+    }
+    
+    var interSpace: CGFloat = 0 {
+        didSet {
+            
+        }
+    }
+    
+    var isInfiniteScrollEnabled: Bool = true {
+        didSet {
+            
+        }
+    }
+    
+    var isScrollEnabled: Bool = true {
+        didSet {
+            
+        }
+    }
+    
+    var isTracking: Bool {
+        return collectionView.isTracking
+    }
+    
+    var isDragging: Bool {
+        return collectionView.isDragging
+    }
+    
+    var isDecelerating: Bool {
+        return collectionView.isDecelerating
+    }
+    
+    var dividingLineCount: Int {
+        return 0
+    }
+    
+    var currentIndex: Int {
+        return 0
+    }
+    
+    
+    
     init() {
         super.init(frame: CGRect.zero)
         setupSubviews()
@@ -200,7 +277,7 @@ private extension SPIHorizontalWheel {
     func setupSubviews() {
         backgroundColor = UIColor.white
         
-        middleLineView = {
+        indicatorLineView = {
             let view = UIView()
             view.backgroundColor = UIColor.black
             return view
@@ -233,7 +310,7 @@ private extension SPIHorizontalWheel {
 
         addSubview(containerView)
         containerView.addSubview(collectionView)
-        containerView.addSubview(middleLineView)
+        containerView.addSubview(indicatorLineView)
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -251,12 +328,12 @@ private extension SPIHorizontalWheel {
             collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             ])
         
-        middleLineView.translatesAutoresizingMaskIntoConstraints = false
+        indicatorLineView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            middleLineView.widthAnchor.constraint(equalToConstant: 2.0),
-            middleLineView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            middleLineView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            middleLineView.heightAnchor.constraint(equalToConstant: 28),
+            indicatorLineView.widthAnchor.constraint(equalToConstant: 2.0),
+            indicatorLineView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            indicatorLineView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            indicatorLineView.heightAnchor.constraint(equalToConstant: 28),
             ])
     }
 }
