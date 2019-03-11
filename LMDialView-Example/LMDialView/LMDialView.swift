@@ -33,52 +33,15 @@ protocol SPIHorizontalWheelDelegate: class {
  */
 class SPIHorizontalWheel: UIView {
     
-    private let middleLightColor = UIColor.black
-    private let middleDarkColor = UIColor.black
-    private let lineLightColor = UIColor.lightGray
-    private let lineDarkColor = UIColor.lightGray
-    
-    enum Style {
-        case light
-        case dark
-    }
-    
     weak var delegate: SPIHorizontalWheelDelegate?
     private var isPanning = false
-    private let style: Style
     private let dialInfo = DialInfo()
     
-    @available(*, deprecated, message: "This variable will be remove at next version")
-    private var isAutoplay = false
-    
-    private lazy var layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = dialInfo.minimumLineSpace
-        layout.itemSize = dialInfo.itemSize
-        layout.scrollDirection = .horizontal
-        return layout
-    }()
-    
-    private lazy var collectionView: UICollectionView = {
-        let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
-        view.delegate = self
-        view.dataSource = self
-        view.showsHorizontalScrollIndicator = false
-        view.backgroundColor = UIColor.clear
-        
-        return view
-    }()
-    
+    private var collectionView: UICollectionView!
+
     private lazy var middleLineView: UIView = {
         let view = UIView()
-        switch style {
-        case .light:
-            view.backgroundColor = middleLightColor
-        case .dark:
-            view.backgroundColor = middleDarkColor
-        }
-        
+        view.backgroundColor = UIColor.black
         return view
     }()
     
@@ -89,8 +52,7 @@ class SPIHorizontalWheel: UIView {
         return view
     }()
     
-    init(style: Style = .light) {
-        self.style = style
+    init() {
         super.init(frame: CGRect.zero)
         setupSubviews()
     }
@@ -156,25 +118,6 @@ extension SPIHorizontalWheel {
         let contentOffset = CGPoint(x: offsetX, y: 0)
         collectionView.contentOffset = contentOffset
     }
-    
-    @available(*, deprecated, message: "This function has been deprecated, use `func scroll(to index: Int)` instead")
-    func scroll(to percentage: CGFloat) {
-        isAutoplay = true
-        if isPanning { return }
-        
-        let index = Int(CGFloat(dialInfo.frameCount) * percentage)
-        let space = dialInfo.minimumLineSpace + dialInfo.itemSize.width
-        let startOffsetX = dialInfo.startOffsetX
-        
-        let offsetX = startOffsetX + CGFloat(index) * space
-        let contentOffset = CGPoint(x: offsetX, y: 0)
-        collectionView.contentOffset = contentOffset
-    }
-    
-    @available(*, deprecated, message: "This function is invalid")
-    func stopScroll() {
-        isAutoplay = false
-    }
 }
 
 // MARK: UIScrollViewDelegate
@@ -197,13 +140,6 @@ extension SPIHorizontalWheel: UIScrollViewDelegate {
         }
         
         delegate?.horizontalWheel(self, at: index)
-        
-        // it will be removed at the next version.
-        if isPanning || !isAutoplay {
-            let fullWidth = scrollView.contentSize.width
-            let percent = offsetX / fullWidth
-            delegate?.horizontalWheel(self, scrollPercent: percent)
-        }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -239,19 +175,9 @@ extension SPIHorizontalWheel: UICollectionViewDataSource {
         
         let isStartCell = dialInfo.isStartIndexPath(at: indexPath)
         if isStartCell {
-            switch style {
-            case .light:
-                cell.backgroundColor = middleLightColor
-            case .dark:
-                cell.backgroundColor = middleDarkColor
-            }
+            cell.backgroundColor = UIColor.black
         } else {
-            switch style {
-            case .light:
-                cell.backgroundColor = lineLightColor
-            case .dark:
-                cell.backgroundColor = lineDarkColor
-            }
+            cell.backgroundColor = UIColor.lightGray
         }
         
         
@@ -282,13 +208,28 @@ private extension SPIHorizontalWheel {
 // MARK: UI
 private extension SPIHorizontalWheel {
     func setupSubviews() {
-        switch style {
-        case .light:
-            backgroundColor = UIColor.white
-        case .dark:
-            backgroundColor = UIColor.black
-        }
+        backgroundColor = UIColor.white
         
+        let layout: UICollectionViewFlowLayout = {
+            let layout = UICollectionViewFlowLayout()
+            layout.minimumLineSpacing = dialInfo.minimumLineSpace
+            layout.itemSize = dialInfo.itemSize
+            layout.scrollDirection = .horizontal
+            return layout
+        }()
+        
+        collectionView = {
+            let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
+            view.delegate = self
+            view.dataSource = self
+            view.showsHorizontalScrollIndicator = false
+            view.backgroundColor = UIColor.clear
+            
+            return view
+        }()
+
+
         addSubview(containerView)
         containerView.addSubview(collectionView)
         containerView.addSubview(middleLineView)
