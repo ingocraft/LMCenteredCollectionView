@@ -18,9 +18,10 @@ protocol SPIHorizontalWheelDelegate: class {
     
     /// Tell the delegate when the scroll stops scrolling completely.
     func horizontalWheelDidEndScroll(_ horizontalWheel: SPIHorizontalWheel)
-    
-    @available(*, deprecated, message: "Use `func horizontalWheel(_ horizontalWheel: SPIHorizontalWheel, at index: Int) instead")
-    func horizontalWheel(_ horizontalWheel: SPIHorizontalWheel, scrollPercent: CGFloat)
+}
+
+protocol SPIDialViewDataSource: class {
+    func dialView(_ dialView: SPIHorizontalWheel, scaleAt index: Int) -> LMDialViewCell
 }
 
 /**
@@ -36,6 +37,7 @@ class SPIHorizontalWheel: UIView {
     // MARK: Properties
     
     weak var delegate: SPIHorizontalWheelDelegate?
+    weak var dataSource: SPIDialViewDataSource?
     private var isPanning = false
     private let dialInfo = DialInfo()
     
@@ -185,6 +187,14 @@ extension SPIHorizontalWheel {
         let contentOffset = CGPoint(x: offsetX, y: 0)
         collectionView.contentOffset = contentOffset
     }
+    
+    func dequeueReusableCell(for index: Int) -> LMDialViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LMDialViewCell.self), for: IndexPath(item: index, section: 0)) as? LMDialViewCell else {
+            assertionFailure("Cell must be LMDialViewCell")
+            return LMDialViewCell()
+        }
+        return cell
+    }
 }
 
 // MARK: UIScrollViewDelegate
@@ -238,16 +248,11 @@ extension SPIHorizontalWheel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UICollectionViewCell.self), for: indexPath)
-        
-        let isStartCell = dialInfo.isStartIndexPath(at: indexPath)
-        if isStartCell {
-            cell.backgroundColor = UIColor.black
-        } else {
-            cell.backgroundColor = UIColor.lightGray
+        let index = dialInfo.indexFromIndexPath(indexPath)
+        guard let cell = dataSource?.dialView(self, scaleAt: index) else {
+            assertionFailure("dataSource must not be nil")
+            return LMDialViewCell()
         }
-        
-        
         return cell
     }
     
@@ -299,7 +304,7 @@ private extension SPIHorizontalWheel {
         
         collectionView = {
             let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
+            view.register(LMDialViewCell.self, forCellWithReuseIdentifier: String(describing: LMDialViewCell.self))
             view.delegate = self
             view.dataSource = self
             view.showsHorizontalScrollIndicator = false

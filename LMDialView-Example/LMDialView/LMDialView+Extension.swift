@@ -42,6 +42,19 @@ extension SPIHorizontalWheel {
         func isStartIndexPath(at indexPath: IndexPath) -> Bool {
             return (indexPath.item - startIndex) % frameCount == 0
         }
+        
+        func indexFromIndexPath(_ indexPath: IndexPath) -> Int {
+            let item = indexPath.item
+            if item < startIndex {
+                let offset = startIndex - item
+                return frameCount - offset
+            } else if item > endIndex {
+                let offset = item - endIndex
+                return offset - 1
+            } else {
+                return item - startIndex
+            }
+        }
     }
 }
 

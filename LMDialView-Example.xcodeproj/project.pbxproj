@@ -14,6 +14,8 @@
 		B66836F52230BBB000E8875F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836F32230BBB000E8875F /* LaunchScreen.storyboard */; };
 		B66837002230BBEA00E8875F /* LMDialView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836FE2230BBEA00E8875F /* LMDialView+Extension.swift */; };
 		B66837012230BBEA00E8875F /* LMDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836FF2230BBEA00E8875F /* LMDialView.swift */; };
+		B66837032235FDE200E8875F /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66837022235FDE200E8875F /* UIKit+Extension.swift */; };
+		B66837052236081C00E8875F /* LMDialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66837042236081C00E8875F /* LMDialViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		B66836F62230BBB000E8875F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B66836FE2230BBEA00E8875F /* LMDialView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LMDialView+Extension.swift"; sourceTree = "<group>"; };
 		B66836FF2230BBEA00E8875F /* LMDialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialView.swift; sourceTree = "<group>"; };
+		B66837022235FDE200E8875F /* UIKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
+		B66837042236081C00E8875F /* LMDialViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMDialViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			children = (
 				B66836FF2230BBEA00E8875F /* LMDialView.swift */,
 				B66836FE2230BBEA00E8875F /* LMDialView+Extension.swift */,
+				B66837022235FDE200E8875F /* UIKit+Extension.swift */,
+				B66837042236081C00E8875F /* LMDialViewCell.swift */,
 			);
 			path = LMDialView;
 			sourceTree = "<group>";
@@ -151,6 +157,8 @@
 			files = (
 				B66837002230BBEA00E8875F /* LMDialView+Extension.swift in Sources */,
 				B66837012230BBEA00E8875F /* LMDialView.swift in Sources */,
+				B66837032235FDE200E8875F /* UIKit+Extension.swift in Sources */,
+				B66837052236081C00E8875F /* LMDialViewCell.swift in Sources */,
 				B66836ED2230BBAE00E8875F /* ViewController.swift in Sources */,
 				B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */,
 			);
