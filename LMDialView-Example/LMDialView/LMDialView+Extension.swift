@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension SPIHorizontalWheel {
+extension LMDialView {
     class DialInfo {
         let cellCount = 100
         let frameCount = 48

@@ -8,35 +8,35 @@
 
 import UIKit
 
-protocol SPIHorizontalWheelDelegate: class {
+protocol LMDialViewDelegate: class {
     
     /// Tell the delegate which index the dial has scroll to. Range from 0 to 47.
-    func horizontalWheel(_ horizontalWheel: SPIHorizontalWheel, at index: Int)
+    func dialView(_ dialView: LMDialView, at index: Int)
     
     /// Tell the delegate when the scroll is about to start scroll the dial.
-    func horizontalWheelWillBeginDragging(_ horizontalWheel: SPIHorizontalWheel)
+    func dialViewWillBeginDragging(_ dialView: LMDialView)
     
     /// Tell the delegate when the scroll stops scrolling completely.
-    func horizontalWheelDidEndScroll(_ horizontalWheel: SPIHorizontalWheel)
+    func dialViewDidEndScroll(_ dialView: LMDialView)
 }
 
 protocol SPIDialViewDataSource: class {
-    func dialView(_ dialView: SPIHorizontalWheel, scaleAt index: Int) -> LMDialViewCell
+    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell
 }
 
 /**
- The SPIHorizontalWheel class.
+ The LMDialView class.
  
  This class was designed and implemented to show a dial in the display and edit scene.
  It look like a dial which can scroll circularly.
  The scales of the dial is fixed and the number of them are 48.
  
  */
-class SPIHorizontalWheel: UIView {
+class LMDialView: UIView {
     
     // MARK: Properties
     
-    weak var delegate: SPIHorizontalWheelDelegate?
+    weak var delegate: LMDialViewDelegate?
     weak var dataSource: SPIDialViewDataSource?
     private var isPanning = false
     private let dialInfo = DialInfo()
@@ -167,7 +167,7 @@ class SPIHorizontalWheel: UIView {
 }
 
 // MARK: internal
-extension SPIHorizontalWheel {
+extension LMDialView {
     /**
      Set the current contentOffset according to percent.
      
@@ -198,7 +198,7 @@ extension SPIHorizontalWheel {
 }
 
 // MARK: UIScrollViewDelegate
-extension SPIHorizontalWheel: UIScrollViewDelegate {
+extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
         let space = dialInfo.minimumLineSpace + dialInfo.itemSize.width
@@ -216,13 +216,13 @@ extension SPIHorizontalWheel: UIScrollViewDelegate {
             return
         }
         
-        delegate?.horizontalWheel(self, at: index)
+        delegate?.dialView(self, at: index)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isPanning = true
         
-        delegate?.horizontalWheelWillBeginDragging(self)
+        delegate?.dialViewWillBeginDragging(self)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -237,12 +237,12 @@ extension SPIHorizontalWheel: UIScrollViewDelegate {
 }
 
 // MARK: UICollectionViewDelegate
-extension SPIHorizontalWheel: UICollectionViewDelegate {
+extension LMDialView: UICollectionViewDelegate {
     
 }
 
 // MARK: UICollectionViewDataSource
-extension SPIHorizontalWheel: UICollectionViewDataSource {
+extension LMDialView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dialInfo.cellCount
     }
@@ -259,7 +259,7 @@ extension SPIHorizontalWheel: UICollectionViewDataSource {
 }
 
 // MARK: private
-private extension SPIHorizontalWheel {
+private extension LMDialView {
     func scrollToMiddle() {
         isPanning = false
         
@@ -273,12 +273,12 @@ private extension SPIHorizontalWheel {
         let contentOffset = CGPoint(x: middleCell.frame.origin.x - collectionView.frame.width / 2, y: 0)
         collectionView.setContentOffset(contentOffset, animated: true)
         
-        delegate?.horizontalWheelDidEndScroll(self)
+        delegate?.dialViewDidEndScroll(self)
     }
 }
 
 // MARK: UI
-private extension SPIHorizontalWheel {
+private extension LMDialView {
     func setupSubviews() {
         backgroundColor = UIColor.white
         

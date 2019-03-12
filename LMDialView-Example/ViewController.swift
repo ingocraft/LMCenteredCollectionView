@@ -12,11 +12,11 @@ class ViewController: UIViewController {
     
     private var randomColors = [UIColor]()
 
-    private var dialView: SPIHorizontalWheel!
+    private var dialView: LMDialView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dialView = SPIHorizontalWheel()
+        dialView = LMDialView()
         dialView.dataSource = self
         dialView.delegate = self
         view.addSubview(dialView)
@@ -40,20 +40,20 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: SPIHorizontalWheelDelegate {
-    func horizontalWheel(_ horizontalWheel: SPIHorizontalWheel, at index: Int) {
+extension ViewController: LMDialViewDelegate {
+    func dialView(_ horizontalWheel: LMDialView, at index: Int) {
         print(index)
     }
     
-    func horizontalWheelDidEndScroll(_ horizontalWheel: SPIHorizontalWheel) {
+    func dialViewDidEndScroll(_ horizontalWheel: LMDialView) {
     }
     
-    func horizontalWheelWillBeginDragging(_ horizontalWheel: SPIHorizontalWheel) {
+    func dialViewWillBeginDragging(_ horizontalWheel: LMDialView) {
     }
 }
 
 extension ViewController: SPIDialViewDataSource {
-    func dialView(_ dialView: SPIHorizontalWheel, scaleAt index: Int) -> LMDialViewCell {
+    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
         let cell = dialView.dequeueReusableCell(for: index)
         
 
