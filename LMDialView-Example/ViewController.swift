@@ -41,14 +41,12 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: LMDialViewDelegate {
-    func dialView(_ horizontalWheel: LMDialView, at index: Int) {
+    func dialView(_ dialView: LMDialView, at index: Int) {
         print(index)
     }
-    
-    func dialViewDidEndScroll(_ horizontalWheel: LMDialView) {
+    func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
-    
-    func dialViewWillBeginDragging(_ horizontalWheel: LMDialView) {
+    func dialViewDidEndScroll(_ dialView: LMDialView) {
     }
 }
 

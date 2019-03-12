@@ -44,6 +44,7 @@ class LMDialView: UIView {
     private var collectionView: UICollectionView!
     private var indicatorLineView: UIView!
     private var containerView: UIView!
+    private var latestIndex: Int = -1
     
     var bounces: Bool = true {
         didSet {
@@ -205,6 +206,9 @@ extension LMDialView: UIScrollViewDelegate {
         let startCellOffsetX = dialInfo.startOffsetX
         let index = Int((offsetX - startCellOffsetX) / space)
         let realIndex = index + dialInfo.startIndex
+        
+        if latestIndex == index { return }
+        latestIndex = index
         
         if realIndex > dialInfo.endIndex {
             let startOffsetX = dialInfo.startOffsetX
