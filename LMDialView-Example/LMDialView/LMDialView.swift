@@ -39,7 +39,13 @@ class LMDialView: UIView {
     weak var delegate: LMDialViewDelegate?
     weak var dataSource: SPIDialViewDataSource?
     private var isPanning = false
-    private let dialInfo = DialInfo()
+    private lazy var dialInfo: DialInfo = {
+        let dialInfo = DialInfo()
+        dialInfo.dialInfoUpdated = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        return dialInfo
+    }()
     
     private var collectionView: UICollectionView!
     private var indicatorLineView: UIView!
@@ -49,6 +55,12 @@ class LMDialView: UIView {
     var bounces: Bool = true {
         didSet {
             collectionView.bounces = bounces
+        }
+    }
+    
+    var isGradual: Bool = true {
+        didSet {
+            
         }
     }
     
@@ -181,7 +193,7 @@ extension LMDialView {
         if isPanning { return }
         
         let index = Int(CGFloat(dialInfo.frameCount) * percent)
-        let space = dialInfo.minimumLineSpace + dialInfo.itemSize.width
+        let space = dialInfo.interDividingSpace + dialInfo.itemSize.width
         let startOffsetX = dialInfo.startOffsetX
         
         let offsetX = startOffsetX + CGFloat(index) * space
@@ -202,7 +214,7 @@ extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
-        let space = dialInfo.minimumLineSpace + dialInfo.itemSize.width
+        let space = dialInfo.interDividingSpace + dialInfo.itemSize.width
         let startCellOffsetX = dialInfo.startOffsetX
         let index = Int((offsetX - startCellOffsetX) / space)
         let realIndex = index + dialInfo.startIndex
@@ -300,7 +312,7 @@ private extension LMDialView {
 
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
-            layout.minimumLineSpacing = dialInfo.minimumLineSpace
+            layout.minimumLineSpacing = dialInfo.interDividingSpace
             layout.itemSize = dialInfo.itemSize
             layout.scrollDirection = .horizontal
             return layout

@@ -6,6 +6,17 @@
 //  Copyright © 2019 Liam. All rights reserved.
 //
 
+import UIKit
 
-//extension 
+extension UIScreen {
+    class var mainScreenBounds: CGRect {
+        return UIScreen.main.bounds
+    }
+    class var mainScreenWidth: CGFloat {
+        return UIScreen.main.bounds.width
+    }
+    class var mainScreenHeight: CGFloat {
+        return UIScreen.main.bounds.height
+    }
+}
 
