@@ -58,6 +58,15 @@ class LMDialView: UIView {
         }
     }
     
+    var dividingCount: Int {
+        get {
+            return dialInfo.frameCount
+        }
+        set {
+            dialInfo.frameCount = newValue
+        }
+    }
+    
     var isGradual: Bool = true {
         didSet {
             
@@ -193,7 +202,7 @@ extension LMDialView {
         if isPanning { return }
         
         let index = Int(CGFloat(dialInfo.frameCount) * percent)
-        let space = dialInfo.interDividingSpace + dialInfo.itemSize.width
+        let space = dialInfo.interDividingSpace + dialInfo.dividingSize.width
         let startOffsetX = dialInfo.startOffsetX
         
         let offsetX = startOffsetX + CGFloat(index) * space
@@ -214,7 +223,7 @@ extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
-        let space = dialInfo.interDividingSpace + dialInfo.itemSize.width
+        let space = dialInfo.interDividingSpace + dialInfo.dividingSize.width
         let startCellOffsetX = dialInfo.startOffsetX
         let index = Int((offsetX - startCellOffsetX) / space)
         let realIndex = index + dialInfo.startIndex
@@ -313,7 +322,7 @@ private extension LMDialView {
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
             layout.minimumLineSpacing = dialInfo.interDividingSpace
-            layout.itemSize = dialInfo.itemSize
+            layout.itemSize = dialInfo.dividingSize
             layout.scrollDirection = .horizontal
             return layout
         }()

@@ -30,7 +30,7 @@ class DialInfo {
             updateDialInfo()
         }
     }
-    var itemSize = CGSize(width: 1, height: 24) {
+    var dividingSize = CGSize(width: 1, height: 24) {
         didSet {
             updateDialInfo()
         }
@@ -73,7 +73,7 @@ class DialInfo {
 private extension DialInfo {
     func updateDialInfo() {
         if isInfinite {
-            let space = interDividingSpace + itemSize.width
+            let space = interDividingSpace + dividingSize.width
             
             // calculate cell count
             /// cell's count in the given width
