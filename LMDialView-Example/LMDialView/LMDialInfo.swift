@@ -110,10 +110,28 @@ extension DialInfo {
             }
 
             _latestScrollIndex = currScrollIndex
-            return (mapToDialIndex(from: currScrollIndex), willScroll, offsetXScrollTo)
+            return (mapToCycleDialIndex(from: currScrollIndex), willScroll, offsetXScrollTo)
         } else {
             return (0, false, 0)
         }
+    }
+    
+    func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
+        let dialOffsetX = mappedDialOffset(from: scrollOffsetX)
+        let prevIndex = CGFloat(floor(Double(dialOffsetX / _interSpace)))
+        let prevOffsetX = prevIndex * _interSpace
+        let nextOffsetX = prevOffsetX + _interSpace
+        let distanceToPrev = dialOffsetX - prevOffsetX
+        let distanceToNext = nextOffsetX - dialOffsetX
+        
+        let cloestOffsetX: CGFloat
+        if distanceToPrev < distanceToNext {
+            cloestOffsetX = prevOffsetX
+        } else {
+            cloestOffsetX = nextOffsetX
+        }
+        
+        return mappedScrollOffset(from: cloestOffsetX)
     }
     
     func indexForOffsetX(_ offsetX: CGFloat) -> Int {
@@ -147,7 +165,7 @@ private extension DialInfo {
             /// cell's count in the given width
             let cellsInWidth = Int(ceil(viewWidth / space))
             /// add two extra cell in case `floor` decrease cell's count
-            let bias = 10
+            let bias = 100
             _cellCount = frameCount + cellsInWidth + bias
             
             // calculate index
@@ -172,8 +190,9 @@ private extension DialInfo {
     }
 }
 
+// map dial scene to cycle dial scene
 private extension DialInfo {
-    func mapToDialIndex(from scrollIndex: Int) -> Int {
+    func mapToCycleDialIndex(from scrollIndex: Int) -> Int {
         if (startIndex...endIndex) ~= scrollIndex {
             return scrollIndex - startIndex
         } else if scrollIndex < startIndex {
@@ -185,11 +204,11 @@ private extension DialInfo {
         return 0
     }
     
-    func mapToScrollIndex(from dialIndex: Int) -> Int {
-        return dialIndex + startIndex
+    func mapToScrollIndex(from cycleDialIndex: Int) -> Int {
+        return cycleDialIndex + startIndex
     }
     
-    func mapToDialOffset(from scrollOffset: CGFloat) -> CGFloat {
+    func mapToCycleDialOffset(from scrollOffset: CGFloat) -> CGFloat {
         if (startOffsetX...endOffsetX) ~= scrollOffset {
             return scrollOffset - startOffsetX
         } else if scrollOffset < startOffsetX {
@@ -201,15 +220,34 @@ private extension DialInfo {
         return 0
     }
     
-    func mapToScrollOffset(from dialOffset: CGFloat) -> CGFloat {
-        return dialOffset + startOffsetX
+    func mapToScrollOffset(from cycleDialOffset: CGFloat) -> CGFloat {
+        return cycleDialOffset + startOffsetX
     }
     
-    func transformToDialIndexOffset(from dialIndex: Int) -> CGFloat {
-        return CGFloat(dialIndex) * _interSpace
+    func transformToDialIndexOffset(from cycleDialIndex: Int) -> CGFloat {
+        return CGFloat(cycleDialIndex) * _interSpace
     }
     
     func transformToScrollIndexOffset(from scrollIndex: Int) -> CGFloat {
         return CGFloat(scrollIndex - startIndex) * _interSpace + startOffsetX
+    }
+}
+
+// map scroll scene to dial scene
+private extension DialInfo {
+    func mappedDialIndex(from scrollIndex: Int) -> Int {
+        return scrollIndex - startIndex
+    }
+    
+    func mappedDialOffset(from scrollOffset: CGFloat) -> CGFloat {
+        return scrollOffset - startOffsetX
+    }
+    
+    func mappedScrollIndex(from dialIndex: Int) -> Int {
+        return dialIndex + startIndex
+    }
+    
+    func mappedScrollOffset(from dialOffset: CGFloat) -> CGFloat {
+        return dialOffset + startOffsetX
     }
 }

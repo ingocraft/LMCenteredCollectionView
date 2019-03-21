@@ -234,27 +234,6 @@ extension LMDialView: UIScrollViewDelegate {
         }
         
         delegate?.dialView(self, at: index)
-
-//        let offsetX = scrollView.contentOffset.x
-//        let space = dialInfo.interDividingSpace + dialInfo.dividingSize.width
-//        let startCellOffsetX = dialInfo.startOffsetX
-//        let index = Int((offsetX - startCellOffsetX) / space)
-//        let realIndex = index + dialInfo.startIndex
-//
-//        if latestIndex == index { return }
-//        latestIndex = index
-//
-//        if realIndex > dialInfo.endIndex {
-//            let startOffsetX = dialInfo.startOffsetX
-//            scrollView.contentOffset = CGPoint(x: startOffsetX, y: 0)
-//            return
-//        } else if realIndex < dialInfo.startIndex {
-//            let endOffsetX = dialInfo.endOffsetX
-//            scrollView.contentOffset = CGPoint(x: endOffsetX, y: 0)
-//            return
-//        }
-//
-//        delegate?.dialView(self, at: index)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -265,7 +244,6 @@ extension LMDialView: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate { return }
-        
         scrollToMiddle()
     }
     
