@@ -25,12 +25,12 @@ class DialInfo {
             updateDialInfo()
         }
     }
-    var interDividingSpace: CGFloat = 12 {
+    var interDividingSpace: CGFloat = 20 {
         didSet {
             updateDialInfo()
         }
     }
-    var dividingSize = CGSize(width: 1, height: 24) {
+    var dividingSize = CGSize(width: 2, height: 24) {
         didSet {
             updateDialInfo()
         }
@@ -96,10 +96,14 @@ extension DialInfo {
             let floatIndex = Double((offsetXScrollTo - startOffsetX) / _interSpace + CGFloat(startIndex))
             let currScrollOffset = scrollOffsetX
 
+            // contentOffset changes per 1/3
+            // add a bias to make the check correct
+            let bias: CGFloat = 1 / 3
+            
             let currScrollIndex: Int
-            if currScrollOffset <= latestScrollIndexOffset - _interSpace {
+            if currScrollOffset <= latestScrollIndexOffset - _interSpace + bias {
                 currScrollIndex = Int(ceil(floatIndex))
-            } else if currScrollOffset >= latestScrollIndexOffset + _interSpace {
+            } else if currScrollOffset >= latestScrollIndexOffset + _interSpace - bias {
                 currScrollIndex = Int(floor(floatIndex))
             } else {
                 currScrollIndex = _latestScrollIndex
