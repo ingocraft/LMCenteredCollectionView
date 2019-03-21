@@ -185,6 +185,7 @@ class LMDialView: UIView {
         // scrollToItem must be invoked after collectionView has finished its layout.
         // At this case, layoutIfNeed() below did this, or scrollToItem(at:, at:, animated:) is invalid.
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+//        collectionView.contentOffset = CGPoint(x: dialInfo.startOffsetX, y: 0)
     }
 }
 
@@ -223,25 +224,37 @@ extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
-        let space = dialInfo.interDividingSpace + dialInfo.dividingSize.width
-        let startCellOffsetX = dialInfo.startOffsetX
-        let index = Int((offsetX - startCellOffsetX) / space)
-        let realIndex = index + dialInfo.startIndex
-        
+        let (index, willScroll, offsetXScrollTo) = dialInfo.calculateScrollParams(scrollOffsetX: offsetX)
+
         if latestIndex == index { return }
         latestIndex = index
         
-        if realIndex > dialInfo.endIndex {
-            let startOffsetX = dialInfo.startOffsetX
-            scrollView.contentOffset = CGPoint(x: startOffsetX, y: 0)
-            return
-        } else if realIndex < dialInfo.startIndex {
-            let endOffsetX = dialInfo.endOffsetX
-            scrollView.contentOffset = CGPoint(x: endOffsetX, y: 0)
-            return
+        if willScroll {
+            scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
         }
         
         delegate?.dialView(self, at: index)
+
+//        let offsetX = scrollView.contentOffset.x
+//        let space = dialInfo.interDividingSpace + dialInfo.dividingSize.width
+//        let startCellOffsetX = dialInfo.startOffsetX
+//        let index = Int((offsetX - startCellOffsetX) / space)
+//        let realIndex = index + dialInfo.startIndex
+//
+//        if latestIndex == index { return }
+//        latestIndex = index
+//
+//        if realIndex > dialInfo.endIndex {
+//            let startOffsetX = dialInfo.startOffsetX
+//            scrollView.contentOffset = CGPoint(x: startOffsetX, y: 0)
+//            return
+//        } else if realIndex < dialInfo.startIndex {
+//            let endOffsetX = dialInfo.endOffsetX
+//            scrollView.contentOffset = CGPoint(x: endOffsetX, y: 0)
+//            return
+//        }
+//
+//        delegate?.dialView(self, at: index)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
