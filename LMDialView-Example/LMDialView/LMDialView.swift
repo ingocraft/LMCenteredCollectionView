@@ -188,6 +188,7 @@ extension LMDialView: UIScrollViewDelegate {
         
         if willScroll {
             scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
+            return
         }
         
         delegate?.dialView(self, at: index)

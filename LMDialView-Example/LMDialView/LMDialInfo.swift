@@ -22,7 +22,7 @@ class DialInfo {
 
     private var _cellCount: Int = 0
     private var _cellInterval: CGFloat = 0
-    private var _latestScrollIndex: Int = -1
+    private var _lastDialIndex: Int = -1
     private var dialMapper: LMDialMapper!
 
     var startOffsetX: CGFloat = 0
@@ -58,38 +58,50 @@ extension DialInfo {
     }
     
     func calculateScrollParams(scrollOffsetX: CGFloat) -> (Int, Bool, CGFloat) {
-        // calculate scroll offset
+        let mapper = dialMapper!
+//        dialMapper.updateWithScrollOffset(scrollOffsetX)
+
         var willScroll: Bool = false
         var offsetXScrollTo: CGFloat = scrollOffsetX
-        if scrollOffsetX <= startOffsetX - _cellInterval {
-            willScroll = true
-            offsetXScrollTo = endOffsetX
-            _latestScrollIndex = endIndex + 1
-        } else if scrollOffsetX >= endOffsetX + _cellInterval {
-            willScroll = true
-            offsetXScrollTo = startOffsetX
-            _latestScrollIndex = startIndex - 1
+
+        let dialOffset = mapper.dialOffsetFrom(scrollOffset: scrollOffsetX)
+        let endDialOffset = mapper.endDialOffset
+        if dialOffset <= -_cellInterval {
+            (willScroll, offsetXScrollTo) = (true, endOffsetX)
+            _lastDialIndex = mapper.endDialIndex + 1
+        } else if dialOffset >= endDialOffset + _cellInterval {
+            (willScroll, offsetXScrollTo) = (true, startOffsetX)
+            _lastDialIndex = -1
         }
+
         
-        let latestScrollIndexOffset = transformToScrollIndexOffset(from: _latestScrollIndex)
-        let floatIndex = Double((offsetXScrollTo - startOffsetX) / _cellInterval + CGFloat(startIndex))
-        let currScrollOffset = scrollOffsetX
+//        let latestScrollIndexOffset = transformToScrollIndexOffset(from: _latestScrollIndex)
+//        let floatIndex = Double((offsetXScrollTo - startOffsetX) / _cellInterval + CGFloat(startIndex))
+//        let currScrollOffset = scrollOffsetX
+        
+//        dialMapper.updateWithDialIndex(_lastDialIndex)
+        let lastDialOffset = mapper.dialOffsetFrom(dialIndex: _lastDialIndex)
+        let floatDialIndex = dialOffset / _cellInterval
+//        dialMapper.updateWithScrollOffset(offsetXScrollTo)
+        let currDialOffset = mapper.dialOffsetFrom(scrollOffset: offsetXScrollTo)
         
         // contentOffset changes per 1/3
         // add a bias to make the check correct
         let bias: CGFloat = 1 / 3
         
-        let currScrollIndex: Int
-        if currScrollOffset <= latestScrollIndexOffset - _cellInterval + bias {
-            currScrollIndex = Int(ceil(floatIndex))
-        } else if currScrollOffset >= latestScrollIndexOffset + _cellInterval - bias {
-            currScrollIndex = Int(floor(floatIndex))
+        let currDialIndex: Int
+        if currDialOffset <= lastDialOffset - _cellInterval + bias {
+            currDialIndex = Int(ceil(floatDialIndex))
+        } else if currDialOffset >= lastDialOffset + _cellInterval - bias {
+            currDialIndex = Int(floor(floatDialIndex))
         } else {
-            currScrollIndex = _latestScrollIndex
+            currDialIndex = _lastDialIndex
         }
         
-        _latestScrollIndex = currScrollIndex
-        return (mapToCycleDialIndex(from: currScrollIndex), willScroll, offsetXScrollTo)
+//        dialMapper.updateWithDialIndex(currDialIndex)
+        _lastDialIndex = currDialIndex
+        return (currDialIndex, willScroll, offsetXScrollTo)
+//        return (mapToCycleDialIndex(from: currDialIndex), willScroll, offsetXScrollTo)
     }
     
     func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
@@ -137,7 +149,7 @@ private extension DialInfo {
         endOffsetX = endCellX - halfWidth
         
         // latest index
-        _latestScrollIndex = startIndex
+        _lastDialIndex = 0
         
         dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cycleCount: frameCount, viewWidth: viewWidth)
 
