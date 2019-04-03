@@ -37,7 +37,6 @@ protocol SPIDialViewDataSource: class {
 class LMDialView: UIView {
     
     // MARK: Properties
-    
     weak var delegate: LMDialViewDelegate?
     weak var dataSource: SPIDialViewDataSource?
     private var isPanning = false
@@ -142,7 +141,7 @@ class LMDialView: UIView {
         // scrollToItem must be invoked after collectionView has finished its layout.
         // At this case, layoutIfNeed() below did this, or scrollToItem(at:, at:, animated:) is invalid.
         DispatchQueue.main.async {
-            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            self.seek(to: 0)
         }
     }
 }
@@ -157,7 +156,7 @@ extension LMDialView {
      - Parameters:
      - percent:from 0.0 to 1.0.
      */
-    func seek(to percent: CGFloat) {
+    func seek(to percent: CGFloat, animated: Bool = false) {
         if isPanning { return }
         
         let index = Int(CGFloat(dialInfo.frameCount) * percent)

@@ -23,8 +23,6 @@ class DialInfo {
     private var _cellCount: Int = 0
     private var _cellInterval: CGFloat = 0
     private var _latestScrollIndex: Int = -1
-//    private var _index: Int = 0
-//    private var _latestScrollOffsetX: CGFloat = 0
 
     var startOffsetX: CGFloat = 0
     var endOffsetX: CGFloat = 0
@@ -45,10 +43,6 @@ extension DialInfo {
 
 // MARK: internal
 extension DialInfo {
-    func isStartIndexPath(at indexPath: IndexPath) -> Bool {
-        return (indexPath.item - startIndex) % frameCount == 0
-    }
-    
     func indexFromIndexPath(_ indexPath: IndexPath) -> Int {
         let item = indexPath.item
         if item < startIndex {
@@ -114,28 +108,9 @@ extension DialInfo {
         
         return mappedScrollOffset(from: cloestOffsetX)
     }
-    
-    func indexForOffsetX(_ offsetX: CGFloat) -> Int {
-        let index = Int((offsetX - startOffsetX) / _cellInterval)
-        return index
-    }
-    
-    func offsetXToScroll(_ offsetX: CGFloat) -> (Bool, CGFloat) {
-        let index = indexForOffsetX(offsetX) + startIndex
-        var willScroll: Bool = false
-        var offset: CGFloat = 0
-        if index > endIndex {
-            willScroll = true
-            offset = startOffsetX
-        } else if index < startIndex {
-            willScroll = true
-            offset = endOffsetX
-        }
-        
-        return (willScroll, offset)
-    }
 }
 
+// MARK: private
 private extension DialInfo {
     func updateDialInfo() {
         let space = interSpace + cellWidth
@@ -165,9 +140,14 @@ private extension DialInfo {
 
         dialInfoUpdated?()
     }
+    
+    func indexForOffsetX(_ offsetX: CGFloat) -> Int {
+        let index = Int((offsetX - startOffsetX) / _cellInterval)
+        return index
+    }
 }
 
-// map dial scene to cycle dial scene
+// MARK: map dial scene to cycle dial scene
 private extension DialInfo {
     func mapToCycleDialIndex(from scrollIndex: Int) -> Int {
         if (startIndex...endIndex) ~= scrollIndex {
@@ -210,9 +190,9 @@ private extension DialInfo {
     }
 }
 
-// map scroll scene to dial scene
+// MARK: map scroll scene to dial scene
 private extension DialInfo {
-    func mappedDialIndex(from scrollIndex: Int) -> Int {
+    func mapScrollIndexToDialIndex(_ scrollIndex: Int) -> Int {
         return scrollIndex - startIndex
     }
     
