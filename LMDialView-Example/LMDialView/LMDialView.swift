@@ -226,6 +226,10 @@ extension LMDialView: UICollectionViewDelegateFlowLayout {
         dialInfo.interSpace = interSpace
         return interSpace
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.greatestFiniteMagnitude
+    }
 }
 
 // MARK: UICollectionViewDelegate
@@ -300,7 +304,7 @@ private extension LMDialView {
             view.dataSource = self
             view.showsHorizontalScrollIndicator = false
             view.backgroundColor = UIColor.clear
-            
+
             return view
         }()
 
