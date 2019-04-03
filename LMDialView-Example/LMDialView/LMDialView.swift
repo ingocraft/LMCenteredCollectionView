@@ -22,6 +22,8 @@ protocol LMDialViewDelegate: class {
 
 protocol SPIDialViewDataSource: class {
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell
+    func dialViewSize(_ dialView: LMDialView) -> CGSize
+    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat
 }
 
 /**
@@ -67,54 +69,7 @@ class LMDialView: UIView {
         }
     }
     
-    var isGradual: Bool = true {
-        didSet {
-            
-        }
-    }
-    
-    var isCycle: Bool = false {
-        didSet {
-            
-        }
-    }
-    
-    var indicatorHeight: CGFloat = 0 {
-        didSet {
-            
-        }
-    }
-    
-    var indicatorColor: UIColor = UIColor.clear {
-        didSet {
-            
-        }
-    }
-
-    var dividingLineHeight: CGFloat = 0 {
-        didSet {
-            
-        }
-    }
-    
-    var dividingLineColor: UIColor = UIColor.clear {
-        didSet {
-            
-        }
-    }
-    
-    var interSpace: CGFloat = 0 {
-        didSet {
-            
-        }
-    }
-    
-    var isInfiniteScrollEnabled: Bool = true {
-        didSet {
-            
-        }
-    }
-    
+    var isGradual: Bool = true
     var isScrollEnabled: Bool = true {
         didSet {
             
@@ -155,37 +110,40 @@ class LMDialView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
-                      UIColor.black.withAlphaComponent(0.4).cgColor,
-                      UIColor.black.withAlphaComponent(0.6).cgColor,
-                      UIColor.black.withAlphaComponent(0.8).cgColor,
-                      UIColor.black.withAlphaComponent(1.0).cgColor,
-                      UIColor.black.withAlphaComponent(0.8).cgColor,
-                      UIColor.black.withAlphaComponent(0.6).cgColor,
-                      UIColor.black.withAlphaComponent(0.4).cgColor,
-                      UIColor.black.withAlphaComponent(0.2).cgColor]
+        /// !!!!!! init after init() !!!!!!!
+        if isGradual {
+            let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
+                          UIColor.black.withAlphaComponent(0.4).cgColor,
+                          UIColor.black.withAlphaComponent(0.6).cgColor,
+                          UIColor.black.withAlphaComponent(0.8).cgColor,
+                          UIColor.black.withAlphaComponent(1.0).cgColor,
+                          UIColor.black.withAlphaComponent(0.8).cgColor,
+                          UIColor.black.withAlphaComponent(0.6).cgColor,
+                          UIColor.black.withAlphaComponent(0.4).cgColor,
+                          UIColor.black.withAlphaComponent(0.2).cgColor]
+            
+            let gradient = CAGradientLayer()
+            gradient.frame = containerView.bounds
+            gradient.colors = colors
+            gradient.startPoint = CGPoint(x: 0, y: 0)
+            gradient.endPoint = CGPoint(x: 1, y: 0)
+            containerView.layer.mask = gradient
+        }
         
-        let gradient = CAGradientLayer()
-        gradient.frame = containerView.bounds
-        gradient.colors = colors
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 0)
-        containerView.layer.mask = gradient
-        
-        // collectionView's layout will be update after this function,
-        // but we need the frame right now.
-        layoutIfNeeded()
-        
-        // update viewWidth in dialInfo
+        dialInfo.frameCount = 48
+        dialInfo.interSpace = dataSource?.dialViewInterSpace(self) ?? 0
+        dialInfo.cellWidth = dataSource?.dialViewSize(self).width ?? 0
         dialInfo.viewWidth = frame.width
+        dialInfo.reloadData()
         
         // firstIndexPath must be used after dialInfo.viewWidth is assigned,
         // or indexPath will be wrong.
         let indexPath = dialInfo.firstIndexPath
         // scrollToItem must be invoked after collectionView has finished its layout.
         // At this case, layoutIfNeed() below did this, or scrollToItem(at:, at:, animated:) is invalid.
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-//        collectionView.contentOffset = CGPoint(x: dialInfo.startOffsetX, y: 0)
+        DispatchQueue.main.async {
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        }
     }
 }
 
@@ -254,11 +212,19 @@ extension LMDialView: UIScrollViewDelegate {
 
 extension LMDialView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: dialInfo.cellWidth, height: 24)
+        guard let size = dataSource?.dialViewSize(self) else {
+            return CGSize(width: 20, height: 20)
+        }
+        dialInfo.cellWidth = size.width
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return dialInfo.interSpace
+        guard let interSpace = dataSource?.dialViewInterSpace(self) else {
+            return 20
+        }
+        dialInfo.interSpace = interSpace
+        return interSpace
     }
 }
 
@@ -311,6 +277,7 @@ private extension LMDialView {
         indicatorLineView = {
             let view = UIView()
             view.backgroundColor = UIColor.black
+//            view.isHidden = true
             return view
         }()
         

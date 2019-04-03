@@ -15,27 +15,11 @@ class DialInfo {
         return _cellCount
     }
     
-    var isInfinite = true {
-        didSet {
-            updateDialInfo()
-        }
-    }
-    var frameCount: Int = 48 {
-        didSet {
-            updateDialInfo()
-        }
-    }
-    var interSpace: CGFloat = 20 {
-        didSet {
-            updateDialInfo()
-        }
-    }
-    var cellWidth: CGFloat = 2 {
-        didSet {
-            updateDialInfo()
-        }
-    }
-    
+    var frameCount: Int = 0
+    var interSpace: CGFloat = 0
+    var cellWidth: CGFloat = 0
+    var viewWidth: CGFloat = 0
+
     private var _cellCount: Int = 0
     private var _cellInterval: CGFloat = 0
     private var _latestScrollIndex: Int = -1
@@ -44,16 +28,18 @@ class DialInfo {
 
     var startOffsetX: CGFloat = 0
     var endOffsetX: CGFloat = 0
-    var viewWidth: CGFloat = 0 {
-        didSet {
-            updateDialInfo()
-        }
-    }
-    
+
     var startIndex: Int = 0
     var endIndex: Int = 0
     var firstIndexPath: IndexPath = IndexPath(item: 0, section: 0)
     init() {
+    }
+}
+
+// MARK: internal
+extension DialInfo {
+    func reloadData() {
+        updateDialInfo()
     }
 }
 
@@ -77,43 +63,38 @@ extension DialInfo {
     }
     
     func calculateScrollParams(scrollOffsetX: CGFloat) -> (Int, Bool, CGFloat) {
-        if isInfinite {
-
-            // calculate scroll offset
-            var willScroll: Bool = false
-            var offsetXScrollTo: CGFloat = scrollOffsetX
-            if scrollOffsetX <= startOffsetX - _cellInterval {
-                willScroll = true
-                offsetXScrollTo = endOffsetX
-                _latestScrollIndex = endIndex + 1
-            } else if scrollOffsetX >= endOffsetX + _cellInterval {
-                willScroll = true
-                offsetXScrollTo = startOffsetX
-                _latestScrollIndex = startIndex - 1
-            }
-            
-            let latestScrollIndexOffset = transformToScrollIndexOffset(from: _latestScrollIndex)
-            let floatIndex = Double((offsetXScrollTo - startOffsetX) / _cellInterval + CGFloat(startIndex))
-            let currScrollOffset = scrollOffsetX
-
-            // contentOffset changes per 1/3
-            // add a bias to make the check correct
-            let bias: CGFloat = 1 / 3
-            
-            let currScrollIndex: Int
-            if currScrollOffset <= latestScrollIndexOffset - _cellInterval + bias {
-                currScrollIndex = Int(ceil(floatIndex))
-            } else if currScrollOffset >= latestScrollIndexOffset + _cellInterval - bias {
-                currScrollIndex = Int(floor(floatIndex))
-            } else {
-                currScrollIndex = _latestScrollIndex
-            }
-
-            _latestScrollIndex = currScrollIndex
-            return (mapToCycleDialIndex(from: currScrollIndex), willScroll, offsetXScrollTo)
-        } else {
-            return (0, false, 0)
+        // calculate scroll offset
+        var willScroll: Bool = false
+        var offsetXScrollTo: CGFloat = scrollOffsetX
+        if scrollOffsetX <= startOffsetX - _cellInterval {
+            willScroll = true
+            offsetXScrollTo = endOffsetX
+            _latestScrollIndex = endIndex + 1
+        } else if scrollOffsetX >= endOffsetX + _cellInterval {
+            willScroll = true
+            offsetXScrollTo = startOffsetX
+            _latestScrollIndex = startIndex - 1
         }
+        
+        let latestScrollIndexOffset = transformToScrollIndexOffset(from: _latestScrollIndex)
+        let floatIndex = Double((offsetXScrollTo - startOffsetX) / _cellInterval + CGFloat(startIndex))
+        let currScrollOffset = scrollOffsetX
+        
+        // contentOffset changes per 1/3
+        // add a bias to make the check correct
+        let bias: CGFloat = 1 / 3
+        
+        let currScrollIndex: Int
+        if currScrollOffset <= latestScrollIndexOffset - _cellInterval + bias {
+            currScrollIndex = Int(ceil(floatIndex))
+        } else if currScrollOffset >= latestScrollIndexOffset + _cellInterval - bias {
+            currScrollIndex = Int(floor(floatIndex))
+        } else {
+            currScrollIndex = _latestScrollIndex
+        }
+        
+        _latestScrollIndex = currScrollIndex
+        return (mapToCycleDialIndex(from: currScrollIndex), willScroll, offsetXScrollTo)
     }
     
     func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
@@ -157,35 +138,31 @@ extension DialInfo {
 
 private extension DialInfo {
     func updateDialInfo() {
-        if isInfinite {
-            let space = interSpace + cellWidth
-            _cellInterval = space
-            
-            // calculate cell count
-            /// cell's count in the given width
-            let cellsInWidth = Int(ceil(viewWidth / space))
-            /// add two extra cell in case `floor` decrease cell's count
-            let bias = 100
-            _cellCount = frameCount + cellsInWidth + bias
-            
-            // calculate index
-            startIndex = (_cellCount - frameCount) / 2
-            endIndex = ((_cellCount + frameCount) / 2) - 1
-            firstIndexPath = IndexPath(item: startIndex, section: 0)
-
-            // calculate offset
-            let halfWidth = viewWidth / 2
-            let startCellX = CGFloat(startIndex) * space
-            startOffsetX = startCellX - halfWidth
-            let endCellX = CGFloat(endIndex) * space
-            endOffsetX = endCellX - halfWidth
-            
-            // latest index
-            _latestScrollIndex = startIndex
-        } else {
-            // TBD
-        }
+        let space = interSpace + cellWidth
+        _cellInterval = space
         
+        // calculate cell count
+        /// cell's count in the given width
+        let cellsInWidth = Int(ceil(viewWidth / space))
+        /// add two extra cell in case `floor` decrease cell's count
+        let bias = 100
+        _cellCount = frameCount + cellsInWidth + bias
+        
+        // calculate index
+        startIndex = (_cellCount - frameCount) / 2
+        endIndex = ((_cellCount + frameCount) / 2) - 1
+        firstIndexPath = IndexPath(item: startIndex, section: 0)
+        
+        // calculate offset
+        let halfWidth = viewWidth / 2
+        let startCellX = CGFloat(startIndex) * space
+        startOffsetX = startCellX - halfWidth
+        let endCellX = CGFloat(endIndex) * space
+        endOffsetX = endCellX - halfWidth
+        
+        // latest index
+        _latestScrollIndex = startIndex
+
         dialInfoUpdated?()
     }
 }

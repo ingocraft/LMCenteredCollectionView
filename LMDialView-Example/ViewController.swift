@@ -44,6 +44,14 @@ extension ViewController: SPIDialViewDataSource {
         
         return cell
     }
+    
+    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+        return CGSize(width: 1, height: 20)
+    }
+    
+    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+        return 20
+    }
 }
 
 // MARK: private
@@ -71,7 +79,7 @@ private extension ViewController {
             dialView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dialView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dialView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            dialView.heightAnchor.constraint(equalToConstant: 48),
+            dialView.heightAnchor.constraint(equalToConstant: 200),
             ]
         NSLayoutConstraint.activate(constraints)
     }
