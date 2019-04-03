@@ -23,6 +23,7 @@ class DialInfo {
     private var _cellCount: Int = 0
     private var _cellInterval: CGFloat = 0
     private var _latestScrollIndex: Int = -1
+    private var dialMapper: LMDialMapper!
 
     var startOffsetX: CGFloat = 0
     var endOffsetX: CGFloat = 0
@@ -137,6 +138,8 @@ private extension DialInfo {
         
         // latest index
         _latestScrollIndex = startIndex
+        
+        dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cycleCount: frameCount, viewWidth: viewWidth)
 
         dialInfoUpdated?()
     }
