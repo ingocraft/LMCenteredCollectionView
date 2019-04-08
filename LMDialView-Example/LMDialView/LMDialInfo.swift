@@ -9,16 +9,14 @@
 import UIKit
 
 class DialInfo {
-    var dialInfoUpdated: (() -> ())?
-    
     var cellCount: Int {
         return _cellCount
     }
     
-    var frameCount: Int = 0
-    var interSpace: CGFloat = 0
-    var cellWidth: CGFloat = 0
-    var viewWidth: CGFloat = 0
+    private(set) var cycleCellCount: Int
+    private(set) var cellWidth: CGFloat
+    private(set) var viewWidth: CGFloat
+    private(set) var interSpace: CGFloat
 
     private var _cellCount: Int = 0
     private var _cellInterval: CGFloat = 0
@@ -30,14 +28,24 @@ class DialInfo {
     var startIndex: Int = 0
     var endIndex: Int = 0
     var firstIndexPath: IndexPath = IndexPath(item: 0, section: 0)
+    
     init() {
+        cycleCellCount = 0
+        cellWidth = 0
+        viewWidth = 0
+        interSpace = 0
     }
 }
 
 // MARK: internal
 extension DialInfo {
-    func reloadData() {
-        updateDialInfo()
+    func update(cycleCellCount: Int, cellWidth: CGFloat, viewWidth: CGFloat, interSpace: CGFloat) {
+        self.cycleCellCount = cycleCellCount
+        self.cellWidth = cellWidth
+        self.viewWidth = viewWidth
+        self.interSpace = interSpace
+        // add limit
+        updateDialInfo(cycleCellCount: cycleCellCount, cellWidth: cellWidth, viewWidth: viewWidth, interSpace: interSpace)
     }
 }
 
@@ -47,7 +55,7 @@ extension DialInfo {
         let item = indexPath.item
         if item < startIndex {
             let offset = startIndex - item
-            return frameCount - offset
+            return cycleCellCount - offset
         } else if item > endIndex {
             let offset = item - endIndex
             return offset - 1
@@ -93,7 +101,7 @@ extension DialInfo {
         let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
         let floatDialIndex = dialOffset / _cellInterval
         var dialIndex = Int(floatDialIndex.rounded())
-        if dialIndex == frameCount {
+        if dialIndex == cycleCellCount {
             dialIndex = 0
         }
         return dialIndex
@@ -132,7 +140,7 @@ extension DialInfo {
 
 // MARK: private
 private extension DialInfo {
-    func updateDialInfo() {
+    func updateDialInfo(cycleCellCount: Int, cellWidth: CGFloat, viewWidth: CGFloat, interSpace: CGFloat) {
         let space = interSpace + cellWidth
         _cellInterval = space
         
@@ -141,11 +149,11 @@ private extension DialInfo {
         let cellsInWidth = Int(ceil(viewWidth / space))
         /// add two extra cell in case `floor` decrease cell's count
         let bias = 100
-        _cellCount = frameCount + cellsInWidth + bias
+        _cellCount = cycleCellCount + cellsInWidth + bias
         
         // calculate index
-        startIndex = (_cellCount - frameCount) / 2
-        endIndex = ((_cellCount + frameCount) / 2) - 1
+        startIndex = (_cellCount - cycleCellCount) / 2
+        endIndex = ((_cellCount + cycleCellCount) / 2) - 1
         firstIndexPath = IndexPath(item: startIndex, section: 0)
         
         // calculate offset
@@ -155,9 +163,7 @@ private extension DialInfo {
         let endCellX = CGFloat(endIndex) * space
         endOffsetX = endCellX - halfWidth
         
-        dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cycleCount: frameCount, viewWidth: viewWidth)
-
-        dialInfoUpdated?()
+        dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cycleCount: cycleCellCount, viewWidth: viewWidth)
     }
 }
 

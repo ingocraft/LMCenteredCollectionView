@@ -42,12 +42,8 @@ class LMDialView: UIView {
     // MARK: Properties
     weak var delegate: LMDialViewDelegate?
     weak var dataSource: SPIDialViewDataSource?
-    private var isPanning = false
     private lazy var dialInfo: DialInfo = {
         let dialInfo = DialInfo()
-        dialInfo.dialInfoUpdated = { [weak self] in
-            self?.collectionView.reloadData()
-        }
         return dialInfo
     }()
     
@@ -63,12 +59,7 @@ class LMDialView: UIView {
     }
     
     var dividingCount: Int {
-        get {
-            return dialInfo.frameCount
-        }
-        set {
-            dialInfo.frameCount = newValue
-        }
+        return dialInfo.cycleCellCount
     }
     
     var isGradual: Bool = true
@@ -132,12 +123,12 @@ class LMDialView: UIView {
             containerView.layer.mask = gradient
         }
         
-        dialInfo.frameCount = 48
-        dialInfo.interSpace = dataSource?.dialViewInterSpace(self) ?? 0
-        dialInfo.cellWidth = dataSource?.dialViewSize(self).width ?? 0
-        dialInfo.viewWidth = frame.width
-        dialInfo.reloadData()
-        
+        let cycleCellCount = 48
+        let cellWidth = dataSource?.dialViewSize(self).width ?? 0
+        let viewWidth = frame.width
+        let interSpace = dataSource?.dialViewInterSpace(self) ?? 0
+        dialInfo.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, viewWidth: viewWidth, interSpace: interSpace)
+
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
         DispatchQueue.main.async {
@@ -164,8 +155,6 @@ extension LMDialView {
     ///   - offset: The dial content offset.
     ///   - animated: Scroll animate.
     func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
-        if isPanning { return }
-        
         let scrollOffset = dialInfo.middleScrollOffsetFrom(dialOffset: offset)
         collectionView.contentOffset = CGPoint(x: scrollOffset, y: 0)
     }
@@ -203,8 +192,6 @@ extension LMDialView: UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        isPanning = true
-        
         delegate?.dialViewWillBeginDragging(self)
     }
     
@@ -263,8 +250,6 @@ extension LMDialView: UICollectionViewDataSource {
 // MARK: private
 private extension LMDialView {
     func scrollToMiddle() {
-        isPanning = false
-        
         let visiableCells = collectionView.visibleCells.sorted { (lhs, rhs) -> Bool in
             return lhs.frame.origin.x < rhs.frame.origin.x
         }

@@ -23,10 +23,10 @@ class ViewController: UIViewController {
 
 extension ViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
-        print(index)
+//        print(index)
     }
     func dialView(_ dialView: LMDialView, offset: CGFloat) {
-//        print(offset)
+        print(offset)
     }
     func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
