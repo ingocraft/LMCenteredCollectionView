@@ -57,6 +57,14 @@ extension DialInfo {
         }
     }
     
+    /**
+     Figure out the contentOffset which should scroll to manually
+     
+     - Parameters:
+        - scrollOffset: The current contentOffset.
+
+     - Returns: The final contentOffset which should scroll to
+     */
     func calculateScrollOffsetFrom(scrollOffset: CGFloat) -> CGFloat {
         let (offsetLessThanStart, offsetGreaterThanEnd): (Bool, Bool) = {
             let mapper = dialMapper!
@@ -78,6 +86,14 @@ extension DialInfo {
         return offset
     }
     
+    /**
+     Figure out dial index according to contentOffset
+     
+     - Parameters:
+        - scrollOffset: The current contentOffset
+     
+     - Returns: Dial index
+     */
     func calculateIndexFrom(scrollOffset: CGFloat) -> Int {
         let (leftApproachLastIndex, rightApproachLastIndex, floatDialIndex): (Bool, Bool, CGFloat) = {
             let mapper = dialMapper!
@@ -109,6 +125,11 @@ extension DialInfo {
         return dialIndex
     }
     
+    func cycleDialOffsetFrom(scrollOffset: CGFloat) -> CGFloat {
+        let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
+        let cycleDialOffset = dialMapper.cycleDialOffsetFrom(dialOffset: dialOffset)
+        return cycleDialOffset
+    }
 }
 
 // MARK: private

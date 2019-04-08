@@ -44,10 +44,10 @@ class LMDialMapper {
 
 // MARK: internal
 /*
- These maps are lossless:
+ These maps are lossless,
  scrollIndex -> scrollOffset, dialIndex -> dialOffset, scrollOffset <-> dialOffset
  
- And these maps can only return approximation:
+ And these maps can only return approximation,
  scrollOffset -> scrollIndex, dialOffset -> dialIndex
  */
 extension LMDialMapper {
@@ -65,6 +65,20 @@ extension LMDialMapper {
     
     func scrollOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         return dialOffset + startOffsetX
+    }
+}
+
+/*
+ These maps are irreversible,
+ dialOffset -> cycleDialOffset
+ */
+extension LMDialMapper {
+    func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
+        if dialOffset < 0 {
+            return endDialOffset - dialOffset
+        } else {
+            return dialOffset
+        }
     }
 }
 

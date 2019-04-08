@@ -13,6 +13,9 @@ protocol LMDialViewDelegate: class {
     /// Tell the delegate which index the dial has scroll to. Range from 0 to 47.
     func dialView(_ dialView: LMDialView, at index: Int)
     
+    /// Tell the delegate when the user scrolls dial view within the receiver.
+    func dialView(_ dialView: LMDialView, offset: CGFloat)
+    
     /// Tell the delegate when the scroll is about to start scroll the dial.
     func dialViewWillBeginDragging(_ dialView: LMDialView)
     
@@ -182,16 +185,19 @@ extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
         let offsetXScrollTo = dialInfo.calculateScrollOffsetFrom(scrollOffset: offsetX)
-        let willScroll = offsetXScrollTo != offsetX
         let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
-
-        if latestIndex == index { return }
-        latestIndex = index
         
+        let willScroll = offsetXScrollTo != offsetX
         if willScroll {
             scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
+            return
         }
         
+        let dialOffset = dialInfo.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
+        delegate?.dialView(self, offset: dialOffset)
+        
+        guard latestIndex != index else { return }
+        latestIndex = index
         delegate?.dialView(self, at: index)
     }
     

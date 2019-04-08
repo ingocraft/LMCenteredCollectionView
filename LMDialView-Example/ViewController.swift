@@ -23,7 +23,10 @@ class ViewController: UIViewController {
 
 extension ViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
-        print(index)
+//        print(index)
+    }
+    func dialView(_ dialView: LMDialView, offset: CGFloat) {
+        print(offset)
     }
     func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
@@ -46,7 +49,7 @@ extension ViewController: SPIDialViewDataSource {
     }
     
     func dialViewSize(_ dialView: LMDialView) -> CGSize {
-        return CGSize(width: 1, height: 20)
+        return CGSize(width: 10, height: 20)
     }
     
     func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
