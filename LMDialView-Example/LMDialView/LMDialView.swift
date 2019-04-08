@@ -138,37 +138,36 @@ class LMDialView: UIView {
         dialInfo.viewWidth = frame.width
         dialInfo.reloadData()
         
-        // firstIndexPath must be used after dialInfo.viewWidth is assigned,
-        // or indexPath will be wrong.
-        let indexPath = dialInfo.firstIndexPath
-        // scrollToItem must be invoked after collectionView has finished its layout.
-        // At this case, layoutIfNeed() below did this, or scrollToItem(at:, at:, animated:) is invalid.
+        // collectionView will perform `layoutSubview()` after this function,
+        // `seek()` works after collectionView updates its frames
         DispatchQueue.main.async {
-            self.seek(to: 0)
+            self.seek(toDialIndex: 0, animated: false)
         }
     }
 }
 
 // MARK: internal
 extension LMDialView {
-    /**
-     Set the current contentOffset according to percent.
-     
-     This function does nothing if dragging or before end accelerating.
-     
-     - Parameters:
-     - percent:from 0.0 to 1.0.
-     */
-    func seek(to percent: CGFloat, animated: Bool = false) {
+    /// Sets the current dial index.
+    ///
+    /// - Parameters:
+    ///   - index: The dial index.
+    ///   - animated: Scroll animate.
+    func seek(toDialIndex index: Int, animated: Bool = false) {
+        let dialOffset = dialInfo.dialOffsetFrom(dialIndex: index)
+        seek(toDialOffset: dialOffset, animated: animated)
+    }
+    
+    /// Sets the current dial content offset.
+    ///
+    /// - Parameters:
+    ///   - offset: The dial content offset.
+    ///   - animated: Scroll animate.
+    func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
         if isPanning { return }
         
-        let index = Int(CGFloat(dialInfo.frameCount) * percent)
-        let space = dialInfo.interSpace + dialInfo.cellWidth
-        let startOffsetX = dialInfo.startOffsetX
-        
-        let offsetX = startOffsetX + CGFloat(index) * space
-        let contentOffset = CGPoint(x: offsetX, y: 0)
-        collectionView.contentOffset = contentOffset
+        let scrollOffset = dialInfo.middleScrollOffsetFrom(dialOffset: offset)
+        collectionView.contentOffset = CGPoint(x: scrollOffset, y: 0)
     }
     
     func dequeueReusableCell(for index: Int) -> LMDialViewCell {
@@ -185,7 +184,6 @@ extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
         let offsetXScrollTo = dialInfo.calculateScrollOffsetFrom(scrollOffset: offsetX)
-        let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
         
         let willScroll = offsetXScrollTo != offsetX
         if willScroll {
@@ -193,9 +191,12 @@ extension LMDialView: UIScrollViewDelegate {
             return
         }
         
+        // cycle dial offset
         let dialOffset = dialInfo.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
         delegate?.dialView(self, offset: dialOffset)
         
+        // dial index
+        let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.dialView(self, at: index)
@@ -271,7 +272,7 @@ private extension LMDialView {
         let median = count / 2
         let middleCell = visiableCells[median]
         
-        let contentOffset = CGPoint(x: middleCell.frame.origin.x - collectionView.frame.width / 2, y: 0)
+        let contentOffset = CGPoint(x: middleCell.frame.origin.x - collectionView.frame.width / 2 + dialInfo.cellWidth / 2, y: 0)
         collectionView.setContentOffset(contentOffset, animated: true)
         
         delegate?.dialViewDidEndScroll(self)
