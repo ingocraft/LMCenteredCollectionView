@@ -181,14 +181,15 @@ extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
-        let (index, willScroll, offsetXScrollTo) = dialInfo.calculateScrollParams(scrollOffsetX: offsetX)
+        let offsetXScrollTo = dialInfo.calculateScrollOffsetFrom(scrollOffset: offsetX)
+        let willScroll = offsetXScrollTo != offsetX
+        let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
 
         if latestIndex == index { return }
         latestIndex = index
         
         if willScroll {
             scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
-            return
         }
         
         delegate?.dialView(self, at: index)
@@ -215,7 +216,6 @@ extension LMDialView: UICollectionViewDelegateFlowLayout {
         guard let size = dataSource?.dialViewSize(self) else {
             return CGSize(width: 20, height: 20)
         }
-        dialInfo.cellWidth = size.width
         return size
     }
     
@@ -223,7 +223,6 @@ extension LMDialView: UICollectionViewDelegateFlowLayout {
         guard let interSpace = dataSource?.dialViewInterSpace(self) else {
             return 20
         }
-        dialInfo.interSpace = interSpace
         return interSpace
     }
     
