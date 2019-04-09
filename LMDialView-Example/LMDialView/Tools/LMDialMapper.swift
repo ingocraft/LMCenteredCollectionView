@@ -18,6 +18,7 @@ class LMDialMapper {
     
     private let cellInterval: CGFloat
     private let cellCount: Int
+    private let cellWidth: CGFloat
     private let cycleCount: Int
     private let viewWidth: CGFloat
     
@@ -34,9 +35,10 @@ class LMDialMapper {
         return CGFloat(endIndex) * cellInterval - viewWidth / 2
     }()
 
-    init(cellInterval: CGFloat, cellCount: Int, cycleCount: Int, viewWidth: CGFloat) {
+    init(cellInterval: CGFloat, cellCount: Int, cellWidth: CGFloat, cycleCount: Int, viewWidth: CGFloat) {
         self.cellInterval = cellInterval
         self.cellCount = cellCount
+        self.cellWidth = cellWidth
         self.cycleCount = cycleCount
         self.viewWidth = viewWidth
     }
@@ -73,17 +75,19 @@ extension LMDialMapper {
  dialOffset -> cycleDialOffset
  */
 extension LMDialMapper {
-    func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
-        if dialOffset < 0 {
-            return endDialOffset - dialOffset
-        } else {
-            return dialOffset
-        }
+        func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
+            var cycleDialOffset: CGFloat
+            if dialOffset < 0 {
+                cycleDialOffset = endDialOffset - dialOffset
+            } else {
+                cycleDialOffset = dialOffset
+            }
+            return cycleDialOffset
     }
 }
 
 // MARK: utility
-private extension LMDialMapper {
+extension LMDialMapper {
     func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
         let dialOffsetX = dialOffsetFrom(scrollOffset: scrollOffsetX)
         let prevIndex = CGFloat(floor(Double(dialOffsetX / cellInterval)))
@@ -91,12 +95,12 @@ private extension LMDialMapper {
         let nextOffsetX = prevOffsetX + cellInterval
         let distanceToPrev = dialOffsetX - prevOffsetX
         let distanceToNext = nextOffsetX - dialOffsetX
-        
+
         let cloestOffsetX: CGFloat
         if distanceToPrev < distanceToNext {
-            cloestOffsetX = prevOffsetX
+            cloestOffsetX = prevOffsetX + cellWidth / 2
         } else {
-            cloestOffsetX = nextOffsetX
+            cloestOffsetX = nextOffsetX + cellWidth / 2
         }
         
         return scrollOffsetFrom(dialOffset: cloestOffsetX)

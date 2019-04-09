@@ -154,18 +154,17 @@ extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
         let offsetXScrollTo = dialInfo.calculateScrollOffsetFrom(scrollOffset: offsetX)
-        
+
         let willScroll = offsetXScrollTo != offsetX
         if willScroll {
             scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
             return
         }
-        
+
         // cycle dial offset
         let dialOffset = dialInfo.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
-//        delegate?.dialView(self, offset: dialOffset)
         delegate?.dialView?(self, offset: dialOffset)
-        
+
         // dial index
         let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
         guard latestIndex != index else { return }
@@ -177,13 +176,10 @@ extension LMDialView: UIScrollViewDelegate {
         delegate?.dialViewWillBeginDragging?(self)
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if decelerate { return }
-        scrollToMiddle()
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollToMiddle()
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let scrollOffset = targetContentOffset.pointee.x
+        let cloestScrollOffset = dialInfo.cloestDividingLineOffsetX(from: scrollOffset)
+        targetContentOffset.pointee.x = cloestScrollOffset
     }
 }
 
@@ -231,20 +227,6 @@ extension LMDialView: UICollectionViewDataSource {
 
 // MARK: private
 private extension LMDialView {
-    func scrollToMiddle() {
-        let visiableCells = collectionView.visibleCells.sorted { (lhs, rhs) -> Bool in
-            return lhs.frame.origin.x < rhs.frame.origin.x
-        }
-        let count = visiableCells.count
-        let median = count / 2
-        let middleCell = visiableCells[median]
-        
-        let contentOffset = CGPoint(x: middleCell.frame.origin.x - collectionView.frame.width / 2 + dialInfo.cellWidth / 2, y: 0)
-        collectionView.setContentOffset(contentOffset, animated: true)
-        
-        delegate?.dialViewDidEndScroll?(self)
-    }
-    
     func gradientContainerView() {
         let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
                       UIColor.black.withAlphaComponent(0.4).cgColor,

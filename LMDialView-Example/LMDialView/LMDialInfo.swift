@@ -82,7 +82,7 @@ extension DialInfo {
         if lessThanStart {
             offset = endOffsetX + _cellInterval + dialOffset
         } else if greaterThanEnd {
-            offset = startOffsetX
+            offset = startOffsetX + (dialOffset -  endDialOffset - _cellInterval)
         } else {
             offset = scrollOffset
         }
@@ -99,7 +99,8 @@ extension DialInfo {
      */
     func calculateIndexFrom(scrollOffset: CGFloat) -> Int {
         let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
-        let floatDialIndex = dialOffset / _cellInterval
+        let offset = dialOffset - cellWidth / 2
+        let floatDialIndex = offset / _cellInterval
         var dialIndex = Int(floatDialIndex.rounded())
         if dialIndex == cycleCellCount {
             dialIndex = 0
@@ -136,6 +137,10 @@ extension DialInfo {
     func scrollOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         return dialMapper.scrollOffsetFrom(dialOffset: dialOffset)
     }
+    
+    func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
+        return dialMapper.cloestDividingLineOffsetX(from: scrollOffsetX)
+    }
 }
 
 // MARK: private
@@ -163,7 +168,7 @@ private extension DialInfo {
         let endCellX = CGFloat(endIndex) * space
         endOffsetX = endCellX - halfWidth
         
-        dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cycleCount: cycleCellCount, viewWidth: viewWidth)
+        dialMapper = LMDialMapper(cellInterval: space, cellCount: _cellCount, cellWidth: cellWidth, cycleCount: cycleCellCount, viewWidth: viewWidth)
     }
 }
 
