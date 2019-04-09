@@ -43,15 +43,14 @@ class LMDialView: UIView {
     // MARK: Properties
     weak var delegate: LMDialViewDelegate?
     weak var dataSource: SPIDialViewDataSource?
-    private lazy var dialInfo: DialInfo = {
-        let dialInfo = DialInfo()
-        return dialInfo
-    }()
-    
+    private lazy var dialManager = LMDialManager()
+
     private var collectionView: UICollectionView!
     private var indicatorLineView: UIView!
     private var containerView: UIView!
     private var latestIndex: Int = -1
+    
+    var isGradient: Bool = false
     
     var bounces: Bool = true {
         didSet {
@@ -59,11 +58,6 @@ class LMDialView: UIView {
         }
     }
     
-    var dividingCount: Int {
-        return dialInfo.cycleCellCount
-    }
-    
-    var isGradient: Bool = false
     var isScrollEnabled: Bool = true {
         didSet {
             collectionView.isScrollEnabled = isScrollEnabled
@@ -85,9 +79,7 @@ class LMDialView: UIView {
     var currentIndex: Int {
         return latestIndex
     }
-    
-    
-    
+
     init() {
         super.init(frame: CGRect.zero)
         setupSubviews()
@@ -108,7 +100,7 @@ class LMDialView: UIView {
         let cellWidth = dataSource?.dialViewSize(self).width ?? 0
         let interSpace = dataSource?.dialViewInterSpace(self) ?? 0
         let viewWidth = frame.width
-        dialInfo.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
+        dialManager.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
@@ -126,7 +118,7 @@ extension LMDialView {
     ///   - index: The dial index.
     ///   - animated: Scroll animate.
     func seek(toDialIndex index: Int, animated: Bool = false) {
-        let dialOffset = dialInfo.dialOffsetFrom(dialIndex: index)
+        let dialOffset = dialManager.dialOffsetFrom(dialIndex: index)
         seek(toDialOffset: dialOffset, animated: animated)
     }
     
@@ -136,7 +128,7 @@ extension LMDialView {
     ///   - offset: The dial content offset.
     ///   - animated: Scroll animate.
     func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
-        let scrollOffset = dialInfo.middleScrollOffsetFrom(dialOffset: offset)
+        let scrollOffset = dialManager.middleScrollOffsetFrom(dialOffset: offset)
         collectionView.contentOffset = CGPoint(x: scrollOffset, y: 0)
     }
     
@@ -153,7 +145,7 @@ extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
-        let offsetXScrollTo = dialInfo.calculateScrollOffsetFrom(scrollOffset: offsetX)
+        let offsetXScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: offsetX)
 
         let willScroll = offsetXScrollTo != offsetX
         if willScroll {
@@ -162,11 +154,11 @@ extension LMDialView: UIScrollViewDelegate {
         }
 
         // cycle dial offset
-        let dialOffset = dialInfo.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
+        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
         delegate?.dialView?(self, offset: dialOffset)
 
         // dial index
-        let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
+        let index = dialManager.calculateIndexFrom(scrollOffset: offsetXScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.dialView?(self, at: index)
@@ -178,7 +170,7 @@ extension LMDialView: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let scrollOffset = targetContentOffset.pointee.x
-        let cloestScrollOffset = dialInfo.cloestDividingLineOffsetX(from: scrollOffset)
+        let cloestScrollOffset = dialManager.cloestDividingLineOffsetX(from: scrollOffset)
         targetContentOffset.pointee.x = cloestScrollOffset
     }
 }
@@ -211,11 +203,11 @@ extension LMDialView: UICollectionViewDelegate {
 // MARK: UICollectionViewDataSource
 extension LMDialView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dialInfo.cellCount
+        return dialManager.cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let index = dialInfo.indexFromIndexPath(indexPath)
+        let index = dialManager.indexFromIndexPath(indexPath)
         guard let cell = dataSource?.dialView(self, scaleAt: index) else {
             assertionFailure("dataSource must not be nil")
             return LMDialViewCell()

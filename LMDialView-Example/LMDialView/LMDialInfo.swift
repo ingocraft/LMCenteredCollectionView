@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DialInfo {
+class LMDialManager {
     var cellCount: Int {
         return _cellCount
     }
@@ -38,7 +38,7 @@ class DialInfo {
 }
 
 // MARK: internal
-extension DialInfo {
+extension LMDialManager {
     func update(cycleCellCount: Int, cellWidth: CGFloat, interSpace: CGFloat, viewWidth: CGFloat) {
         self.cycleCellCount = cycleCellCount
         self.cellWidth = cellWidth
@@ -50,7 +50,7 @@ extension DialInfo {
 }
 
 // MARK: internal
-extension DialInfo {
+extension LMDialManager {
     func indexFromIndexPath(_ indexPath: IndexPath) -> Int {
         let item = indexPath.item
         if item < startIndex {
@@ -121,7 +121,7 @@ extension DialInfo {
     }
 }
 
-extension DialInfo {
+extension LMDialManager {
     func scrollOffsetFrom(scrollIndex: Int) -> CGFloat {
         return dialMapper.scrollOffsetFrom(scrollIndex: scrollIndex)
     }
@@ -144,7 +144,7 @@ extension DialInfo {
 }
 
 // MARK: private
-private extension DialInfo {
+private extension LMDialManager {
     func updateDialInfo(cycleCellCount: Int, cellWidth: CGFloat, interSpace: CGFloat, viewWidth: CGFloat) {
         let space = interSpace + cellWidth
         _cellInterval = space
