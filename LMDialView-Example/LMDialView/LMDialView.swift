@@ -8,23 +8,24 @@
 
 import UIKit
 
-protocol LMDialViewDelegate: class {
+@objc protocol LMDialViewDelegate: class {
     
     /// Tell the delegate which index the dial has scroll to. Range from 0 to 47.
-    func dialView(_ dialView: LMDialView, at index: Int)
+    @objc optional func dialView(_ dialView: LMDialView, at index: Int)
     
     /// Tell the delegate when the user scrolls dial view within the receiver.
-    func dialView(_ dialView: LMDialView, offset: CGFloat)
+    @objc optional func dialView(_ dialView: LMDialView, offset: CGFloat)
     
     /// Tell the delegate when the scroll is about to start scroll the dial.
-    func dialViewWillBeginDragging(_ dialView: LMDialView)
+    @objc optional func dialViewWillBeginDragging(_ dialView: LMDialView)
     
     /// Tell the delegate when the scroll stops scrolling completely.
-    func dialViewDidEndScroll(_ dialView: LMDialView)
+    @objc optional func dialViewDidEndScroll(_ dialView: LMDialView)
 }
 
 protocol SPIDialViewDataSource: class {
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell
+    func dialViewItems(_ dialView: LMDialView) -> Int
     func dialViewSize(_ dialView: LMDialView) -> CGSize
     func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat
 }
@@ -62,10 +63,10 @@ class LMDialView: UIView {
         return dialInfo.cycleCellCount
     }
     
-    var isGradual: Bool = true
+    var isGradient: Bool = false
     var isScrollEnabled: Bool = true {
         didSet {
-            
+            collectionView.isScrollEnabled = isScrollEnabled
         }
     }
     
@@ -81,12 +82,8 @@ class LMDialView: UIView {
         return collectionView.isDecelerating
     }
     
-    var dividingLineCount: Int {
-        return 0
-    }
-    
     var currentIndex: Int {
-        return 0
+        return latestIndex
     }
     
     
@@ -103,31 +100,15 @@ class LMDialView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        /// !!!!!! init after init() !!!!!!!
-        if isGradual {
-            let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
-                          UIColor.black.withAlphaComponent(0.4).cgColor,
-                          UIColor.black.withAlphaComponent(0.6).cgColor,
-                          UIColor.black.withAlphaComponent(0.8).cgColor,
-                          UIColor.black.withAlphaComponent(1.0).cgColor,
-                          UIColor.black.withAlphaComponent(0.8).cgColor,
-                          UIColor.black.withAlphaComponent(0.6).cgColor,
-                          UIColor.black.withAlphaComponent(0.4).cgColor,
-                          UIColor.black.withAlphaComponent(0.2).cgColor]
-            
-            let gradient = CAGradientLayer()
-            gradient.frame = containerView.bounds
-            gradient.colors = colors
-            gradient.startPoint = CGPoint(x: 0, y: 0)
-            gradient.endPoint = CGPoint(x: 1, y: 0)
-            containerView.layer.mask = gradient
+        if isGradient {
+            gradientContainerView()
         }
         
-        let cycleCellCount = 48
+        let cycleCellCount = dataSource?.dialViewItems(self) ?? 0
         let cellWidth = dataSource?.dialViewSize(self).width ?? 0
-        let viewWidth = frame.width
         let interSpace = dataSource?.dialViewInterSpace(self) ?? 0
-        dialInfo.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, viewWidth: viewWidth, interSpace: interSpace)
+        let viewWidth = frame.width
+        dialInfo.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
@@ -182,17 +163,18 @@ extension LMDialView: UIScrollViewDelegate {
         
         // cycle dial offset
         let dialOffset = dialInfo.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
-        delegate?.dialView(self, offset: dialOffset)
+//        delegate?.dialView(self, offset: dialOffset)
+        delegate?.dialView?(self, offset: dialOffset)
         
         // dial index
         let index = dialInfo.calculateIndexFrom(scrollOffset: offsetXScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
-        delegate?.dialView(self, at: index)
+        delegate?.dialView?(self, at: index)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        delegate?.dialViewWillBeginDragging(self)
+        delegate?.dialViewWillBeginDragging?(self)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -260,7 +242,26 @@ private extension LMDialView {
         let contentOffset = CGPoint(x: middleCell.frame.origin.x - collectionView.frame.width / 2 + dialInfo.cellWidth / 2, y: 0)
         collectionView.setContentOffset(contentOffset, animated: true)
         
-        delegate?.dialViewDidEndScroll(self)
+        delegate?.dialViewDidEndScroll?(self)
+    }
+    
+    func gradientContainerView() {
+        let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
+                      UIColor.black.withAlphaComponent(0.4).cgColor,
+                      UIColor.black.withAlphaComponent(0.6).cgColor,
+                      UIColor.black.withAlphaComponent(0.8).cgColor,
+                      UIColor.black.withAlphaComponent(1.0).cgColor,
+                      UIColor.black.withAlphaComponent(0.8).cgColor,
+                      UIColor.black.withAlphaComponent(0.6).cgColor,
+                      UIColor.black.withAlphaComponent(0.4).cgColor,
+                      UIColor.black.withAlphaComponent(0.2).cgColor]
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = containerView.bounds
+        gradient.colors = colors
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 0)
+        containerView.layer.mask = gradient
     }
 }
 

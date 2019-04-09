@@ -48,6 +48,10 @@ extension ViewController: SPIDialViewDataSource {
         return cell
     }
     
+    func dialViewItems(_ dialView: LMDialView) -> Int {
+        return 50
+    }
+    
     func dialViewSize(_ dialView: LMDialView) -> CGSize {
         return CGSize(width: 10, height: 20)
     }

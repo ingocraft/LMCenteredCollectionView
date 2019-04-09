@@ -39,13 +39,13 @@ class DialInfo {
 
 // MARK: internal
 extension DialInfo {
-    func update(cycleCellCount: Int, cellWidth: CGFloat, viewWidth: CGFloat, interSpace: CGFloat) {
+    func update(cycleCellCount: Int, cellWidth: CGFloat, interSpace: CGFloat, viewWidth: CGFloat) {
         self.cycleCellCount = cycleCellCount
         self.cellWidth = cellWidth
-        self.viewWidth = viewWidth
         self.interSpace = interSpace
+        self.viewWidth = viewWidth
         // add limit
-        updateDialInfo(cycleCellCount: cycleCellCount, cellWidth: cellWidth, viewWidth: viewWidth, interSpace: interSpace)
+        updateDialInfo(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
     }
 }
 
@@ -140,7 +140,7 @@ extension DialInfo {
 
 // MARK: private
 private extension DialInfo {
-    func updateDialInfo(cycleCellCount: Int, cellWidth: CGFloat, viewWidth: CGFloat, interSpace: CGFloat) {
+    func updateDialInfo(cycleCellCount: Int, cellWidth: CGFloat, interSpace: CGFloat, viewWidth: CGFloat) {
         let space = interSpace + cellWidth
         _cellInterval = space
         
