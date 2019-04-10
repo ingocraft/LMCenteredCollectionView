@@ -11,11 +11,12 @@ import UIKit
 class ViewController: UIViewController {
     
     private var randomColors = [UIColor]()
+    private var animals = [String]()
     private var dialView: LMDialView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        generateRandomData()
+        generateAnimals()
         setupSubviews()
     }
 
@@ -26,7 +27,7 @@ extension ViewController: LMDialViewDelegate {
 //        print(index)
     }
     func dialView(_ dialView: LMDialView, offset: CGFloat) {
-        print(offset)
+//        print(offset)
     }
     func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
@@ -36,24 +37,25 @@ extension ViewController: LMDialViewDelegate {
 
 extension ViewController: SPIDialViewDataSource {
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
-        let cell = dialView.dequeueReusableCell(for: index)
-        
-        let isStartCell = index == 0
-        if isStartCell {
-            cell.backgroundColor = UIColor.black
-        } else {
-            cell.backgroundColor = UIColor.lightGray
+        guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
+            return LMImageCell()
         }
         
+        let filePath = Bundle.main.path(forResource: animals[index], ofType: "jpg")!
+        let image = UIImage(contentsOfFile: filePath)
+        cell.imageView.image = image
+        cell.label.text = String(index)
+        cell.label.sizeToFit()
+
         return cell
     }
     
     func dialViewItems(_ dialView: LMDialView) -> Int {
-        return 50
+        return animals.count
     }
     
     func dialViewSize(_ dialView: LMDialView) -> CGSize {
-        return CGSize(width: 10, height: 20)
+        return CGSize(width: 64 * 2, height: 48 * 2)
     }
     
     func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
@@ -71,14 +73,34 @@ private extension ViewController {
             randomColors.append(UIColor.init(red: red, green: green, blue: blue, alpha: 1.0))
         }
     }
+    
+    func generateAnimals() {
+        for index in 0...40 {
+            let fileName = String(format: "pic1%02d", index)
+            animals.append(fileName)
+        }
+    }
+    
+    func test() {
+        for index in 0...40 {
+            let fileName = String(format: "pic1%02d", index)
+            let filePath = Bundle.main.path(forResource: fileName, ofType: "jpg")!
+            let _ = UIImage(contentsOfFile: filePath)
+        }
+    }
 }
 
 // MARK: UI
 private extension ViewController {
     func setupSubviews() {
-        dialView = LMDialView()
-        dialView.dataSource = self
-        dialView.delegate = self
+        dialView = {
+            let view = LMDialView()
+            view.dataSource = self
+            view.delegate = self
+            view.register(LMImageCell.self)
+            return view
+        }()
+        
         view.addSubview(dialView)
         
         dialView.translatesAutoresizingMaskIntoConstraints = false

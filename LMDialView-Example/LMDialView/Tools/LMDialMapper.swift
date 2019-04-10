@@ -75,14 +75,26 @@ extension LMDialMapper {
  dialOffset -> cycleDialOffset
  */
 extension LMDialMapper {
-        func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
-            var cycleDialOffset: CGFloat
-            if dialOffset < 0 {
-                cycleDialOffset = endDialOffset - dialOffset
-            } else {
-                cycleDialOffset = dialOffset
-            }
-            return cycleDialOffset
+    func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
+        var cycleDialOffset: CGFloat
+        if dialOffset < 0 {
+            cycleDialOffset = endDialOffset - dialOffset
+        } else {
+            cycleDialOffset = dialOffset
+        }
+        return cycleDialOffset
+    }
+    
+    func cycleDialIndexFrom(dialIndex: Int) -> Int {
+        var cycleDialIndex: Int
+        if dialIndex < 0 {
+            cycleDialIndex = endIndex - startIndex + dialIndex + 1
+        } else if dialIndex > endIndex {
+            cycleDialIndex = dialIndex - endIndex
+        } else {
+            cycleDialIndex = dialIndex
+        }
+        return cycleDialIndex
     }
 }
 

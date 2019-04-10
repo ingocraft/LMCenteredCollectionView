@@ -50,6 +50,8 @@ class LMDialView: UIView {
     private var containerView: UIView!
     private var latestIndex: Int = -1
     
+    private var cellClass: AnyClass?
+    
     var isGradient: Bool = false
     
     var bounces: Bool = true {
@@ -104,6 +106,8 @@ class LMDialView: UIView {
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
+//        layoutIfNeeded()
+//        self.seek(toDialIndex: 0, animated: false)
         DispatchQueue.main.async {
             self.seek(toDialIndex: 0, animated: false)
         }
@@ -133,11 +137,20 @@ extension LMDialView {
     }
     
     func dequeueReusableCell(for index: Int) -> LMDialViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LMDialViewCell.self), for: IndexPath(item: index, section: 0)) as? LMDialViewCell else {
+        let indexPath = IndexPath(item: index, section: 0)
+        guard let cellClass = cellClass,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? LMDialViewCell else {
             assertionFailure("Cell must be LMDialViewCell")
             return LMDialViewCell()
         }
+        
         return cell
+    }
+    
+    func register(_ cellClass: AnyClass) {
+        self.cellClass = cellClass
+        let identifier = String(describing: cellClass)
+        collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
     }
 }
 
@@ -207,8 +220,9 @@ extension LMDialView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let index = dialManager.indexFromIndexPath(indexPath)
-        guard let cell = dataSource?.dialView(self, scaleAt: index) else {
+        let dialIndex = dialManager.indexFromIndexPath(indexPath)
+        let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
+        guard let cell = dataSource?.dialView(self, scaleAt: cycleDialIndex) else {
             assertionFailure("dataSource must not be nil")
             return LMDialViewCell()
         }
@@ -265,7 +279,6 @@ private extension LMDialView {
         
         collectionView = {
             let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-            view.register(LMDialViewCell.self, forCellWithReuseIdentifier: String(describing: LMDialViewCell.self))
             view.delegate = self
             view.dataSource = self
             view.showsHorizontalScrollIndicator = false

@@ -119,6 +119,10 @@ extension LMDialManager {
         let cycleDialOffset = dialMapper.cycleDialOffsetFrom(dialOffset: dialOffset)
         return cycleDialOffset
     }
+    
+    func cycleDialIndexFrom(dialIndex: Int) -> Int {
+        return dialMapper.cycleDialIndexFrom(dialIndex: dialIndex)
+    }
 }
 
 extension LMDialManager {
