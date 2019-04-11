@@ -53,7 +53,23 @@
 		B6CB2685225D825400AF15E4 /* pic107.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265C225D825300AF15E4 /* pic107.jpg */; };
 		B6CB2686225D825400AF15E4 /* pic124.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265D225D825300AF15E4 /* pic124.jpg */; };
 		B6CB2687225D825400AF15E4 /* pic113.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265E225D825400AF15E4 /* pic113.jpg */; };
+		B6CB26CB225F2ABC00AF15E4 /* LMDialView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; };
+		B6CB26CC225F2ABC00AF15E4 /* LMDialView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B6CB26CD225F2ABC00AF15E4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B6CB26CC225F2ABC00AF15E4 /* LMDialView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B66836E72230BBAD00E8875F /* LMDialView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMDialView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +120,7 @@
 		B6CB265C225D825300AF15E4 /* pic107.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic107.jpg; sourceTree = "<group>"; };
 		B6CB265D225D825300AF15E4 /* pic124.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic124.jpg; sourceTree = "<group>"; };
 		B6CB265E225D825400AF15E4 /* pic113.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic113.jpg; sourceTree = "<group>"; };
+		B6CB26C6225F287A00AF15E4 /* LMDialView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LMDialView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6CB26CB225F2ABC00AF15E4 /* LMDialView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +140,7 @@
 			children = (
 				B66836E92230BBAD00E8875F /* LMDialView-Example */,
 				B66836E82230BBAD00E8875F /* Products */,
+				B6CB26C5225F287A00AF15E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,6 +222,14 @@
 			path = Animals;
 			sourceTree = "<group>";
 		};
+		B6CB26C5225F287A00AF15E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6CB26C6225F287A00AF15E4 /* LMDialView.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,6 +241,7 @@
 				B66836E42230BBAD00E8875F /* Frameworks */,
 				B66836E52230BBAD00E8875F /* Resources */,
 				B61C4BC1223925F000FEE73F /* Integrate Reveal Server */,
+				B6CB26CD225F2ABC00AF15E4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

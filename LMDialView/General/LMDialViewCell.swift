@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LMDialViewCell: UICollectionViewCell {
+open class LMDialViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,7 +18,7 @@ class LMDialViewCell: UICollectionViewCell {
         self.init(frame: CGRect.zero)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
