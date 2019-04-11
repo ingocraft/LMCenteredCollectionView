@@ -38,7 +38,7 @@ protocol SPIDialViewDataSource: class {
  The scales of the dial is fixed and the number of them are 48.
  
  */
-open class LMDialView: UIView {
+class LMDialView: UIView {
     
     // MARK: Properties
     weak var delegate: LMDialViewDelegate?

@@ -14,7 +14,6 @@
 		B6CB26BE225F217D00AF15E4 /* LMDialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B8225F217D00AF15E4 /* LMDialViewCell.swift */; };
 		B6CB26BF225F217D00AF15E4 /* LMDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B9225F217D00AF15E4 /* LMDialView.swift */; };
 		B6CB26C0225F217D00AF15E4 /* LMDialInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26BA225F217D00AF15E4 /* LMDialInfo.swift */; };
-		B6CB26C1225F241000AF15E4 /* LMDialView.swift in Headers */ = {isa = PBXBuildFile; fileRef = B6CB26B9225F217D00AF15E4 /* LMDialView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		B6CB26C4225F243C00AF15E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C3225F243C00AF15E4 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,7 +130,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6CB269B225F1F4900AF15E4 /* LMDialView.h in Headers */,
-				B6CB26C1225F241000AF15E4 /* LMDialView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
