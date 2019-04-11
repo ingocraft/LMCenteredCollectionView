@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LMDialView
 
 class ViewController: UIViewController {
     

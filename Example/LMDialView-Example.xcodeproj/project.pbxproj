@@ -12,11 +12,6 @@
 		B66836F02230BBAE00E8875F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836EE2230BBAE00E8875F /* Main.storyboard */; };
 		B66836F22230BBB000E8875F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B66836F12230BBB000E8875F /* Assets.xcassets */; };
 		B66836F52230BBB000E8875F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836F32230BBB000E8875F /* LaunchScreen.storyboard */; };
-		B66837002230BBEA00E8875F /* LMDialInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836FE2230BBEA00E8875F /* LMDialInfo.swift */; };
-		B66837012230BBEA00E8875F /* LMDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836FF2230BBEA00E8875F /* LMDialView.swift */; };
-		B66837032235FDE200E8875F /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66837022235FDE200E8875F /* UIKit+Extension.swift */; };
-		B66837052236081C00E8875F /* LMDialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66837042236081C00E8875F /* LMDialViewCell.swift */; };
-		B66E2D8922545FE90028182A /* LMDialMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66E2D8822545FE90028182A /* LMDialMapper.swift */; };
 		B6CB265F225D825400AF15E4 /* pic131.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB2636225D824F00AF15E4 /* pic131.jpg */; };
 		B6CB2660225D825400AF15E4 /* pic110.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB2637225D824F00AF15E4 /* pic110.jpg */; };
 		B6CB2661225D825400AF15E4 /* pic115.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB2638225D825000AF15E4 /* pic115.jpg */; };
@@ -58,7 +53,6 @@
 		B6CB2685225D825400AF15E4 /* pic107.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265C225D825300AF15E4 /* pic107.jpg */; };
 		B6CB2686225D825400AF15E4 /* pic124.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265D225D825300AF15E4 /* pic124.jpg */; };
 		B6CB2687225D825400AF15E4 /* pic113.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265E225D825400AF15E4 /* pic113.jpg */; };
-		B6CB2689225D82DD00AF15E4 /* LMImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB2688225D82DD00AF15E4 /* LMImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,11 +63,6 @@
 		B66836F12230BBB000E8875F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B66836F42230BBB000E8875F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B66836F62230BBB000E8875F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B66836FE2230BBEA00E8875F /* LMDialInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialInfo.swift; sourceTree = "<group>"; };
-		B66836FF2230BBEA00E8875F /* LMDialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialView.swift; sourceTree = "<group>"; };
-		B66837022235FDE200E8875F /* UIKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
-		B66837042236081C00E8875F /* LMDialViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMDialViewCell.swift; sourceTree = "<group>"; };
-		B66E2D8822545FE90028182A /* LMDialMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMDialMapper.swift; sourceTree = "<group>"; };
 		B6CB2636225D824F00AF15E4 /* pic131.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic131.jpg; sourceTree = "<group>"; };
 		B6CB2637225D824F00AF15E4 /* pic110.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic110.jpg; sourceTree = "<group>"; };
 		B6CB2638225D825000AF15E4 /* pic115.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic115.jpg; sourceTree = "<group>"; };
@@ -115,7 +104,6 @@
 		B6CB265C225D825300AF15E4 /* pic107.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic107.jpg; sourceTree = "<group>"; };
 		B6CB265D225D825300AF15E4 /* pic124.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic124.jpg; sourceTree = "<group>"; };
 		B6CB265E225D825400AF15E4 /* pic113.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic113.jpg; sourceTree = "<group>"; };
-		B6CB2688225D82DD00AF15E4 /* LMImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				B6CB2634225D81B300AF15E4 /* Resources */,
-				B66836FD2230BBE200E8875F /* LMDialView */,
 				B66836EA2230BBAD00E8875F /* AppDelegate.swift */,
 				B66836EC2230BBAE00E8875F /* ViewController.swift */,
 				B66836EE2230BBAE00E8875F /* Main.storyboard */,
@@ -158,27 +145,6 @@
 				B66836F62230BBB000E8875F /* Info.plist */,
 			);
 			path = "LMDialView-Example";
-			sourceTree = "<group>";
-		};
-		B66836FD2230BBE200E8875F /* LMDialView */ = {
-			isa = PBXGroup;
-			children = (
-				B66E2D8A22545FF50028182A /* Tools */,
-				B66836FF2230BBEA00E8875F /* LMDialView.swift */,
-				B66836FE2230BBEA00E8875F /* LMDialInfo.swift */,
-				B66837042236081C00E8875F /* LMDialViewCell.swift */,
-				B6CB2688225D82DD00AF15E4 /* LMImageCell.swift */,
-			);
-			path = LMDialView;
-			sourceTree = "<group>";
-		};
-		B66E2D8A22545FF50028182A /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				B66E2D8822545FE90028182A /* LMDialMapper.swift */,
-				B66837022235FDE200E8875F /* UIKit+Extension.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		B6CB2634225D81B300AF15E4 /* Resources */ = {
@@ -376,12 +342,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6CB2689225D82DD00AF15E4 /* LMImageCell.swift in Sources */,
-				B66837002230BBEA00E8875F /* LMDialInfo.swift in Sources */,
-				B66837012230BBEA00E8875F /* LMDialView.swift in Sources */,
-				B66E2D8922545FE90028182A /* LMDialMapper.swift in Sources */,
-				B66837032235FDE200E8875F /* UIKit+Extension.swift in Sources */,
-				B66837052236081C00E8875F /* LMDialViewCell.swift in Sources */,
 				B66836ED2230BBAE00E8875F /* ViewController.swift in Sources */,
 				B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */,
 			);
