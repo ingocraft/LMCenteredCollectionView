@@ -59,7 +59,6 @@
 		B6CB2686225D825400AF15E4 /* pic124.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265D225D825300AF15E4 /* pic124.jpg */; };
 		B6CB2687225D825400AF15E4 /* pic113.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265E225D825400AF15E4 /* pic113.jpg */; };
 		B6CB2689225D82DD00AF15E4 /* LMImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB2688225D82DD00AF15E4 /* LMImageCell.swift */; };
-		B6CB268B225DB7B600AF15E4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB268A225DB7B500AF15E4 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,7 +116,6 @@
 		B6CB265D225D825300AF15E4 /* pic124.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic124.jpg; sourceTree = "<group>"; };
 		B6CB265E225D825400AF15E4 /* pic113.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic113.jpg; sourceTree = "<group>"; };
 		B6CB2688225D82DD00AF15E4 /* LMImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMImageCell.swift; sourceTree = "<group>"; };
-		B6CB268A225DB7B500AF15E4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +156,6 @@
 				B66836F12230BBB000E8875F /* Assets.xcassets */,
 				B66836F32230BBB000E8875F /* LaunchScreen.storyboard */,
 				B66836F62230BBB000E8875F /* Info.plist */,
-				B6CB268A225DB7B500AF15E4 /* TestViewController.swift */,
 			);
 			path = "LMDialView-Example";
 			sourceTree = "<group>";
@@ -386,7 +383,6 @@
 				B66837032235FDE200E8875F /* UIKit+Extension.swift in Sources */,
 				B66837052236081C00E8875F /* LMDialViewCell.swift in Sources */,
 				B66836ED2230BBAE00E8875F /* ViewController.swift in Sources */,
-				B6CB268B225DB7B600AF15E4 /* TestViewController.swift in Sources */,
 				B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

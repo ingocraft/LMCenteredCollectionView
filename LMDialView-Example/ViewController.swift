@@ -36,30 +36,63 @@ extension ViewController: LMDialViewDelegate {
 }
 
 extension ViewController: SPIDialViewDataSource {
+//    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
+//        guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
+//            return LMImageCell()
+//        }
+//
+//        if index == 0 {
+//            cell.backgroundColor = UIColor.black
+//        } else {
+//            cell.backgroundColor = UIColor.lightGray
+//        }
+//
+//        return cell
+//    }
+//
+//    func dialViewItems(_ dialView: LMDialView) -> Int {
+//        return 50
+//    }
+//
+//    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+//        return CGSize(width: 200, height: 48)
+//    }
+//
+//    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+//        return 20
+//    }
+
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
         guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
             return LMImageCell()
         }
-        
-        let filePath = Bundle.main.path(forResource: animals[index], ofType: "jpg")!
-        let image = UIImage(contentsOfFile: filePath)
-        cell.imageView.image = image
+
+        DispatchQueue.global().async {
+            let fileName = self.animals[index] + ".jpg"
+            let image = UIImage(named: fileName)
+            DispatchQueue.main.async {
+                cell.imageView.image = image
+            }
+        }
         cell.label.text = String(index)
         cell.label.sizeToFit()
 
         return cell
     }
-    
+
     func dialViewItems(_ dialView: LMDialView) -> Int {
         return animals.count
     }
-    
+
     func dialViewSize(_ dialView: LMDialView) -> CGSize {
-        return CGSize(width: 64 * 2, height: 48 * 2)
+        let factor: CGFloat = 64.0 / 48.0
+        let width: CGFloat = 64 * 4
+        let height: CGFloat = width / factor
+        return CGSize(width: width, height: height)
     }
-    
+
     func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
-        return 20
+        return 10
     }
 }
 
