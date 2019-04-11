@@ -106,11 +106,8 @@ class LMDialView: UIView {
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
-//        layoutIfNeeded()
-//        self.seek(toDialIndex: 0, animated: false)
-        DispatchQueue.main.async {
-            self.seek(toDialIndex: 0, animated: false)
-        }
+        layoutIfNeeded()
+        seek(toDialIndex: 0, animated: false)
     }
 }
 
