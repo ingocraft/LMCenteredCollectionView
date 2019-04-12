@@ -16,22 +16,22 @@ class LMDialMapper {
         return cycleCount - 1
     }()
     
-    private let cellInterval: CGFloat
-    private let cellCount: Int
-    private let cellWidth: CGFloat
-    private let cycleCount: Int
-    private let viewWidth: CGFloat
+    let cellInterval: CGFloat
+    let cellCount: Int
+    let cellWidth: CGFloat
+    let cycleCount: Int
+    let viewWidth: CGFloat
     
-    private lazy var startIndex: Int = {
+    private(set) lazy var startIndex: Int = {
         return (cellCount - cycleCount) / 2
     }()
-    private lazy var endIndex: Int = {
+    private(set) lazy var endIndex: Int = {
         return startIndex + cycleCount - 1
     }()
-    private lazy var startOffsetX: CGFloat = {
+    private(set) lazy var startOffset: CGFloat = {
         return CGFloat(startIndex) * cellInterval - viewWidth / 2
     }()
-    private lazy var endOffsetX: CGFloat = {
+    private(set) lazy var endOffset: CGFloat = {
         return CGFloat(endIndex) * cellInterval - viewWidth / 2
     }()
 
@@ -62,11 +62,11 @@ extension LMDialMapper {
     }
     
     func dialOffsetFrom(scrollOffset: CGFloat) -> CGFloat {
-        return scrollOffset - startOffsetX
+        return scrollOffset - startOffset
     }
     
     func scrollOffsetFrom(dialOffset: CGFloat) -> CGFloat {
-        return dialOffset + startOffsetX
+        return dialOffset + startOffset
     }
 }
 

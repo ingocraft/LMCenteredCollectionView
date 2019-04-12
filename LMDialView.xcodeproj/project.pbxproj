@@ -13,7 +13,7 @@
 		B6CB26BD225F217D00AF15E4 /* LMDialMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B7225F217D00AF15E4 /* LMDialMapper.swift */; };
 		B6CB26BE225F217D00AF15E4 /* LMDialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B8225F217D00AF15E4 /* LMDialViewCell.swift */; };
 		B6CB26BF225F217D00AF15E4 /* LMDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B9225F217D00AF15E4 /* LMDialView.swift */; };
-		B6CB26C0225F217D00AF15E4 /* LMDialInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26BA225F217D00AF15E4 /* LMDialInfo.swift */; };
+		B6CB26C0225F217D00AF15E4 /* LMDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26BA225F217D00AF15E4 /* LMDialManager.swift */; };
 		B6CB26C4225F243C00AF15E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C3225F243C00AF15E4 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 		B6CB26B7225F217D00AF15E4 /* LMDialMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialMapper.swift; sourceTree = "<group>"; };
 		B6CB26B8225F217D00AF15E4 /* LMDialViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialViewCell.swift; sourceTree = "<group>"; };
 		B6CB26B9225F217D00AF15E4 /* LMDialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialView.swift; sourceTree = "<group>"; };
-		B6CB26BA225F217D00AF15E4 /* LMDialInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialInfo.swift; sourceTree = "<group>"; };
+		B6CB26BA225F217D00AF15E4 /* LMDialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMDialManager.swift; sourceTree = "<group>"; };
 		B6CB26C3225F243C00AF15E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				B6CB26B9225F217D00AF15E4 /* LMDialView.swift */,
-				B6CB26BA225F217D00AF15E4 /* LMDialInfo.swift */,
+				B6CB26BA225F217D00AF15E4 /* LMDialManager.swift */,
 				B6CB26B4225F217D00AF15E4 /* LMImageCell.swift */,
 				B6CB26B8225F217D00AF15E4 /* LMDialViewCell.swift */,
 				B6CB26B5225F217D00AF15E4 /* Tools */,
@@ -203,7 +203,7 @@
 			files = (
 				B6CB26BF225F217D00AF15E4 /* LMDialView.swift in Sources */,
 				B6CB26BC225F217D00AF15E4 /* UIKit+Extension.swift in Sources */,
-				B6CB26C0225F217D00AF15E4 /* LMDialInfo.swift in Sources */,
+				B6CB26C0225F217D00AF15E4 /* LMDialManager.swift in Sources */,
 				B6CB26BE225F217D00AF15E4 /* LMDialViewCell.swift in Sources */,
 				B6CB26BD225F217D00AF15E4 /* LMDialMapper.swift in Sources */,
 				B6CB26BB225F217D00AF15E4 /* LMImageCell.swift in Sources */,

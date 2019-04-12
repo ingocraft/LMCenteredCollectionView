@@ -43,8 +43,8 @@ open class LMDialView: UIView {
     // MARK: Properties
     open weak var delegate: LMDialViewDelegate?
     open weak var dataSource: LMDialViewDataSource?
-    private lazy var dialManager = LMDialManager()
 
+    private var dialManager: LMDialManager?
     private var collectionView: UICollectionView!
     private var indicatorLineView: UIView!
     private var containerView: UIView!
@@ -98,11 +98,11 @@ open class LMDialView: UIView {
             gradientContainerView()
         }
         
-        let cycleCellCount = dataSource?.dialViewItems(self) ?? 0
-        let cellWidth = dataSource?.dialViewSize(self).width ?? 0
-        let interSpace = dataSource?.dialViewInterSpace(self) ?? 0
+        let cycleCellCount = dataSource?.dialViewItems(self)
+        let cellWidth = dataSource?.dialViewSize(self).width
+        let interSpace = dataSource?.dialViewInterSpace(self)
         let viewWidth = frame.width
-        dialManager.update(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
+        dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
@@ -119,6 +119,7 @@ public extension LMDialView {
     ///   - index: The dial index.
     ///   - animated: Scroll animate.
     func seek(toDialIndex index: Int, animated: Bool = false) {
+        guard let dialManager = dialManager else { return }
         let dialOffset = dialManager.dialOffsetFrom(dialIndex: index)
         seek(toDialOffset: dialOffset, animated: animated)
     }
@@ -129,6 +130,7 @@ public extension LMDialView {
     ///   - offset: The dial content offset.
     ///   - animated: Scroll animate.
     func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
+        guard let dialManager = dialManager else { return }
         let scrollOffset = dialManager.middleScrollOffsetFrom(dialOffset: offset)
         collectionView.contentOffset = CGPoint(x: scrollOffset, y: 0)
     }
@@ -154,6 +156,7 @@ public extension LMDialView {
 // MARK: UIScrollViewDelegate
 extension LMDialView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let dialManager = dialManager else { return }
         let offsetX = scrollView.contentOffset.x
         let offsetXScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: offsetX)
 
@@ -179,12 +182,14 @@ extension LMDialView: UIScrollViewDelegate {
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard let dialManager = dialManager else { return }
         let scrollOffset = targetContentOffset.pointee.x
         let cloestScrollOffset = dialManager.cloestDividingLineOffsetX(from: scrollOffset)
         targetContentOffset.pointee.x = cloestScrollOffset
     }
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
 extension LMDialView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let size = dataSource?.dialViewSize(self) else {
@@ -213,15 +218,22 @@ extension LMDialView: UICollectionViewDelegate {
 // MARK: UICollectionViewDataSource
 extension LMDialView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let dialManager = dialManager else { return 0 }
         return dialManager.cellCount
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cellClass = cellClass as? LMDialViewCell.Type else {
+            assertionFailure("cell must be registed")
+            return UICollectionViewCell()
+        }
+        guard let dialManager = dialManager else { return cellClass.init() }
+        
         let dialIndex = dialManager.indexFromIndexPath(indexPath)
         let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
         guard let cell = dataSource?.dialView(self, scaleAt: cycleDialIndex) else {
             assertionFailure("dataSource must not be nil")
-            return LMDialViewCell()
+            return cellClass.init()
         }
         return cell
     }
