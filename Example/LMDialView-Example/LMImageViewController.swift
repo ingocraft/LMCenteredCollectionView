@@ -1,15 +1,15 @@
 //
-//  ViewController.swift
+//  LMImageViewController.swift
 //  LMDialView-Example
 //
-//  Created by Liam on 2019/3/7.
+//  Created by Liam on 2019/4/11.
 //  Copyright © 2019 Liam. All rights reserved.
 //
 
 import UIKit
 import LMDialView
 
-class ViewController: UIViewController {
+class LMImageViewController: UIViewController {
     
     private var randomColors = [UIColor]()
     private var animals = [String]()
@@ -18,17 +18,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         generateAnimals()
-        setupSubviews()
-    }
 
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+//            self.setupSubviews()
+//        }
+        
+        setupSubviews()
+
+    }
+    
 }
 
-extension ViewController: LMDialViewDelegate {
+extension LMImageViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
-//        print(index)
     }
     func dialView(_ dialView: LMDialView, offset: CGFloat) {
-//        print(offset)
     }
     func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
@@ -36,38 +40,38 @@ extension ViewController: LMDialViewDelegate {
     }
 }
 
-extension ViewController: SPIDialViewDataSource {
-//    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
-//        guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
-//            return LMImageCell()
-//        }
-//
-//        if index == 0 {
-//            cell.backgroundColor = UIColor.black
-//        } else {
-//            cell.backgroundColor = UIColor.lightGray
-//        }
-//
-//        return cell
-//    }
-//
-//    func dialViewItems(_ dialView: LMDialView) -> Int {
-//        return 50
-//    }
-//
-//    func dialViewSize(_ dialView: LMDialView) -> CGSize {
-//        return CGSize(width: 200, height: 48)
-//    }
-//
-//    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
-//        return 20
-//    }
-
+extension LMImageViewController: LMDialViewDataSource {
+    //    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
+    //        guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
+    //            return LMImageCell()
+    //        }
+    //
+    //        if index == 0 {
+    //            cell.backgroundColor = UIColor.black
+    //        } else {
+    //            cell.backgroundColor = UIColor.lightGray
+    //        }
+    //
+    //        return cell
+    //    }
+    //
+    //    func dialViewItems(_ dialView: LMDialView) -> Int {
+    //        return 50
+    //    }
+    //
+    //    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+    //        return CGSize(width: 200, height: 48)
+    //    }
+    //
+    //    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+    //        return 20
+    //    }
+    
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
         guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
             return LMImageCell()
         }
-
+        
         DispatchQueue.global().async {
             let fileName = self.animals[index] + ".jpg"
             let image = UIImage(named: fileName)
@@ -77,28 +81,28 @@ extension ViewController: SPIDialViewDataSource {
         }
         cell.label.text = String(index)
         cell.label.sizeToFit()
-
+        
         return cell
     }
-
+    
     func dialViewItems(_ dialView: LMDialView) -> Int {
         return animals.count
     }
-
+    
     func dialViewSize(_ dialView: LMDialView) -> CGSize {
         let factor: CGFloat = 64.0 / 48.0
         let width: CGFloat = 64 * 4
         let height: CGFloat = width / factor
         return CGSize(width: width, height: height)
     }
-
+    
     func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
         return 10
     }
 }
 
 // MARK: private
-private extension ViewController {
+private extension LMImageViewController {
     func generateRandomData() {
         for _ in 0...48 {
             let red = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
@@ -125,7 +129,7 @@ private extension ViewController {
 }
 
 // MARK: UI
-private extension ViewController {
+private extension LMImageViewController {
     func setupSubviews() {
         dialView = {
             let view = LMDialView()
@@ -143,7 +147,7 @@ private extension ViewController {
             dialView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dialView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             dialView.heightAnchor.constraint(equalToConstant: 200),
-            ]
+        ]
         NSLayoutConstraint.activate(constraints)
     }
 }

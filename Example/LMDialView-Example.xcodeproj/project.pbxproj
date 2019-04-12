@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836EA2230BBAD00E8875F /* AppDelegate.swift */; };
-		B66836ED2230BBAE00E8875F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836EC2230BBAE00E8875F /* ViewController.swift */; };
+		B66836ED2230BBAE00E8875F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836EC2230BBAE00E8875F /* MainViewController.swift */; };
 		B66836F02230BBAE00E8875F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836EE2230BBAE00E8875F /* Main.storyboard */; };
 		B66836F22230BBB000E8875F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B66836F12230BBB000E8875F /* Assets.xcassets */; };
 		B66836F52230BBB000E8875F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836F32230BBB000E8875F /* LaunchScreen.storyboard */; };
@@ -55,6 +55,7 @@
 		B6CB2687225D825400AF15E4 /* pic113.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265E225D825400AF15E4 /* pic113.jpg */; };
 		B6CB26CB225F2ABC00AF15E4 /* LMDialView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; };
 		B6CB26CC225F2ABC00AF15E4 /* LMDialView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B6CB26CF225F344800AF15E4 /* LMImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26CE225F344800AF15E4 /* LMImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,7 +75,7 @@
 /* Begin PBXFileReference section */
 		B66836E72230BBAD00E8875F /* LMDialView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMDialView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66836EA2230BBAD00E8875F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B66836EC2230BBAE00E8875F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B66836EC2230BBAE00E8875F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B66836EF2230BBAE00E8875F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B66836F12230BBB000E8875F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B66836F42230BBB000E8875F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 		B6CB265D225D825300AF15E4 /* pic124.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic124.jpg; sourceTree = "<group>"; };
 		B6CB265E225D825400AF15E4 /* pic113.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic113.jpg; sourceTree = "<group>"; };
 		B6CB26C6225F287A00AF15E4 /* LMDialView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LMDialView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6CB26CE225F344800AF15E4 /* LMImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +159,8 @@
 			children = (
 				B6CB2634225D81B300AF15E4 /* Resources */,
 				B66836EA2230BBAD00E8875F /* AppDelegate.swift */,
-				B66836EC2230BBAE00E8875F /* ViewController.swift */,
+				B66836EC2230BBAE00E8875F /* MainViewController.swift */,
+				B6CB26CE225F344800AF15E4 /* LMImageViewController.swift */,
 				B66836EE2230BBAE00E8875F /* Main.storyboard */,
 				B66836F12230BBB000E8875F /* Assets.xcassets */,
 				B66836F32230BBB000E8875F /* LaunchScreen.storyboard */,
@@ -370,7 +373,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B66836ED2230BBAE00E8875F /* ViewController.swift in Sources */,
+				B66836ED2230BBAE00E8875F /* MainViewController.swift in Sources */,
+				B6CB26CF225F344800AF15E4 /* LMImageViewController.swift in Sources */,
 				B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

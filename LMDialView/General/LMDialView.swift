@@ -23,7 +23,7 @@ import UIKit
     @objc optional func dialViewDidEndScroll(_ dialView: LMDialView)
 }
 
-public protocol SPIDialViewDataSource: class {
+public protocol LMDialViewDataSource: class {
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell
     func dialViewItems(_ dialView: LMDialView) -> Int
     func dialViewSize(_ dialView: LMDialView) -> CGSize
@@ -42,7 +42,7 @@ open class LMDialView: UIView {
     
     // MARK: Properties
     open weak var delegate: LMDialViewDelegate?
-    open weak var dataSource: SPIDialViewDataSource?
+    open weak var dataSource: LMDialViewDataSource?
     private lazy var dialManager = LMDialManager()
 
     private var collectionView: UICollectionView!
