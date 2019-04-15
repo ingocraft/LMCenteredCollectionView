@@ -40,6 +40,11 @@ public protocol LMDialViewDataSource: class {
  */
 open class LMDialView: UIView {
     
+    public enum DialDirection: Int {
+        case vertical
+        case horizontal
+    }
+
     // MARK: Properties
     open weak var delegate: LMDialViewDelegate?
     open weak var dataSource: LMDialViewDataSource?
@@ -51,6 +56,7 @@ open class LMDialView: UIView {
     private var latestIndex: Int = -1
     
     private var cellClass: AnyClass?
+    private var dialDirection: DialDirection = .horizontal
     
     var isGradient: Bool = false
     
@@ -82,12 +88,17 @@ open class LMDialView: UIView {
         return latestIndex
     }
 
-    public init() {
-        super.init(frame: CGRect.zero)
+    public init(frame: CGRect = CGRect.zero, dialDirection: DialDirection) {
+        self.dialDirection = dialDirection
+        super.init(frame: frame)
         setupSubviews()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    required public convenience init() {
+        self.init(frame: CGRect.zero, dialDirection: .horizontal)
+    }
+
+    required public  init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -132,7 +143,7 @@ public extension LMDialView {
     func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
         guard let dialManager = dialManager else { return }
         let scrollOffset = dialManager.middleScrollOffsetFrom(dialOffset: offset)
-        collectionView.contentOffset = CGPoint(x: scrollOffset, y: 0)
+        collectionView.contentOffset = assembleContentOffsetFrom(scrollOffset: scrollOffset)
     }
     
     func dequeueReusableCell(for index: Int) -> LMDialViewCell {
@@ -157,21 +168,22 @@ public extension LMDialView {
 extension LMDialView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let dialManager = dialManager else { return }
-        let offsetX = scrollView.contentOffset.x
-        let offsetXScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: offsetX)
+        let contentOffset = scrollView.contentOffset
+        let scrollOffset = disassembleContentOffset(contentOffset)
+        let offsetScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: scrollOffset)
 
-        let willScroll = offsetXScrollTo != offsetX
+        let willScroll = offsetScrollTo != scrollOffset
         if willScroll {
-            scrollView.contentOffset = CGPoint(x: offsetXScrollTo, y: 0)
+            scrollView.contentOffset = assembleContentOffsetFrom(scrollOffset: offsetScrollTo)
             return
         }
 
         // cycle dial offset
-        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetXScrollTo)
+        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
         delegate?.dialView?(self, offset: dialOffset)
 
         // dial index
-        let index = dialManager.calculateIndexFrom(scrollOffset: offsetXScrollTo)
+        let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.dialView?(self, at: index)
@@ -183,9 +195,10 @@ extension LMDialView: UIScrollViewDelegate {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let dialManager = dialManager else { return }
-        let scrollOffset = targetContentOffset.pointee.x
+        let contentOffset = targetContentOffset.pointee
+        let scrollOffset = disassembleContentOffset(contentOffset)
         let cloestScrollOffset = dialManager.cloestDividingLineOffsetX(from: scrollOffset)
-        targetContentOffset.pointee.x = cloestScrollOffset
+        targetContentOffset.pointee = assembleContentOffsetFrom(scrollOffset: cloestScrollOffset)
     }
 }
 
@@ -260,6 +273,28 @@ private extension LMDialView {
         gradient.endPoint = CGPoint(x: 1, y: 0)
         containerView.layer.mask = gradient
     }
+    
+    func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
+        let contentOffset: CGPoint
+        switch dialDirection {
+        case .horizontal:
+            contentOffset = CGPoint(x: scrollOffset, y: 0)
+        case .vertical:
+            contentOffset = CGPoint(x: 0, y: scrollOffset)
+        }
+        return contentOffset
+    }
+    
+    func disassembleContentOffset(_ contentOffset: CGPoint) -> CGFloat {
+        let scrollOffset: CGFloat
+        switch dialDirection {
+        case .horizontal:
+            scrollOffset = contentOffset.x
+        case .vertical:
+            scrollOffset = contentOffset.y
+        }
+        return scrollOffset
+    }
 }
 
 // MARK: UI
@@ -282,7 +317,13 @@ private extension LMDialView {
 
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
+            switch dialDirection {
+            case .horizontal:
+                layout.scrollDirection = .horizontal
+            case .vertical:
+                layout.scrollDirection = .vertical
+            }
+
             return layout
         }()
         
