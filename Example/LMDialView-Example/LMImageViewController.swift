@@ -31,6 +31,7 @@ class LMImageViewController: UIViewController {
 
 extension LMImageViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
+        print(index)
     }
     func dialView(_ dialView: LMDialView, offset: CGFloat) {
     }
@@ -131,8 +132,13 @@ private extension LMImageViewController {
 // MARK: UI
 private extension LMImageViewController {
     func setupSubviews() {
+        initHorizontalDialView()
+//        initVerticalDialView()
+    }
+    
+    func initHorizontalDialView() {
         dialView = {
-            let view = LMDialView()
+            let view = LMDialView(dialDirection: .horizontal)
             view.dataSource = self
             view.delegate = self
             view.register(LMImageCell.self)
@@ -147,6 +153,27 @@ private extension LMImageViewController {
             dialView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dialView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             dialView.heightAnchor.constraint(equalToConstant: 200),
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    func initVerticalDialView() {
+        dialView = {
+            let view = LMDialView(dialDirection: .vertical)
+            view.dataSource = self
+            view.delegate = self
+            view.register(LMImageCell.self)
+            return view
+        }()
+        
+        view.addSubview(dialView)
+
+        dialView.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            dialView.topAnchor.constraint(equalTo: view.topAnchor),
+            dialView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dialView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dialView.widthAnchor.constraint(equalToConstant: 300),
         ]
         NSLayoutConstraint.activate(constraints)
     }

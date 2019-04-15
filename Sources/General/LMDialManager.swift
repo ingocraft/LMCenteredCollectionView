@@ -10,9 +10,9 @@ import UIKit
 
 class LMDialManager {
     private(set) var cycleCellCount: Int = 50
-    private(set) var cellWidth: CGFloat = 40
+    private(set) var cellLength: CGFloat = 40
     private(set) var interSpace: CGFloat = 10
-    private(set) var viewWidth: CGFloat
+    private(set) var viewLength: CGFloat
 
     private var dialMapper: LMDialMapper!
     var cellCount: Int {
@@ -34,28 +34,28 @@ class LMDialManager {
         return dialMapper.cellInterval
     }
 
-    init(cycleCellCount: Int?, cellWidth: CGFloat?, interSpace: CGFloat?, viewWidth: CGFloat) {
+    init(cycleCellCount: Int?, cellLength: CGFloat?, interSpace: CGFloat?, viewLength: CGFloat) {
         if let cycleCellCount = cycleCellCount {
             self.cycleCellCount = cycleCellCount
         }
-        if let cellWidth = cellWidth {
-            self.cellWidth = cellWidth
+        if let cellLength = cellLength {
+            self.cellLength = cellLength
         }
         if let interSpace = interSpace {
             self.interSpace = interSpace
         }
-        self.viewWidth = viewWidth
+        self.viewLength = viewLength
 
         updateDialInfo(cycleCellCount: self.cycleCellCount,
-                       cellWidth: self.cellWidth,
+                       cellLength: self.cellLength,
                        interSpace: self.interSpace,
-                       viewWidth: self.viewWidth)
+                       viewLength: self.viewLength)
     }
 }
 
 // MARK: internal
 extension LMDialManager {
-    func update(cycleCellCount: Int?, cellWidth: CGFloat?, interSpace: CGFloat?, viewWidth: CGFloat?) {
+    func update(cycleCellCount: Int?, cellLength: CGFloat?, interSpace: CGFloat?, viewLength: CGFloat?) {
     }
 }
 
@@ -109,7 +109,7 @@ extension LMDialManager {
      */
     func calculateIndexFrom(scrollOffset: CGFloat) -> Int {
         let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
-        let offset = dialOffset - cellWidth / 2
+        let offset = dialOffset - cellLength / 2
         let floatDialIndex = offset / cellInterval
         var dialIndex = Int(floatDialIndex.rounded())
         if dialIndex == cycleCellCount {
@@ -120,7 +120,7 @@ extension LMDialManager {
     
     func middleScrollOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         let scrollOffset = dialMapper.scrollOffsetFrom(dialOffset: dialOffset)
-        let middleScrollOffset = scrollOffset + cellWidth / 2
+        let middleScrollOffset = scrollOffset + cellLength / 2
         return middleScrollOffset
     }
     
@@ -159,21 +159,21 @@ extension LMDialManager {
 
 // MARK: private
 private extension LMDialManager {
-    func updateDialInfo(cycleCellCount: Int, cellWidth: CGFloat, interSpace: CGFloat, viewWidth: CGFloat) {
-        let space = interSpace + cellWidth
+    func updateDialInfo(cycleCellCount: Int, cellLength: CGFloat, interSpace: CGFloat, viewLength: CGFloat) {
+        let space = interSpace + cellLength
 
         // calculate cell count
         /// cell's count in the given width
-        let cellsInWidth = Int(ceil(viewWidth / space))
+        let cellsInWidth = Int(ceil(viewLength / space))
         /// add two extra cell in case `floor` decrease cell's count
         let bias = 100
         let cellCount = cycleCellCount + cellsInWidth + bias
         
         dialMapper = LMDialMapper(cellInterval: space,
                                   cellCount: cellCount,
-                                  cellWidth: cellWidth,
+                                  cellLength: cellLength,
                                   cycleCount: cycleCellCount,
-                                  viewWidth: viewWidth)
+                                  viewLength: viewLength)
     }
 }
 
