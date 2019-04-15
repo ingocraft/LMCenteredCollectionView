@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.swift_version = "5.0"
   s.swift_versions = ["4.0", "4.2", "5.0"]
 
-  s.source       = { :git => "https://github.com/ingocraft/LMDialView.git", :tag => "v0.1.0" }
+  s.source       = { :git => "https://github.com/ingocraft/LMDialView.git", :tag => s.version }
 
   s.source_files  = ["Sources/**/*.swift", "Sources/LMDialView.h"]
   s.public_header_files = "Sources/LMDialView.h"
