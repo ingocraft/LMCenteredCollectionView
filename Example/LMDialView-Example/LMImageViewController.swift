@@ -31,6 +31,7 @@ class LMImageViewController: UIViewController {
 
 extension LMImageViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
+        print(index)
     }
     func dialView(_ dialView: LMDialView, offset: CGFloat) {
     }
@@ -158,7 +159,7 @@ private extension LMImageViewController {
     
     func initVerticalDialView() {
         dialView = {
-            let view = LMDialView(dialDirection: .horizontal)
+            let view = LMDialView(dialDirection: .vertical)
             view.dataSource = self
             view.delegate = self
             view.register(LMImageCell.self)
@@ -172,7 +173,7 @@ private extension LMImageViewController {
             dialView.topAnchor.constraint(equalTo: view.topAnchor),
             dialView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             dialView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dialView.widthAnchor.constraint(equalToConstant: 200),
+            dialView.widthAnchor.constraint(equalToConstant: 300),
         ]
         NSLayoutConstraint.activate(constraints)
     }

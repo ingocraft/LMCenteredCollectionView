@@ -110,10 +110,10 @@ open class LMDialView: UIView {
         }
         
         let cycleCellCount = dataSource?.dialViewItems(self)
-        let cellWidth = dataSource?.dialViewSize(self).width
+        let cellLength = cellLengthAccordingTo(direction: dialDirection)
         let interSpace = dataSource?.dialViewInterSpace(self)
-        let viewWidth = frame.width
-        dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellWidth: cellWidth, interSpace: interSpace, viewWidth: viewWidth)
+        let viewLength = viewLengthAccordingTo(dialDirection)
+        dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
@@ -294,6 +294,25 @@ private extension LMDialView {
             scrollOffset = contentOffset.y
         }
         return scrollOffset
+    }
+    
+    func viewLengthAccordingTo(_ direction: DialDirection) -> CGFloat {
+        switch direction {
+        case .horizontal:
+            return frame.width
+        case .vertical:
+            return frame.height
+        }
+    }
+    
+    func cellLengthAccordingTo(direction: DialDirection) -> CGFloat? {
+        guard let size = dataSource?.dialViewSize(self) else { return nil }
+        switch direction {
+        case .horizontal:
+            return size.width
+        case .vertical:
+            return size.height
+        }
     }
 }
 

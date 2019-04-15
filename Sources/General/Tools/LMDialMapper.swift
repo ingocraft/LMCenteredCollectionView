@@ -18,9 +18,9 @@ class LMDialMapper {
     
     let cellInterval: CGFloat
     let cellCount: Int
-    let cellWidth: CGFloat
+    let cellLength: CGFloat
     let cycleCount: Int
-    let viewWidth: CGFloat
+    let viewLength: CGFloat
     
     private(set) lazy var startIndex: Int = {
         return (cellCount - cycleCount) / 2
@@ -29,18 +29,18 @@ class LMDialMapper {
         return startIndex + cycleCount - 1
     }()
     private(set) lazy var startOffset: CGFloat = {
-        return CGFloat(startIndex) * cellInterval - viewWidth / 2
+        return CGFloat(startIndex) * cellInterval - viewLength / 2
     }()
     private(set) lazy var endOffset: CGFloat = {
-        return CGFloat(endIndex) * cellInterval - viewWidth / 2
+        return CGFloat(endIndex) * cellInterval - viewLength / 2
     }()
 
-    init(cellInterval: CGFloat, cellCount: Int, cellWidth: CGFloat, cycleCount: Int, viewWidth: CGFloat) {
+    init(cellInterval: CGFloat, cellCount: Int, cellLength: CGFloat, cycleCount: Int, viewLength: CGFloat) {
         self.cellInterval = cellInterval
         self.cellCount = cellCount
-        self.cellWidth = cellWidth
+        self.cellLength = cellLength
         self.cycleCount = cycleCount
-        self.viewWidth = viewWidth
+        self.viewLength = viewLength
     }
 }
 
@@ -110,9 +110,9 @@ extension LMDialMapper {
 
         let cloestOffsetX: CGFloat
         if distanceToPrev < distanceToNext {
-            cloestOffsetX = prevOffsetX + cellWidth / 2
+            cloestOffsetX = prevOffsetX + cellLength / 2
         } else {
-            cloestOffsetX = nextOffsetX + cellWidth / 2
+            cloestOffsetX = nextOffsetX + cellLength / 2
         }
         
         return scrollOffsetFrom(dialOffset: cloestOffsetX)
