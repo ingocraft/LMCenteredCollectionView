@@ -14,7 +14,7 @@ open class LMDialViewCell: UICollectionViewCell {
         super.init(frame: frame)
     }
     
-    convenience init() {
+    required convenience public init() {
         self.init(frame: CGRect.zero)
     }
     
