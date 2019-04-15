@@ -45,7 +45,7 @@
 		B6CB268C225F1F4900AF15E4 = {
 			isa = PBXGroup;
 			children = (
-				B6CB2698225F1F4900AF15E4 /* LMDialView */,
+				B6CB2698225F1F4900AF15E4 /* Sources */,
 				B6CB2697225F1F4900AF15E4 /* Products */,
 				B6CB26C2225F243B00AF15E4 /* Frameworks */,
 			);
@@ -59,7 +59,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B6CB2698225F1F4900AF15E4 /* LMDialView */ = {
+		B6CB2698225F1F4900AF15E4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				B6CB2699225F1F4900AF15E4 /* LMDialView.h */,
@@ -69,7 +69,7 @@
 				B6CB26A3225F20CF00AF15E4 /* Extension */,
 				B6CB26A2225F20CB00AF15E4 /* Views */,
 			);
-			path = LMDialView;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		B6CB26A2225F20CB00AF15E4 /* Views */ = {
