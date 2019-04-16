@@ -21,9 +21,20 @@ class DialViewController: UIViewController {
     }
 }
 
+// MARK: LMDialViewDelegate
+extension DialViewController: LMDialViewDelegate {
+    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+        return CGSize(width: 1, height: 20)
+    }
+    
+    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+        return 20
+    }
+}
+
 // MARK: LMDialViewDataSource
 extension DialViewController: LMDialViewDataSource {
-    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
+    func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
         let cell = dialView.dequeueReusableCell(for: index)
         if index == 0 {
             cell.backgroundColor = UIColor.black
@@ -33,16 +44,8 @@ extension DialViewController: LMDialViewDataSource {
         return cell
     }
     
-    func dialViewItems(_ dialView: LMDialView) -> Int {
+    func numberOfItems(in dialView: LMDialView) -> Int {
         return 50
-    }
-    
-    func dialViewSize(_ dialView: LMDialView) -> CGSize {
-        return CGSize(width: 1, height: 20)
-    }
-    
-    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
-        return 20
     }
 }
 
@@ -55,6 +58,7 @@ private extension DialViewController {
 private extension DialViewController {
     func setupPageSubviews() {
         dialView.dataSource = self
+        dialView.delegate = self
         dialView.register(LMDialViewCell.self)
     }
 }

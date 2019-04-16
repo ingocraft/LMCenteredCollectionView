@@ -8,6 +8,11 @@
 
 import UIKit
 
+@objc public protocol LMDialViewDataSource: class {
+    func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell
+    @objc optional func numberOfItems(in dialView: LMDialView) -> Int
+}
+
 @objc public protocol LMDialViewDelegate: class {
     
     /// Tell the delegate which index the dial has scroll to. Range from 0 to 47.
@@ -21,13 +26,9 @@ import UIKit
     
     /// Tell the delegate when the scroll stops scrolling completely.
     @objc optional func dialViewDidEndScroll(_ dialView: LMDialView)
-}
-
-public protocol LMDialViewDataSource: class {
-    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell
-    func dialViewItems(_ dialView: LMDialView) -> Int
-    func dialViewSize(_ dialView: LMDialView) -> CGSize
-    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat
+    
+    @objc optional func dialViewSize(_ dialView: LMDialView) -> CGSize
+    @objc optional func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat
 }
 
 /**
@@ -122,9 +123,9 @@ open class LMDialView: UIView {
             gradientContainerView()
         }
         
-        let cycleCellCount = dataSource?.dialViewItems(self)
+        let cycleCellCount = dataSource?.numberOfItems?(in: self)
         let cellLength = cellLengthAccordingTo(direction: dialDirection)
-        let interSpace = dataSource?.dialViewInterSpace(self)
+        let interSpace = delegate?.dialViewInterSpace?(self)
         let viewLength = viewLengthAccordingTo(dialDirection)
         dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
 
@@ -218,14 +219,14 @@ extension LMDialView: UIScrollViewDelegate {
 // MARK: UICollectionViewDelegateFlowLayout
 extension LMDialView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let size = dataSource?.dialViewSize(self) else {
+        guard let size = delegate?.dialViewSize?(self) else {
             return CGSize(width: 20, height: 20)
         }
         return size
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        guard let interSpace = dataSource?.dialViewInterSpace(self) else {
+        guard let interSpace = delegate?.dialViewInterSpace?(self) else {
             return 20
         }
         return interSpace
@@ -257,7 +258,7 @@ extension LMDialView: UICollectionViewDataSource {
         
         let dialIndex = dialManager.indexFromIndexPath(indexPath)
         let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
-        guard let cell = dataSource?.dialView(self, scaleAt: cycleDialIndex) else {
+        guard let cell = dataSource?.dialView(self, cellForItemAt: cycleDialIndex) else {
             assertionFailure("dataSource must not be nil")
             return cellClass.init()
         }
@@ -319,7 +320,7 @@ private extension LMDialView {
     }
     
     func cellLengthAccordingTo(direction: DialDirection) -> CGFloat? {
-        guard let size = dataSource?.dialViewSize(self) else { return nil }
+        guard let size = delegate?.dialViewSize?(self) else { return nil }
         switch direction {
         case .horizontal:
             return size.width

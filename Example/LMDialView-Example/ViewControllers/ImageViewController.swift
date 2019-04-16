@@ -40,10 +40,21 @@ extension ImageViewController: LMDialViewDelegate {
     }
     func dialViewDidEndScroll(_ dialView: LMDialView) {
     }
+    
+    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+        let factor: CGFloat = 64.0 / 48.0
+        let width: CGFloat = 64 * 4
+        let height: CGFloat = width / factor
+        return CGSize(width: width, height: height)
+    }
+    
+    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+        return 10
+    }
 }
 
 extension ImageViewController: LMDialViewDataSource {
-    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
+    func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
         guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
             return LMImageCell()
         }
@@ -57,19 +68,8 @@ extension ImageViewController: LMDialViewDataSource {
         return cell
     }
     
-    func dialViewItems(_ dialView: LMDialView) -> Int {
+    func numberOfItems(in dialView: LMDialView) -> Int {
         return animals.count
-    }
-    
-    func dialViewSize(_ dialView: LMDialView) -> CGSize {
-        let factor: CGFloat = 64.0 / 48.0
-        let width: CGFloat = 64 * 4
-        let height: CGFloat = width / factor
-        return CGSize(width: width, height: height)
-    }
-    
-    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
-        return 10
     }
 }
 
