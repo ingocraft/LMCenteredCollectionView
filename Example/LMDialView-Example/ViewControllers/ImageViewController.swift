@@ -31,24 +31,24 @@ class ImageViewController: UIViewController {
 }
 
 extension ImageViewController: LMDialViewDelegate {
-    func dialView(_ dialView: LMDialView, at index: Int) {
+    func dialView(_ dialView: LMDialView, didScrollToIndex index: Int) {
         print(index)
     }
-    func dialView(_ dialView: LMDialView, offset: CGFloat) {
+    func dialView(_ dialView: LMDialView, didScrollToOffset offset: CGFloat) {
     }
     func dialViewWillBeginDragging(_ dialView: LMDialView) {
     }
     func dialViewDidEndScroll(_ dialView: LMDialView) {
     }
     
-    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+    func sizeOfItems(in dialView: LMDialView) -> CGSize {
         let factor: CGFloat = 64.0 / 48.0
         let width: CGFloat = 64 * 4
         let height: CGFloat = width / factor
         return CGSize(width: width, height: height)
     }
     
-    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in dialView: LMDialView) -> CGFloat {
         return 10
     }
 }

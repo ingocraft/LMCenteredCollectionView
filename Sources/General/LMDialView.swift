@@ -8,27 +8,32 @@
 
 import UIKit
 
-@objc public protocol LMDialViewDataSource: class {
+public protocol LMDialViewDataSource: class {
+    /// Asks the data source for a cell to insert a paticular location of the dial view.
     func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell
-    @objc optional func numberOfItems(in dialView: LMDialView) -> Int
+    
+    /// Tells the data source to return the number of items.
+    func numberOfItems(in dialView: LMDialView) -> Int
 }
 
 @objc public protocol LMDialViewDelegate: class {
-    
-    /// Tell the delegate which index the dial has scroll to. Range from 0 to 47.
-    @objc optional func dialView(_ dialView: LMDialView, at index: Int)
-    
+    /// Tell the delegate which index the dial has scroll to.
+    @objc optional func dialView(_ dialView: LMDialView, didScrollToIndex index: Int)
+
     /// Tell the delegate when the user scrolls dial view within the receiver.
-    @objc optional func dialView(_ dialView: LMDialView, offset: CGFloat)
-    
+    @objc optional func dialView(_ dialView: LMDialView, didScrollToOffset offset: CGFloat)
+
     /// Tell the delegate when the scroll is about to start scroll the dial.
     @objc optional func dialViewWillBeginDragging(_ dialView: LMDialView)
     
     /// Tell the delegate when the scroll stops scrolling completely.
     @objc optional func dialViewDidEndScroll(_ dialView: LMDialView)
     
-    @objc optional func dialViewSize(_ dialView: LMDialView) -> CGSize
-    @objc optional func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat
+    /// Asks the delegate for the size of the specificd item's cell.
+    @objc optional func sizeOfItems(in dialView: LMDialView) -> CGSize
+
+    /// Asks the delegate for the interitem spacing between successive items.
+    @objc optional func interitemSpacingBetweenItems(in dialView: LMDialView) -> CGFloat
 }
 
 /**
@@ -123,9 +128,9 @@ open class LMDialView: UIView {
             gradientContainerView()
         }
         
-        let cycleCellCount = dataSource?.numberOfItems?(in: self)
+        let cycleCellCount = dataSource?.numberOfItems(in: self)
         let cellLength = cellLengthAccordingTo(direction: dialDirection)
-        let interSpace = delegate?.dialViewInterSpace?(self)
+        let interSpace = delegate?.interitemSpacingBetweenItems?(in: self)
         let viewLength = viewLengthAccordingTo(dialDirection)
         dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
 
@@ -194,13 +199,13 @@ extension LMDialView: UIScrollViewDelegate {
 
         // cycle dial offset
         let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
-        delegate?.dialView?(self, offset: dialOffset)
+        delegate?.dialView?(self, didScrollToOffset: dialOffset)
 
         // dial index
         let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
-        delegate?.dialView?(self, at: index)
+        delegate?.dialView?(self, didScrollToIndex: index)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -219,14 +224,14 @@ extension LMDialView: UIScrollViewDelegate {
 // MARK: UICollectionViewDelegateFlowLayout
 extension LMDialView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let size = delegate?.dialViewSize?(self) else {
+        guard let size = delegate?.sizeOfItems?(in: self) else {
             return CGSize(width: 20, height: 20)
         }
         return size
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        guard let interSpace = delegate?.dialViewInterSpace?(self) else {
+        guard let interSpace = delegate?.interitemSpacingBetweenItems?(in: self) else {
             return 20
         }
         return interSpace
@@ -320,7 +325,7 @@ private extension LMDialView {
     }
     
     func cellLengthAccordingTo(direction: DialDirection) -> CGFloat? {
-        guard let size = delegate?.dialViewSize?(self) else { return nil }
+        guard let size = delegate?.sizeOfItems?(in: self) else { return nil }
         switch direction {
         case .horizontal:
             return size.width

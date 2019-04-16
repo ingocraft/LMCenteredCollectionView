@@ -23,11 +23,11 @@ class DialViewController: UIViewController {
 
 // MARK: LMDialViewDelegate
 extension DialViewController: LMDialViewDelegate {
-    func dialViewSize(_ dialView: LMDialView) -> CGSize {
+    func sizeOfItems(in dialView: LMDialView) -> CGSize {
         return CGSize(width: 1, height: 20)
     }
     
-    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in dialView: LMDialView) -> CGFloat {
         return 20
     }
 }
