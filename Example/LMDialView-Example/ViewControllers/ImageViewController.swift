@@ -1,5 +1,5 @@
 //
-//  LMImageViewController.swift
+//  ImageViewController.swift
 //  LMDialView-Example
 //
 //  Created by Liam on 2019/4/11.
@@ -9,7 +9,7 @@
 import UIKit
 import LMDialView
 
-class LMImageViewController: UIViewController {
+class ImageViewController: UIViewController {
     
     private var randomColors = [UIColor]()
     private var animals = [String]()
@@ -17,6 +17,7 @@ class LMImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Images"
         generateAnimals()
 
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
@@ -29,7 +30,7 @@ class LMImageViewController: UIViewController {
     
 }
 
-extension LMImageViewController: LMDialViewDelegate {
+extension ImageViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, at index: Int) {
         print(index)
     }
@@ -41,45 +42,15 @@ extension LMImageViewController: LMDialViewDelegate {
     }
 }
 
-extension LMImageViewController: LMDialViewDataSource {
-    //    func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
-    //        guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
-    //            return LMImageCell()
-    //        }
-    //
-    //        if index == 0 {
-    //            cell.backgroundColor = UIColor.black
-    //        } else {
-    //            cell.backgroundColor = UIColor.lightGray
-    //        }
-    //
-    //        return cell
-    //    }
-    //
-    //    func dialViewItems(_ dialView: LMDialView) -> Int {
-    //        return 50
-    //    }
-    //
-    //    func dialViewSize(_ dialView: LMDialView) -> CGSize {
-    //        return CGSize(width: 200, height: 48)
-    //    }
-    //
-    //    func dialViewInterSpace(_ dialView: LMDialView) -> CGFloat {
-    //        return 20
-    //    }
-    
+extension ImageViewController: LMDialViewDataSource {
     func dialView(_ dialView: LMDialView, scaleAt index: Int) -> LMDialViewCell {
         guard let cell = dialView.dequeueReusableCell(for: index) as? LMImageCell else {
             return LMImageCell()
         }
         
-        DispatchQueue.global().async {
-            let fileName = self.animals[index] + ".jpg"
-            let image = UIImage(named: fileName)
-            DispatchQueue.main.async {
-                cell.imageView.image = image
-            }
-        }
+        let fileName = self.animals[index] + ".jpg"
+        let image = UIImage(named: fileName)
+        cell.imageView.image = image
         cell.label.text = String(index)
         cell.label.sizeToFit()
         
@@ -103,7 +74,7 @@ extension LMImageViewController: LMDialViewDataSource {
 }
 
 // MARK: private
-private extension LMImageViewController {
+private extension ImageViewController {
     func generateRandomData() {
         for _ in 0...48 {
             let red = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
@@ -130,10 +101,10 @@ private extension LMImageViewController {
 }
 
 // MARK: UI
-private extension LMImageViewController {
+private extension ImageViewController {
     func setupSubviews() {
-        initHorizontalDialView()
-//        initVerticalDialView()
+//        initHorizontalDialView()
+        initVerticalDialView()
     }
     
     func initHorizontalDialView() {

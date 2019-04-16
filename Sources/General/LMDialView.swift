@@ -41,8 +41,8 @@ public protocol LMDialViewDataSource: class {
 open class LMDialView: UIView {
     
     public enum DialDirection: Int {
-        case vertical
         case horizontal
+        case vertical
     }
 
     // MARK: Properties
@@ -56,8 +56,16 @@ open class LMDialView: UIView {
     private var latestIndex: Int = -1
     
     private var cellClass: AnyClass?
-    private var dialDirection: DialDirection = .horizontal
-    
+    private(set) var dialDirection: DialDirection = .horizontal
+    @IBInspectable private var dialDirectionAdapter: Int {
+        get {
+            return dialDirection.rawValue
+        }
+        set {
+            dialDirection = DialDirection(rawValue: newValue) ?? .horizontal
+        }
+    }
+
     var isGradient: Bool = false
     
     var bounces: Bool = true {
@@ -98,8 +106,13 @@ open class LMDialView: UIView {
         self.init(frame: CGRect.zero, dialDirection: .horizontal)
     }
 
-    required public  init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        setupSubviews()
     }
     
     override open func layoutSubviews() {

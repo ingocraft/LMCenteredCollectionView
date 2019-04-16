@@ -40,6 +40,9 @@
                                                 <constraint firstItem="mlO-IK-Yln" firstAttribute="centerY" secondItem="kdc-Xs-Yax" secondAttribute="centerY" id="laK-wf-EgE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ZWk-x2-KGo" kind="show" id="hPF-tY-iUS"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HnV-cI-Oqu">
                                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -86,10 +89,47 @@
             </objects>
             <point key="canvasLocation" x="-608" y="-340"/>
         </scene>
+        <!--Dial View Controller-->
+        <scene sceneID="Ten-iV-mpJ">
+            <objects>
+                <viewController id="ZWk-x2-KGo" customClass="DialViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r37-xF-3Ox">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBB-DY-eUB" customClass="LMDialView" customModule="LMDialView">
+                                <rect key="frame" x="0.0" y="300" width="414" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="CZc-qx-7wT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dialDirectionAdapter">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nBB-DY-eUB" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" id="9GM-GD-iqR"/>
+                            <constraint firstItem="nBB-DY-eUB" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="OA4-O1-OAD"/>
+                            <constraint firstItem="6Uf-aa-emk" firstAttribute="trailing" secondItem="nBB-DY-eUB" secondAttribute="trailing" id="YUO-O2-Fs4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
+                    </view>
+                    <connections>
+                        <outlet property="dialView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dcz-PL-gUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="187" y="-750"/>
+        </scene>
         <!--Image View Controller-->
         <scene sceneID="3cc-wd-4Ze">
             <objects>
-                <viewController id="R3Z-my-Pfp" customClass="LMImageViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="R3Z-my-Pfp" customClass="ImageViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nbs-Hf-cWb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
