@@ -55,12 +55,15 @@ open class LMDialView: UIView {
     open weak var delegate: LMDialViewDelegate?
     open weak var dataSource: LMDialViewDataSource?
 
-    private var dialManager: LMDialManager?
     private var collectionView: UICollectionView!
-    private var indicatorLineView: UIView!
     private var containerView: UIView!
+    
+    private var dialManager: LMDialManager?
     private var latestIndex: Int = -1
     
+    private(set) var itemSize = CGSize(width: 50, height: 50)
+    private(set) var interitemSpacing: CGFloat = 10.0
+
     private var cellClass: AnyClass?
     private(set) var dialDirection: DialDirection = .horizontal
     @IBInspectable private var dialDirectionAdapter: Int {
@@ -128,11 +131,12 @@ open class LMDialView: UIView {
             gradientContainerView()
         }
         
-        let cycleCellCount = dataSource?.numberOfItems(in: self)
-        let cellLength = cellLengthAccordingTo(direction: dialDirection)
-        let interSpace = delegate?.interitemSpacingBetweenItems?(in: self)
-        let viewLength = viewLengthAccordingTo(dialDirection)
-        dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
+        if let cycleCellCount = generateCycleCellCount() {
+            let cellLength = generateItemSize()
+            let interSpace = generateInteritemSpacing()
+            let viewLength = generateViewLength()
+            dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
+        }
 
         // collectionView will perform `layoutSubview()` after this function,
         // `seek()` works after collectionView updates its frames
@@ -315,8 +319,16 @@ private extension LMDialView {
         return scrollOffset
     }
     
-    func viewLengthAccordingTo(_ direction: DialDirection) -> CGFloat {
-        switch direction {
+    func generateCycleCellCount() -> Int? {
+        guard let cycleCellCount = dataSource?.numberOfItems(in: self), cycleCellCount > 0 else {
+            assertionFailure("dataSouce.numberOfitems(in:) must be greater than 0")
+            return nil
+        }
+        return cycleCellCount
+    }
+    
+    func generateViewLength() -> CGFloat {
+        switch dialDirection {
         case .horizontal:
             return frame.width
         case .vertical:
@@ -324,14 +336,23 @@ private extension LMDialView {
         }
     }
     
-    func cellLengthAccordingTo(direction: DialDirection) -> CGFloat? {
-        guard let size = delegate?.sizeOfItems?(in: self) else { return nil }
-        switch direction {
-        case .horizontal:
-            return size.width
-        case .vertical:
-            return size.height
+    func generateItemSize() -> CGFloat {
+        if let size = delegate?.sizeOfItems?(in: self) {
+            itemSize = size
         }
+        switch dialDirection {
+        case .horizontal:
+            return itemSize.width
+        case .vertical:
+            return itemSize.height
+        }
+    }
+    
+    func generateInteritemSpacing() -> CGFloat {
+        if let spacing = delegate?.interitemSpacingBetweenItems?(in: self) {
+            interitemSpacing = spacing
+        }
+        return interitemSpacing
     }
 }
 
@@ -339,13 +360,6 @@ private extension LMDialView {
 private extension LMDialView {
     func setupSubviews() {
         backgroundColor = UIColor.white
-        
-        indicatorLineView = {
-            let view = UIView()
-            view.backgroundColor = UIColor.black
-//            view.isHidden = true
-            return view
-        }()
         
         containerView = {
             let view = UIView()
@@ -369,7 +383,12 @@ private extension LMDialView {
             let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
             view.delegate = self
             view.dataSource = self
-            view.showsHorizontalScrollIndicator = false
+            switch dialDirection {
+            case .horizontal:
+                view.showsHorizontalScrollIndicator = false
+            case .vertical:
+                view.showsVerticalScrollIndicator = false
+            }
             view.backgroundColor = UIColor.clear
 
             return view
@@ -377,8 +396,7 @@ private extension LMDialView {
 
         addSubview(containerView)
         containerView.addSubview(collectionView)
-        containerView.addSubview(indicatorLineView)
-        
+
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -393,14 +411,6 @@ private extension LMDialView {
             collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            ])
-        
-        indicatorLineView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            indicatorLineView.widthAnchor.constraint(equalToConstant: 2.0),
-            indicatorLineView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            indicatorLineView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            indicatorLineView.heightAnchor.constraint(equalToConstant: 28),
             ])
     }
 }

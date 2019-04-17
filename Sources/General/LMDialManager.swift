@@ -9,9 +9,9 @@
 import UIKit
 
 class LMDialManager {
-    private(set) var cycleCellCount: Int = 50
-    private(set) var cellLength: CGFloat = 40
-    private(set) var interSpace: CGFloat = 10
+    private(set) var cycleCellCount: Int
+    private(set) var cellLength: CGFloat
+    private(set) var interitemSpacing: CGFloat
     private(set) var viewLength: CGFloat
 
     private var dialMapper: LMDialMapper!
@@ -34,22 +34,16 @@ class LMDialManager {
         return dialMapper.cellInterval
     }
 
-    init(cycleCellCount: Int?, cellLength: CGFloat?, interSpace: CGFloat?, viewLength: CGFloat) {
-        if let cycleCellCount = cycleCellCount {
-            self.cycleCellCount = cycleCellCount
-        }
-        if let cellLength = cellLength {
-            self.cellLength = cellLength
-        }
-        if let interSpace = interSpace {
-            self.interSpace = interSpace
-        }
+    init(cycleCellCount: Int, cellLength: CGFloat, interSpace: CGFloat, viewLength: CGFloat) {
+        self.cycleCellCount = cycleCellCount
+        self.cellLength = cellLength
+        self.interitemSpacing = interSpace
         self.viewLength = viewLength
 
-        updateDialInfo(cycleCellCount: self.cycleCellCount,
-                       cellLength: self.cellLength,
-                       interSpace: self.interSpace,
-                       viewLength: self.viewLength)
+        updateDialInfo(cycleCellCount: cycleCellCount,
+                       cellLength: cellLength,
+                       interSpace: interitemSpacing,
+                       viewLength: viewLength)
     }
 }
 
