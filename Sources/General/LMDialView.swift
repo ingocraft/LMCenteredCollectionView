@@ -187,24 +187,24 @@ public extension LMDialView {
     }
 }
 
-// MARK: UIScrollViewDelegate
-extension LMDialView: UIScrollViewDelegate {
+// MARK: UICollectionViewDelegate
+extension LMDialView: UICollectionViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let dialManager = dialManager else { return }
         let contentOffset = scrollView.contentOffset
         let scrollOffset = disassembleContentOffset(contentOffset)
         let offsetScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: scrollOffset)
-
+        
         let willScroll = offsetScrollTo != scrollOffset
         if willScroll {
             scrollView.contentOffset = assembleContentOffsetFrom(scrollOffset: offsetScrollTo)
             return
         }
-
+        
         // cycle dial offset
         let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
         delegate?.dialView?(self, didScrollToOffset: dialOffset)
-
+        
         // dial index
         let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
@@ -223,32 +223,6 @@ extension LMDialView: UIScrollViewDelegate {
         let cloestScrollOffset = dialManager.cloestDividingLineOffsetX(from: scrollOffset)
         targetContentOffset.pointee = assembleContentOffsetFrom(scrollOffset: cloestScrollOffset)
     }
-}
-
-// MARK: UICollectionViewDelegateFlowLayout
-extension LMDialView: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let size = delegate?.sizeOfItems?(in: self) else {
-            return CGSize(width: 20, height: 20)
-        }
-        return size
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        guard let interSpace = delegate?.interitemSpacingBetweenItems?(in: self) else {
-            return 20
-        }
-        return interSpace
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.greatestFiniteMagnitude
-    }
-}
-
-// MARK: UICollectionViewDelegate
-extension LMDialView: UICollectionViewDelegate {
-    
 }
 
 // MARK: UICollectionViewDataSource
@@ -274,6 +248,27 @@ extension LMDialView: UICollectionViewDataSource {
         return cell
     }
     
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+extension LMDialView: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let size = delegate?.sizeOfItems?(in: self) else {
+            return CGSize(width: 20, height: 20)
+        }
+        return size
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        guard let interSpace = delegate?.interitemSpacingBetweenItems?(in: self) else {
+            return 20
+        }
+        return interSpace
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.greatestFiniteMagnitude
+    }
 }
 
 // MARK: private
