@@ -56,8 +56,7 @@ open class LMDialView: UIView {
     open weak var dataSource: LMDialViewDataSource?
 
     private var collectionView: UICollectionView!
-    private var containerView: UIView!
-    
+
     private var dialManager: LMDialManager?
     private var latestIndex: Int = -1
     
@@ -75,32 +74,30 @@ open class LMDialView: UIView {
         }
     }
 
-    var isGradient: Bool = false
-    
     var bounces: Bool = true {
         didSet {
             collectionView.bounces = bounces
         }
     }
-    
+
     var isScrollEnabled: Bool = true {
         didSet {
             collectionView.isScrollEnabled = isScrollEnabled
         }
     }
-    
+
     var isTracking: Bool {
         return collectionView.isTracking
     }
-    
+
     var isDragging: Bool {
         return collectionView.isDragging
     }
-    
+
     var isDecelerating: Bool {
         return collectionView.isDecelerating
     }
-    
+
     var currentIndex: Int {
         return latestIndex
     }
@@ -126,10 +123,6 @@ open class LMDialView: UIView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
-        if isGradient {
-            gradientContainerView()
-        }
         
         if let cycleCellCount = generateCycleCellCount() {
             let cellLength = generateItemSize()
@@ -273,25 +266,6 @@ extension LMDialView: UICollectionViewDelegateFlowLayout {
 
 // MARK: private
 private extension LMDialView {
-    func gradientContainerView() {
-        let colors = [UIColor.black.withAlphaComponent(0.2).cgColor,
-                      UIColor.black.withAlphaComponent(0.4).cgColor,
-                      UIColor.black.withAlphaComponent(0.6).cgColor,
-                      UIColor.black.withAlphaComponent(0.8).cgColor,
-                      UIColor.black.withAlphaComponent(1.0).cgColor,
-                      UIColor.black.withAlphaComponent(0.8).cgColor,
-                      UIColor.black.withAlphaComponent(0.6).cgColor,
-                      UIColor.black.withAlphaComponent(0.4).cgColor,
-                      UIColor.black.withAlphaComponent(0.2).cgColor]
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = containerView.bounds
-        gradient.colors = colors
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 0)
-        containerView.layer.mask = gradient
-    }
-    
     func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
         let contentOffset: CGPoint
         switch dialDirection {
@@ -356,12 +330,6 @@ private extension LMDialView {
     func setupSubviews() {
         backgroundColor = UIColor.white
         
-        containerView = {
-            let view = UIView()
-            view.backgroundColor = UIColor.clear
-            return view
-        }()
-
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
             switch dialDirection {
@@ -389,23 +357,14 @@ private extension LMDialView {
             return view
         }()
 
-        addSubview(containerView)
-        containerView.addSubview(collectionView)
-
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            ])
+        addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
     }
 }
