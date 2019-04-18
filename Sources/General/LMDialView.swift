@@ -86,14 +86,17 @@ open class LMDialView: UIView {
         }
     }
 
+    /// Returns whether the user has touched the content to initiate scrolling.
     var isTracking: Bool {
         return collectionView.isTracking
     }
 
+    /// A Boolean value that indicates whether the user has begun scrolling the content.
     var isDragging: Bool {
         return collectionView.isDragging
     }
 
+    /// Returns whether the content is moving in the scroll view after the user lifted their finger.
     var isDecelerating: Bool {
         return collectionView.isDecelerating
     }
@@ -346,13 +349,14 @@ private extension LMDialView {
             let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
             view.delegate = self
             view.dataSource = self
+            view.scrollsToTop = false
+            view.backgroundColor = UIColor.clear
             switch dialDirection {
             case .horizontal:
                 view.showsHorizontalScrollIndicator = false
             case .vertical:
                 view.showsVerticalScrollIndicator = false
             }
-            view.backgroundColor = UIColor.clear
 
             return view
         }()
