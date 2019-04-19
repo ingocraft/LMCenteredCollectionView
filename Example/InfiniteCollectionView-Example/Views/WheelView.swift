@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LMDialView
+import InfiniteCollectionView
 
 class WheelView: UIView {
     

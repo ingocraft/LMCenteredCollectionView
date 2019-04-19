@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60228A122699B64001DEA32 /* InfiniteCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B602289822699AEF001DEA32 /* InfiniteCollectionView.framework */; };
+		B60228A222699B64001DEA32 /* InfiniteCollectionView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B602289822699AEF001DEA32 /* InfiniteCollectionView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B66836EB2230BBAD00E8875F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836EA2230BBAD00E8875F /* AppDelegate.swift */; };
 		B66836ED2230BBAE00E8875F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66836EC2230BBAE00E8875F /* MainViewController.swift */; };
 		B66836F02230BBAE00E8875F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66836EE2230BBAE00E8875F /* Main.storyboard */; };
@@ -56,19 +58,17 @@
 		B6CB2685225D825400AF15E4 /* pic107.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265C225D825300AF15E4 /* pic107.jpg */; };
 		B6CB2686225D825400AF15E4 /* pic124.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265D225D825300AF15E4 /* pic124.jpg */; };
 		B6CB2687225D825400AF15E4 /* pic113.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B6CB265E225D825400AF15E4 /* pic113.jpg */; };
-		B6CB26CB225F2ABC00AF15E4 /* LMDialView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; };
-		B6CB26CC225F2ABC00AF15E4 /* LMDialView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C6225F287A00AF15E4 /* LMDialView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B6CB26CF225F344800AF15E4 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26CE225F344800AF15E4 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B6CB26CD225F2ABC00AF15E4 /* Embed Frameworks */ = {
+		B60228A322699B64001DEA32 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B6CB26CC225F2ABC00AF15E4 /* LMDialView.framework in Embed Frameworks */,
+				B60228A222699B64001DEA32 /* InfiniteCollectionView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +76,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B66836E72230BBAD00E8875F /* LMDialView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMDialView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B602289822699AEF001DEA32 /* InfiniteCollectionView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InfiniteCollectionView.framework; path = "../../../Library/Developer/Xcode/DerivedData/LMDialView-futloyghfwicbbarkfwovnxgwowg/Build/Products/Debug-iphoneos/InfiniteCollectionView.framework"; sourceTree = "<group>"; };
+		B66836E72230BBAD00E8875F /* InfiniteCollectionView-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InfiniteCollectionView-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66836EA2230BBAD00E8875F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B66836EC2230BBAE00E8875F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B66836EF2230BBAE00E8875F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		B6CB265C225D825300AF15E4 /* pic107.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic107.jpg; sourceTree = "<group>"; };
 		B6CB265D225D825300AF15E4 /* pic124.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic124.jpg; sourceTree = "<group>"; };
 		B6CB265E225D825400AF15E4 /* pic113.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic113.jpg; sourceTree = "<group>"; };
-		B6CB26C6225F287A00AF15E4 /* LMDialView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LMDialView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CB26CE225F344800AF15E4 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6CB26CB225F2ABC00AF15E4 /* LMDialView.framework in Frameworks */,
+				B60228A122699B64001DEA32 /* InfiniteCollectionView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +146,7 @@
 		B66836DE2230BBAD00E8875F = {
 			isa = PBXGroup;
 			children = (
-				B66836E92230BBAD00E8875F /* LMDialView-Example */,
+				B66836E92230BBAD00E8875F /* InfiniteCollectionView-Example */,
 				B66836E82230BBAD00E8875F /* Products */,
 				B6CB26C5225F287A00AF15E4 /* Frameworks */,
 			);
@@ -155,12 +155,12 @@
 		B66836E82230BBAD00E8875F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B66836E72230BBAD00E8875F /* LMDialView-Example.app */,
+				B66836E72230BBAD00E8875F /* InfiniteCollectionView-Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B66836E92230BBAD00E8875F /* LMDialView-Example */ = {
+		B66836E92230BBAD00E8875F /* InfiniteCollectionView-Example */ = {
 			isa = PBXGroup;
 			children = (
 				B66836F62230BBB000E8875F /* Info.plist */,
@@ -172,7 +172,7 @@
 				B6CB2634225D81B300AF15E4 /* Resources */,
 				B66836F12230BBB000E8875F /* Assets.xcassets */,
 			);
-			path = "LMDialView-Example";
+			path = "InfiniteCollectionView-Example";
 			sourceTree = "<group>";
 		};
 		B6AB6A64226867D40039391A /* Views */ = {
@@ -253,7 +253,7 @@
 		B6CB26C5225F287A00AF15E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB26C6225F287A00AF15E4 /* LMDialView.framework */,
+				B602289822699AEF001DEA32 /* InfiniteCollectionView.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,23 +261,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B66836E62230BBAD00E8875F /* LMDialView-Example */ = {
+		B66836E62230BBAD00E8875F /* InfiniteCollectionView-Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B66836F92230BBB000E8875F /* Build configuration list for PBXNativeTarget "LMDialView-Example" */;
+			buildConfigurationList = B66836F92230BBB000E8875F /* Build configuration list for PBXNativeTarget "InfiniteCollectionView-Example" */;
 			buildPhases = (
 				B66836E32230BBAD00E8875F /* Sources */,
 				B66836E42230BBAD00E8875F /* Frameworks */,
 				B66836E52230BBAD00E8875F /* Resources */,
 				B61C4BC1223925F000FEE73F /* Integrate Reveal Server */,
-				B6CB26CD225F2ABC00AF15E4 /* Embed Frameworks */,
+				B60228A322699B64001DEA32 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "LMDialView-Example";
+			name = "InfiniteCollectionView-Example";
 			productName = "LMDialView-Example";
-			productReference = B66836E72230BBAD00E8875F /* LMDialView-Example.app */;
+			productReference = B66836E72230BBAD00E8875F /* InfiniteCollectionView-Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -300,7 +300,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B66836E22230BBAD00E8875F /* Build configuration list for PBXProject "LMDialView-Example" */;
+			buildConfigurationList = B66836E22230BBAD00E8875F /* Build configuration list for PBXProject "InfiniteCollectionView-Example" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -313,7 +313,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B66836E62230BBAD00E8875F /* LMDialView-Example */,
+				B66836E62230BBAD00E8875F /* InfiniteCollectionView-Example */,
 			);
 		};
 /* End PBXProject section */
@@ -551,7 +551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4X27Y8T4R4;
-				INFOPLIST_FILE = "LMDialView-Example/Info.plist";
+				INFOPLIST_FILE = "InfiniteCollectionView-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4X27Y8T4R4;
-				INFOPLIST_FILE = "LMDialView-Example/Info.plist";
+				INFOPLIST_FILE = "InfiniteCollectionView-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -586,7 +586,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B66836E22230BBAD00E8875F /* Build configuration list for PBXProject "LMDialView-Example" */ = {
+		B66836E22230BBAD00E8875F /* Build configuration list for PBXProject "InfiniteCollectionView-Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B66836F72230BBB000E8875F /* Debug */,
@@ -595,7 +595,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B66836F92230BBB000E8875F /* Build configuration list for PBXNativeTarget "LMDialView-Example" */ = {
+		B66836F92230BBB000E8875F /* Build configuration list for PBXNativeTarget "InfiniteCollectionView-Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B66836FA2230BBB000E8875F /* Debug */,

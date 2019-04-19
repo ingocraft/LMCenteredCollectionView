@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:LMDialView.xcodeproj">
+      location = "group:InfiniteCollectionView.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Example/LMDialView-Example.xcodeproj">
+      location = "group:/Users/ingo/iOS/InfiniteCollectionView/Example/InfiniteCollectionView-Example.xcodeproj">
    </FileRef>
 </Workspace>

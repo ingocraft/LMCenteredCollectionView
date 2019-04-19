@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B6CB2696225F1F4900AF15E4 /* LMDialView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMDialView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InfiniteCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CB2699225F1F4900AF15E4 /* LMDialView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMDialView.h; sourceTree = "<group>"; };
 		B6CB269A225F1F4900AF15E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6CB26B4225F217D00AF15E4 /* LMImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMImageCell.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		B6CB2697225F1F4900AF15E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB2696225F1F4900AF15E4 /* LMDialView.framework */,
+				B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,9 +136,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B6CB2695225F1F4900AF15E4 /* LMDialView */ = {
+		B6CB2695225F1F4900AF15E4 /* InfiniteCollectionView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMDialView" */;
+			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "InfiniteCollectionView" */;
 			buildPhases = (
 				B6CB2691225F1F4900AF15E4 /* Headers */,
 				B6CB2692225F1F4900AF15E4 /* Sources */,
@@ -149,9 +149,9 @@
 			);
 			dependencies = (
 			);
-			name = LMDialView;
+			name = InfiniteCollectionView;
 			productName = LMDialView;
-			productReference = B6CB2696225F1F4900AF15E4 /* LMDialView.framework */;
+			productReference = B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -169,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMDialView" */;
+			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "InfiniteCollectionView" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -181,7 +181,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B6CB2695225F1F4900AF15E4 /* LMDialView */,
+				B6CB2695225F1F4900AF15E4 /* InfiniteCollectionView */,
 			);
 		};
 /* End PBXProject section */
@@ -401,7 +401,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMDialView" */ = {
+		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "InfiniteCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269C225F1F4900AF15E4 /* Debug */,
@@ -410,7 +410,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMDialView" */ = {
+		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "InfiniteCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269F225F1F4900AF15E4 /* Debug */,
