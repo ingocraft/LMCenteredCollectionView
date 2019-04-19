@@ -171,14 +171,14 @@
 		B6D1BA5A2269AE0400F6BD76 /* LMCollectionView-Example */ = {
 			isa = PBXGroup;
 			children = (
-				B6D1BA5B2269AE0400F6BD76 /* Resources */,
-				B6D1BA862269AE0400F6BD76 /* Assets.xcassets */,
+				B6D1BA8F2269AE0400F6BD76 /* AppDelegate.swift */,
 				B6D1BA872269AE0400F6BD76 /* LaunchScreen.storyboard */,
 				B6D1BA892269AE0400F6BD76 /* Main.storyboard */,
-				B6D1BA8B2269AE0400F6BD76 /* ViewControllers */,
-				B6D1BA8F2269AE0400F6BD76 /* AppDelegate.swift */,
-				B6D1BA902269AE0400F6BD76 /* Views */,
 				B6D1BA932269AE0400F6BD76 /* Info.plist */,
+				B6D1BA862269AE0400F6BD76 /* Assets.xcassets */,
+				B6D1BA8B2269AE0400F6BD76 /* ViewControllers */,
+				B6D1BA902269AE0400F6BD76 /* Views */,
+				B6D1BA5B2269AE0400F6BD76 /* Resources */,
 			);
 			path = "LMCollectionView-Example";
 			sourceTree = "<group>";
