@@ -22,7 +22,7 @@ class DialViewController: UIViewController {
     }
 }
 
-// MARK: LMDialViewDelegate
+// MARK: InfiniteCollectionViewDelegate
 extension DialViewController: InfiniteCollectionViewDelegate {
     func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
         return CGSize(width: 1, height: 20)
@@ -33,7 +33,7 @@ extension DialViewController: InfiniteCollectionViewDelegate {
     }
 }
 
-// MARK: LMDialViewDataSource
+// MARK: InfiniteCollectionViewDataSource
 extension DialViewController: InfiniteCollectionViewDataSource {
     func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
         let cell = infiniteView.dequeueReusableCell(for: index)

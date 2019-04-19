@@ -57,7 +57,7 @@ open class InfiniteCollectionView: UIView {
 
     private var collectionView: UICollectionView!
 
-    private var dialManager: LMDialManager?
+    private var dialManager: InfiniteCollectionViewManager?
     private var latestIndex: Int = -1
     
     private(set) var itemSize = CGSize(width: 50, height: 50)
@@ -131,7 +131,7 @@ open class InfiniteCollectionView: UIView {
             let cellLength = generateItemSize()
             let interSpace = generateInteritemSpacing()
             let viewLength = generateViewLength()
-            dialManager = LMDialManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
+            dialManager = InfiniteCollectionViewManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
         }
 
         // collectionView will perform `layoutSubview()` after this function,
@@ -169,7 +169,7 @@ public extension InfiniteCollectionView {
         let indexPath = IndexPath(item: index, section: 0)
         guard let cellClass = cellClass,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? InfiniteCollectionViewCell else {
-            assertionFailure("Cell must be LMDialViewCell")
+            assertionFailure("Cell must be InfiniteCollectionViewCell")
             return InfiniteCollectionViewCell()
         }
         

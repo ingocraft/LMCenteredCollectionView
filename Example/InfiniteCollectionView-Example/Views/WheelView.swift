@@ -1,6 +1,6 @@
 //
 //  WheelView.swift
-//  LMDialView-Example
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/18.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -29,7 +29,7 @@ class WheelView: UIView {
 
 }
 
-// MARK: LMDialViewDelegate
+// MARK: InfiniteCollectionViewDelegate
 extension WheelView: InfiniteCollectionViewDelegate {
     func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
         return 10
@@ -40,7 +40,7 @@ extension WheelView: InfiniteCollectionViewDelegate {
     }
 }
 
-// MARK: LMDialViewDataSource
+// MARK: InfiniteCollectionViewDataSource
 extension WheelView: InfiniteCollectionViewDataSource {
     func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
         return 50

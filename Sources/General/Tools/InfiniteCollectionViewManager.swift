@@ -1,5 +1,5 @@
 //
-//  LMDialManager.swift
+//  InfiniteCollectionViewManager.swift
 //  InfiniteCollectionView
 //
 //  Created by Liam on 2019/3/5.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class LMDialManager {
+class InfiniteCollectionViewManager {
     private(set) var cycleCellCount: Int
     private(set) var cellLength: CGFloat
     private(set) var interitemSpacing: CGFloat
     private(set) var viewLength: CGFloat
 
-    private var dialMapper: LMDialMapper!
+    private var dialMapper: InfiniteCollectionViewMapper!
     var cellCount: Int {
         return dialMapper.cellCount
     }
@@ -48,13 +48,13 @@ class LMDialManager {
 }
 
 // MARK: internal
-extension LMDialManager {
+extension InfiniteCollectionViewManager {
     func update(cycleCellCount: Int?, cellLength: CGFloat?, interSpace: CGFloat?, viewLength: CGFloat?) {
     }
 }
 
 // MARK: internal
-extension LMDialManager {
+extension InfiniteCollectionViewManager {
     func indexFromIndexPath(_ indexPath: IndexPath) -> Int {
         let item = indexPath.item
         if item < startIndex {
@@ -129,7 +129,7 @@ extension LMDialManager {
     }
 }
 
-extension LMDialManager {
+extension InfiniteCollectionViewManager {
     func scrollOffsetFrom(scrollIndex: Int) -> CGFloat {
         return dialMapper.scrollOffsetFrom(scrollIndex: scrollIndex)
     }
@@ -152,7 +152,7 @@ extension LMDialManager {
 }
 
 // MARK: private
-private extension LMDialManager {
+private extension InfiniteCollectionViewManager {
     func updateDialInfo(cycleCellCount: Int, cellLength: CGFloat, interSpace: CGFloat, viewLength: CGFloat) {
         let space = interSpace + cellLength
 
@@ -166,7 +166,7 @@ private extension LMDialManager {
         let bias = 100
         let cellCount = cycleCellCount + cellsInWidth + bias
         
-        dialMapper = LMDialMapper(cellInterval: space,
+        dialMapper = InfiniteCollectionViewMapper(cellInterval: space,
                                   cellCount: cellCount,
                                   cellLength: cellLength,
                                   cycleCount: cycleCellCount,

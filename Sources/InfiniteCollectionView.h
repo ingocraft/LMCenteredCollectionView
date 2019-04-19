@@ -1,0 +1,18 @@
+//
+//  InfiniteCollectionView.h
+//  InfiniteCollectionView
+//
+//  Created by Liam on 2019/4/11.
+//  Copyright © 2019 Liam. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+//! Project version number for InfiniteCollectionView.
+FOUNDATION_EXPORT double InfiniteCollectionViewVersionNumber;
+
+//! Project version string for InfiniteCollectionView.
+FOUNDATION_EXPORT const unsigned char InfiniteCollectionViewVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <InfiniteCollectionView/PublicHeader.h>
+
