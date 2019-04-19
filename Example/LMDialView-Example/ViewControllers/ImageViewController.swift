@@ -19,11 +19,6 @@ class ImageViewController: UIViewController {
         super.viewDidLoad()
         title = "Images"
         generateAnimals()
-
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-//            self.setupSubviews()
-//        }
-        
         setupSubviews()
 
     }
@@ -32,7 +27,7 @@ class ImageViewController: UIViewController {
 
 extension ImageViewController: LMDialViewDelegate {
     func dialView(_ dialView: LMDialView, didScrollToIndex index: Int) {
-        print(index)
+//        print(index)
     }
     func dialView(_ dialView: LMDialView, didScrollToOffset offset: CGFloat) {
     }
@@ -103,8 +98,8 @@ private extension ImageViewController {
 // MARK: UI
 private extension ImageViewController {
     func setupSubviews() {
-//        initHorizontalDialView()
-        initVerticalDialView()
+        initHorizontalDialView()
+//        initVerticalDialView()
     }
     
     func initHorizontalDialView() {

@@ -109,17 +109,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-0p-2r4" customClass="WheelView" customModule="LMDialView_Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="414" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="s96-Id-6hf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZxG-0p-2r4" firstAttribute="top" secondItem="6Uf-aa-emk" secondAttribute="top" id="90S-No-rvw"/>
                             <constraint firstItem="nBB-DY-eUB" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" id="9GM-GD-iqR"/>
                             <constraint firstItem="nBB-DY-eUB" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="OA4-O1-OAD"/>
+                            <constraint firstItem="6Uf-aa-emk" firstAttribute="trailing" secondItem="ZxG-0p-2r4" secondAttribute="trailing" id="Ozz-9p-haV"/>
+                            <constraint firstItem="ZxG-0p-2r4" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" id="QDP-Pp-j49"/>
                             <constraint firstItem="6Uf-aa-emk" firstAttribute="trailing" secondItem="nBB-DY-eUB" secondAttribute="trailing" id="YUO-O2-Fs4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
                     </view>
                     <connections>
                         <outlet property="dialView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
+                        <outlet property="wheelView" destination="ZxG-0p-2r4" id="D6x-G6-W3O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcz-PL-gUT" userLabel="First Responder" sceneMemberID="firstResponder"/>

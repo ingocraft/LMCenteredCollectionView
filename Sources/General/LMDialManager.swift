@@ -159,7 +159,10 @@ private extension LMDialManager {
         // calculate cell count
         /// cell's count in the given width
         let cellsInWidth = Int(ceil(viewLength / space))
-        /// add two extra cell in case `floor` decrease cell's count
+        /// If scroll very fast, `targetContentOffset` will be more than max content offset
+        /// or less than zero content offset which will lead position mistake.
+        /// I did a simple test, when I scroll very fast, the max `targetContentOffset` will be about 70 multiples of space
+        /// That's why `bias` is 100.
         let bias = 100
         let cellCount = cycleCellCount + cellsInWidth + bias
         

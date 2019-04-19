@@ -11,6 +11,7 @@ import LMDialView
 
 class DialViewController: UIViewController {
 
+    @IBOutlet weak var wheelView: WheelView!
     @IBOutlet weak var dialView: LMDialView!
     
     // MARK: life cycle
