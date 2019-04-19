@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LMCollectionView
+import LMCenteredCollectionView
 
 class WheelView: UIView {
     

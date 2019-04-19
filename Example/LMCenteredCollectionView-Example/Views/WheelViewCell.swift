@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LMCollectionView
+import LMCenteredCollectionView
 
 class WheelViewCell: InfiniteCollectionViewCell {
     var numberLabel: UILabel!

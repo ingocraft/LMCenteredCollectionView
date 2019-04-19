@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B6CB269B225F1F4900AF15E4 /* InfiniteCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CB2699225F1F4900AF15E4 /* InfiniteCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B6CB269B225F1F4900AF15E4 /* LMCenteredCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CB2699225F1F4900AF15E4 /* LMCenteredCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B6CB26BB225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */; };
 		B6CB26BC225F217D00AF15E4 /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B6225F217D00AF15E4 /* UIKit+Extension.swift */; };
 		B6CB26BD225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B7225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift */; };
@@ -18,8 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6CB2699225F1F4900AF15E4 /* InfiniteCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteCollectionView.h; sourceTree = "<group>"; };
+		B6CB2696225F1F4900AF15E4 /* LMCenteredCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMCenteredCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6CB2699225F1F4900AF15E4 /* LMCenteredCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMCenteredCollectionView.h; sourceTree = "<group>"; };
 		B6CB269A225F1F4900AF15E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewImageCell.swift; sourceTree = "<group>"; };
 		B6CB26B6225F217D00AF15E4 /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		B6CB2697225F1F4900AF15E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */,
+				B6CB2696225F1F4900AF15E4 /* LMCenteredCollectionView.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,7 +62,7 @@
 		B6CB2698225F1F4900AF15E4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB2699225F1F4900AF15E4 /* InfiniteCollectionView.h */,
+				B6CB2699225F1F4900AF15E4 /* LMCenteredCollectionView.h */,
 				B6CB269A225F1F4900AF15E4 /* Info.plist */,
 				B6CB26B3225F217D00AF15E4 /* General */,
 			);
@@ -113,16 +113,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6CB269B225F1F4900AF15E4 /* InfiniteCollectionView.h in Headers */,
+				B6CB269B225F1F4900AF15E4 /* LMCenteredCollectionView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B6CB2695225F1F4900AF15E4 /* LMCollectionView */ = {
+		B6CB2695225F1F4900AF15E4 /* LMCenteredCollectionView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCollectionView" */;
+			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCenteredCollectionView" */;
 			buildPhases = (
 				B6CB2691225F1F4900AF15E4 /* Headers */,
 				B6CB2692225F1F4900AF15E4 /* Sources */,
@@ -133,9 +133,9 @@
 			);
 			dependencies = (
 			);
-			name = LMCollectionView;
+			name = LMCenteredCollectionView;
 			productName = LMDialView;
-			productReference = B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */;
+			productReference = B6CB2696225F1F4900AF15E4 /* LMCenteredCollectionView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -153,7 +153,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCollectionView" */;
+			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCenteredCollectionView" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -165,7 +165,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B6CB2695225F1F4900AF15E4 /* LMCollectionView */,
+				B6CB2695225F1F4900AF15E4 /* LMCenteredCollectionView */,
 			);
 		};
 /* End PBXProject section */
@@ -341,7 +341,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCollectionView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCenteredCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = debugging;
@@ -373,7 +373,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCollectionView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCenteredCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = debugging;
@@ -385,7 +385,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCollectionView" */ = {
+		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCenteredCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269C225F1F4900AF15E4 /* Debug */,
@@ -394,7 +394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCollectionView" */ = {
+		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCenteredCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269F225F1F4900AF15E4 /* Debug */,
