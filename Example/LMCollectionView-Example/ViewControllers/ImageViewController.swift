@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import InfiniteCollectionView
+import LMCollectionView
 
 class ImageViewController: UIViewController {
     

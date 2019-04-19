@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InfiniteCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CB2699225F1F4900AF15E4 /* InfiniteCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteCollectionView.h; sourceTree = "<group>"; };
 		B6CB269A225F1F4900AF15E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewImageCell.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		B6CB2697225F1F4900AF15E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */,
+				B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,9 +120,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B6CB2695225F1F4900AF15E4 /* InfiniteCollectionView */ = {
+		B6CB2695225F1F4900AF15E4 /* LMCollectionView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "InfiniteCollectionView" */;
+			buildConfigurationList = B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCollectionView" */;
 			buildPhases = (
 				B6CB2691225F1F4900AF15E4 /* Headers */,
 				B6CB2692225F1F4900AF15E4 /* Sources */,
@@ -133,9 +133,9 @@
 			);
 			dependencies = (
 			);
-			name = InfiniteCollectionView;
+			name = LMCollectionView;
 			productName = LMDialView;
-			productReference = B6CB2696225F1F4900AF15E4 /* InfiniteCollectionView.framework */;
+			productReference = B6CB2696225F1F4900AF15E4 /* LMCollectionView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -153,7 +153,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "InfiniteCollectionView" */;
+			buildConfigurationList = B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCollectionView" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -165,7 +165,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B6CB2695225F1F4900AF15E4 /* InfiniteCollectionView */,
+				B6CB2695225F1F4900AF15E4 /* LMCollectionView */,
 			);
 		};
 /* End PBXProject section */
@@ -341,7 +341,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liam.InfiniteCollectionView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = debugging;
@@ -373,7 +373,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liam.InfiniteCollectionView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liam.LMCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = debugging;
@@ -385,7 +385,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "InfiniteCollectionView" */ = {
+		B6CB2690225F1F4900AF15E4 /* Build configuration list for PBXProject "LMCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269C225F1F4900AF15E4 /* Debug */,
@@ -394,7 +394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "InfiniteCollectionView" */ = {
+		B6CB269E225F1F4900AF15E4 /* Build configuration list for PBXNativeTarget "LMCollectionView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6CB269F225F1F4900AF15E4 /* Debug */,
