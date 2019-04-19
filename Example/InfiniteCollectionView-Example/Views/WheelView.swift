@@ -11,7 +11,7 @@ import InfiniteCollectionView
 
 class WheelView: UIView {
     
-    private var dialView: LMDialView!
+    private var infiniteView: LMDialView!
     
     init() {
         super.init(frame: CGRect.zero)
@@ -31,23 +31,23 @@ class WheelView: UIView {
 
 // MARK: LMDialViewDelegate
 extension WheelView: LMDialViewDelegate {
-    func interitemSpacingBetweenItems(in dialView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat {
         return 10
     }
     
-    func sizeOfItems(in dialView: LMDialView) -> CGSize {
+    func sizeOfItems(in infiniteView: LMDialView) -> CGSize {
         return CGSize(width: 50, height: 50)
     }
 }
 
 // MARK: LMDialViewDataSource
 extension WheelView: LMDialViewDataSource {
-    func numberOfItems(in dialView: LMDialView) -> Int {
+    func numberOfItems(in infiniteView: LMDialView) -> Int {
         return 50
     }
     
-    func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
-        guard let cell = dialView.dequeueReusableCell(for: index) as? WheelViewCell else {
+    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
+        guard let cell = infiniteView.dequeueReusableCell(for: index) as? WheelViewCell else {
             return WheelViewCell()
         }
         cell.numberLabel.text = "\(index)"
@@ -60,7 +60,7 @@ extension WheelView: LMDialViewDataSource {
 private extension WheelView {
     func setupSubviews() {
         // init
-        dialView = {
+        infiniteView = {
             let view = LMDialView()
             view.delegate = self
             view.dataSource = self
@@ -69,17 +69,17 @@ private extension WheelView {
         }()
         
         // add
-        addSubview(dialView)
+        addSubview(infiniteView)
         
         // layout
-        dialView.translatesAutoresizingMaskIntoConstraints = false
+        infiniteView.translatesAutoresizingMaskIntoConstraints = false
         
         var constraints = [NSLayoutConstraint]()
         constraints += [
-            dialView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dialView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            dialView.topAnchor.constraint(equalTo: topAnchor),
-            dialView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            infiniteView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            infiniteView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            infiniteView.topAnchor.constraint(equalTo: topAnchor),
+            infiniteView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }

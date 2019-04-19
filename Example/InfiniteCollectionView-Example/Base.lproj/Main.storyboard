@@ -13,7 +13,7 @@
         <!--Main-->
         <scene sceneID="3Kb-F6-v4J">
             <objects>
-                <tableViewController id="5nk-Dv-AjQ" customClass="MainViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="5nk-Dv-AjQ" customClass="MainViewController" customModule="InfiniteCollectionView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1nT-Hc-H37">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,7 +92,7 @@
         <!--Dial View Controller-->
         <scene sceneID="Ten-iV-mpJ">
             <objects>
-                <viewController id="ZWk-x2-KGo" customClass="DialViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZWk-x2-KGo" customClass="DialViewController" customModule="InfiniteCollectionView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r37-xF-3Ox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -109,7 +109,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-0p-2r4" customClass="WheelView" customModule="LMDialView_Example" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-0p-2r4" customClass="WheelView" customModule="InfiniteCollectionView_Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="414" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -129,7 +129,7 @@
                         <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
                     </view>
                     <connections>
-                        <outlet property="dialView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
+                        <outlet property="infiniteView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
                         <outlet property="wheelView" destination="ZxG-0p-2r4" id="D6x-G6-W3O"/>
                     </connections>
                 </viewController>
@@ -140,7 +140,7 @@
         <!--Image View Controller-->
         <scene sceneID="3cc-wd-4Ze">
             <objects>
-                <viewController id="R3Z-my-Pfp" customClass="ImageViewController" customModule="LMDialView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="R3Z-my-Pfp" customClass="ImageViewController" customModule="InfiniteCollectionView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nbs-Hf-cWb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

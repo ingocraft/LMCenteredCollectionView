@@ -12,7 +12,7 @@ import InfiniteCollectionView
 class DialViewController: UIViewController {
 
     @IBOutlet weak var wheelView: WheelView!
-    @IBOutlet weak var dialView: LMDialView!
+    @IBOutlet weak var infiniteView: LMDialView!
     
     // MARK: life cycle
     override func viewDidLoad() {
@@ -24,19 +24,19 @@ class DialViewController: UIViewController {
 
 // MARK: LMDialViewDelegate
 extension DialViewController: LMDialViewDelegate {
-    func sizeOfItems(in dialView: LMDialView) -> CGSize {
+    func sizeOfItems(in infiniteView: LMDialView) -> CGSize {
         return CGSize(width: 1, height: 20)
     }
     
-    func interitemSpacingBetweenItems(in dialView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat {
         return 20
     }
 }
 
 // MARK: LMDialViewDataSource
 extension DialViewController: LMDialViewDataSource {
-    func dialView(_ dialView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
-        let cell = dialView.dequeueReusableCell(for: index)
+    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
+        let cell = infiniteView.dequeueReusableCell(for: index)
         if index == 0 {
             cell.backgroundColor = UIColor.black
         } else {
@@ -45,7 +45,7 @@ extension DialViewController: LMDialViewDataSource {
         return cell
     }
     
-    func numberOfItems(in dialView: LMDialView) -> Int {
+    func numberOfItems(in infiniteView: LMDialView) -> Int {
         return 50
     }
 }
@@ -58,8 +58,8 @@ private extension DialViewController {
 // MARK: init subviews
 private extension DialViewController {
     func setupPageSubviews() {
-        dialView.dataSource = self
-        dialView.delegate = self
-        dialView.register(LMDialViewCell.self)
+        infiniteView.dataSource = self
+        infiniteView.delegate = self
+        infiniteView.register(LMDialViewCell.self)
     }
 }
