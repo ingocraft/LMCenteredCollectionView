@@ -11,7 +11,7 @@ import InfiniteCollectionView
 
 class WheelView: UIView {
     
-    private var infiniteView: LMDialView!
+    private var infiniteView: InfiniteCollectionView!
     
     init() {
         super.init(frame: CGRect.zero)
@@ -30,23 +30,23 @@ class WheelView: UIView {
 }
 
 // MARK: LMDialViewDelegate
-extension WheelView: LMDialViewDelegate {
-    func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat {
+extension WheelView: InfiniteCollectionViewDelegate {
+    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
         return 10
     }
     
-    func sizeOfItems(in infiniteView: LMDialView) -> CGSize {
+    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
         return CGSize(width: 50, height: 50)
     }
 }
 
 // MARK: LMDialViewDataSource
-extension WheelView: LMDialViewDataSource {
-    func numberOfItems(in infiniteView: LMDialView) -> Int {
+extension WheelView: InfiniteCollectionViewDataSource {
+    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
         return 50
     }
     
-    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
+    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
         guard let cell = infiniteView.dequeueReusableCell(for: index) as? WheelViewCell else {
             return WheelViewCell()
         }
@@ -61,7 +61,7 @@ private extension WheelView {
     func setupSubviews() {
         // init
         infiniteView = {
-            let view = LMDialView()
+            let view = InfiniteCollectionView()
             view.delegate = self
             view.dataSource = self
             view.register(WheelViewCell.self)

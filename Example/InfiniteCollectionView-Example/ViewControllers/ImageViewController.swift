@@ -1,6 +1,6 @@
 //
 //  ImageViewController.swift
-//  LMDialView-Example
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/11.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -13,7 +13,7 @@ class ImageViewController: UIViewController {
     
     private var randomColors = [UIColor]()
     private var animals = [String]()
-    private var infiniteView: LMDialView!
+    private var infiniteView: InfiniteCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,33 +25,33 @@ class ImageViewController: UIViewController {
     
 }
 
-extension ImageViewController: LMDialViewDelegate {
-    func infiniteView(_ infiniteView: LMDialView, didScrollToIndex index: Int) {
+extension ImageViewController: InfiniteCollectionViewDelegate {
+    func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToIndex index: Int) {
 //        print(index)
     }
-    func infiniteView(_ infiniteView: LMDialView, didScrollToOffset offset: CGFloat) {
+    func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToOffset offset: CGFloat) {
     }
-    func infiniteViewWillBeginDragging(_ infiniteView: LMDialView) {
+    func infiniteViewWillBeginDragging(_ infiniteView: InfiniteCollectionView) {
     }
-    func infiniteViewDidEndScroll(_ infiniteView: LMDialView) {
+    func infiniteViewDidEndScroll(_ infiniteView: InfiniteCollectionView) {
     }
     
-    func sizeOfItems(in infiniteView: LMDialView) -> CGSize {
+    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
         let factor: CGFloat = 64.0 / 48.0
         let width: CGFloat = 64 * 4
         let height: CGFloat = width / factor
         return CGSize(width: width, height: height)
     }
     
-    func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
         return 10
     }
 }
 
-extension ImageViewController: LMDialViewDataSource {
-    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
-        guard let cell = infiniteView.dequeueReusableCell(for: index) as? LMImageCell else {
-            return LMImageCell()
+extension ImageViewController: InfiniteCollectionViewDataSource {
+    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
+        guard let cell = infiniteView.dequeueReusableCell(for: index) as? InfiniteCollectionViewImageCell else {
+            return InfiniteCollectionViewImageCell()
         }
         
         let fileName = self.animals[index] + ".jpg"
@@ -63,7 +63,7 @@ extension ImageViewController: LMDialViewDataSource {
         return cell
     }
     
-    func numberOfItems(in infiniteView: LMDialView) -> Int {
+    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
         return animals.count
     }
 }
@@ -104,10 +104,10 @@ private extension ImageViewController {
     
     func initHorizontalDialView() {
         infiniteView = {
-            let view = LMDialView(dialDirection: .horizontal)
+            let view = InfiniteCollectionView(dialDirection: .horizontal)
             view.dataSource = self
             view.delegate = self
-            view.register(LMImageCell.self)
+            view.register(InfiniteCollectionViewImageCell.self)
             return view
         }()
         
@@ -125,10 +125,10 @@ private extension ImageViewController {
     
     func initVerticalDialView() {
         infiniteView = {
-            let view = LMDialView(dialDirection: .vertical)
+            let view = InfiniteCollectionView(dialDirection: .vertical)
             view.dataSource = self
             view.delegate = self
-            view.register(LMImageCell.self)
+            view.register(InfiniteCollectionViewImageCell.self)
             return view
         }()
         

@@ -1,6 +1,6 @@
 //
 //  LMDialManager.swift
-//  LMDialView
+//  InfiniteCollectionView
 //
 //  Created by Liam on 2019/3/5.
 //  Copyright © 2019 Liam. All rights reserved.

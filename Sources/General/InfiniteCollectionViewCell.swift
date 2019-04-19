@@ -1,6 +1,6 @@
 //
-//  LMDialViewCell.swift
-//  LMDialView-Example
+//  InfiniteCollectionViewCell.swift
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/3/11.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class LMDialViewCell: UICollectionViewCell {
+open class InfiniteCollectionViewCell: UICollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +24,7 @@ open class LMDialViewCell: UICollectionViewCell {
 }
 
 // MARK: internal
-extension LMDialViewCell {
+extension InfiniteCollectionViewCell {
     
 }
 

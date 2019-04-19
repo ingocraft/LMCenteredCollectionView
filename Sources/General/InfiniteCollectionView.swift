@@ -1,6 +1,6 @@
 //
-//  LMDialView.swift
-//  LMDialView
+//  InfiniteCollectionView.swift
+//  InfiniteCollectionView
 //
 //  Created by Liam on 2019/3/5.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,52 +8,52 @@
 
 import UIKit
 
-public protocol LMDialViewDataSource: class {
+public protocol InfiniteCollectionViewDataSource: class {
     /// Asks the data source for a cell to insert a paticular location of the dial view.
-    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell
+    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell
     
     /// Tells the data source to return the number of items.
-    func numberOfItems(in infiniteView: LMDialView) -> Int
+    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int
 }
 
-@objc public protocol LMDialViewDelegate: class {
+@objc public protocol InfiniteCollectionViewDelegate: class {
     /// Tell the delegate which index the dial has scroll to.
-    @objc optional func infiniteView(_ infiniteView: LMDialView, didScrollToIndex index: Int)
+    @objc optional func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToIndex index: Int)
 
     /// Tell the delegate when the user scrolls dial view within the receiver.
-    @objc optional func infiniteView(_ infiniteView: LMDialView, didScrollToOffset offset: CGFloat)
+    @objc optional func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToOffset offset: CGFloat)
 
     /// Tell the delegate when the scroll is about to start scroll the dial.
-    @objc optional func infiniteViewWillBeginDragging(_ infiniteView: LMDialView)
+    @objc optional func infiniteViewWillBeginDragging(_ infiniteView: InfiniteCollectionView)
     
     /// Tell the delegate when the scroll stops scrolling completely.
-    @objc optional func infiniteViewDidEndScroll(_ infiniteView: LMDialView)
+    @objc optional func infiniteViewDidEndScroll(_ infiniteView: InfiniteCollectionView)
     
     /// Asks the delegate for the size of the specificd item's cell.
-    @objc optional func sizeOfItems(in infiniteView: LMDialView) -> CGSize
+    @objc optional func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize
 
     /// Asks the delegate for the interitem spacing between successive items.
-    @objc optional func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat
+    @objc optional func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat
 }
 
 /**
- The LMDialView class.
+ The InfiniteCollectionView class.
  
  This class was designed and implemented to show a dial in the display and edit scene.
  It look like a dial which can scroll circularly.
  The scales of the dial is fixed and the number of them are 48.
  
  */
-open class LMDialView: UIView {
+open class InfiniteCollectionView: UIView {
     
-    public enum DialDirection: Int {
+    public enum Direction: Int {
         case horizontal
         case vertical
     }
 
     // MARK: Properties
-    open weak var delegate: LMDialViewDelegate?
-    open weak var dataSource: LMDialViewDataSource?
+    open weak var delegate: InfiniteCollectionViewDelegate?
+    open weak var dataSource: InfiniteCollectionViewDataSource?
 
     private var collectionView: UICollectionView!
 
@@ -64,13 +64,13 @@ open class LMDialView: UIView {
     private(set) var interitemSpacing: CGFloat = 10.0
 
     private var cellClass: AnyClass?
-    private(set) var dialDirection: DialDirection = .horizontal
+    private(set) var dialDirection: Direction = .horizontal
     @IBInspectable private var dialDirectionAdapter: Int {
         get {
             return dialDirection.rawValue
         }
         set {
-            dialDirection = DialDirection(rawValue: newValue) ?? .horizontal
+            dialDirection = Direction(rawValue: newValue) ?? .horizontal
         }
     }
 
@@ -105,7 +105,7 @@ open class LMDialView: UIView {
         return latestIndex
     }
 
-    public init(frame: CGRect = CGRect.zero, dialDirection: DialDirection) {
+    public init(frame: CGRect = CGRect.zero, dialDirection: Direction) {
         self.dialDirection = dialDirection
         super.init(frame: frame)
         setupSubviews()
@@ -142,7 +142,7 @@ open class LMDialView: UIView {
 }
 
 // MARK: public
-public extension LMDialView {
+public extension InfiniteCollectionView {
     /// Sets the current dial index.
     ///
     /// - Parameters:
@@ -165,12 +165,12 @@ public extension LMDialView {
         collectionView.contentOffset = assembleContentOffsetFrom(scrollOffset: scrollOffset)
     }
     
-    func dequeueReusableCell(for index: Int) -> LMDialViewCell {
+    func dequeueReusableCell(for index: Int) -> InfiniteCollectionViewCell {
         let indexPath = IndexPath(item: index, section: 0)
         guard let cellClass = cellClass,
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? LMDialViewCell else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? InfiniteCollectionViewCell else {
             assertionFailure("Cell must be LMDialViewCell")
-            return LMDialViewCell()
+            return InfiniteCollectionViewCell()
         }
         
         return cell
@@ -184,7 +184,7 @@ public extension LMDialView {
 }
 
 // MARK: UICollectionViewDelegate
-extension LMDialView: UICollectionViewDelegate {
+extension InfiniteCollectionView: UICollectionViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let dialManager = dialManager else { return }
         let contentOffset = scrollView.contentOffset
@@ -222,14 +222,14 @@ extension LMDialView: UICollectionViewDelegate {
 }
 
 // MARK: UICollectionViewDataSource
-extension LMDialView: UICollectionViewDataSource {
+extension InfiniteCollectionView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let dialManager = dialManager else { return 0 }
         return dialManager.cellCount
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cellClass = cellClass as? LMDialViewCell.Type else {
+        guard let cellClass = cellClass as? InfiniteCollectionViewCell.Type else {
             assertionFailure("cell must be registed")
             return UICollectionViewCell()
         }
@@ -247,7 +247,7 @@ extension LMDialView: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-extension LMDialView: UICollectionViewDelegateFlowLayout {
+extension InfiniteCollectionView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let size = delegate?.sizeOfItems?(in: self) else {
             return CGSize(width: 20, height: 20)
@@ -268,7 +268,7 @@ extension LMDialView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: private
-private extension LMDialView {
+private extension InfiniteCollectionView {
     func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
         let contentOffset: CGPoint
         switch dialDirection {
@@ -329,7 +329,7 @@ private extension LMDialView {
 }
 
 // MARK: UI
-private extension LMDialView {
+private extension InfiniteCollectionView {
     func setupSubviews() {
         backgroundColor = UIColor.white
         

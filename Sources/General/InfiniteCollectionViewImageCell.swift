@@ -1,6 +1,6 @@
 //
-//  LMImageCell.swift
-//  LMDialView-Example
+//  InfiniteCollectionViewImageCell.swift
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/10.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class LMImageCell: LMDialViewCell {
+open class InfiniteCollectionViewImageCell: InfiniteCollectionViewCell {
     
     open var imageView: UIImageView!
     open var label: UILabel!
@@ -25,7 +25,7 @@ open class LMImageCell: LMDialViewCell {
 }
 
 // MARK: UI
-private extension LMImageCell {
+private extension InfiniteCollectionViewImageCell {
     func setupSubviews() {
         // init
         imageView = {

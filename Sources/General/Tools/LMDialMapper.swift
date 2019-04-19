@@ -1,6 +1,6 @@
 //
 //  LMDialMapper.swift
-//  LMDialView-Example
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/3.
 //  Copyright © 2019 Liam. All rights reserved.

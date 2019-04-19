@@ -1,6 +1,6 @@
 //
 //  WheelViewCell.swift
-//  LMDialView-Example
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/18.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import InfiniteCollectionView
 
-class WheelViewCell: LMDialViewCell {
+class WheelViewCell: InfiniteCollectionViewCell {
     var numberLabel: UILabel!
     var lineView: UIView!
     

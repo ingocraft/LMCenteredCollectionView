@@ -1,6 +1,6 @@
 //
 //  DialViewController.swift
-//  LMDialView-Example
+//  InfiniteCollectionView-Example
 //
 //  Created by Liam on 2019/4/16.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -12,7 +12,7 @@ import InfiniteCollectionView
 class DialViewController: UIViewController {
 
     @IBOutlet weak var wheelView: WheelView!
-    @IBOutlet weak var infiniteView: LMDialView!
+    @IBOutlet weak var infiniteView: InfiniteCollectionView!
     
     // MARK: life cycle
     override func viewDidLoad() {
@@ -23,19 +23,19 @@ class DialViewController: UIViewController {
 }
 
 // MARK: LMDialViewDelegate
-extension DialViewController: LMDialViewDelegate {
-    func sizeOfItems(in infiniteView: LMDialView) -> CGSize {
+extension DialViewController: InfiniteCollectionViewDelegate {
+    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
         return CGSize(width: 1, height: 20)
     }
     
-    func interitemSpacingBetweenItems(in infiniteView: LMDialView) -> CGFloat {
+    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
         return 20
     }
 }
 
 // MARK: LMDialViewDataSource
-extension DialViewController: LMDialViewDataSource {
-    func infiniteView(_ infiniteView: LMDialView, cellForItemAt index: Int) -> LMDialViewCell {
+extension DialViewController: InfiniteCollectionViewDataSource {
+    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
         let cell = infiniteView.dequeueReusableCell(for: index)
         if index == 0 {
             cell.backgroundColor = UIColor.black
@@ -45,7 +45,7 @@ extension DialViewController: LMDialViewDataSource {
         return cell
     }
     
-    func numberOfItems(in infiniteView: LMDialView) -> Int {
+    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
         return 50
     }
 }
@@ -60,6 +60,6 @@ private extension DialViewController {
     func setupPageSubviews() {
         infiniteView.dataSource = self
         infiniteView.delegate = self
-        infiniteView.register(LMDialViewCell.self)
+        infiniteView.register(InfiniteCollectionViewCell.self)
     }
 }
