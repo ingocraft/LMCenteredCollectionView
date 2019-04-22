@@ -1,6 +1,6 @@
 //
 //  DialViewController.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/16.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -12,7 +12,7 @@ import LMCenteredCollectionView
 class DialViewController: UIViewController {
 
     @IBOutlet weak var wheelView: WheelView!
-    @IBOutlet weak var infiniteView: InfiniteCollectionView!
+    @IBOutlet weak var centeredCollectionView: LMCenteredCollectionView!
     
     // MARK: life cycle
     override func viewDidLoad() {
@@ -22,21 +22,21 @@ class DialViewController: UIViewController {
     }
 }
 
-// MARK: InfiniteCollectionViewDelegate
-extension DialViewController: InfiniteCollectionViewDelegate {
-    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
+// MARK: LMCenteredCollectionViewDelegate
+extension DialViewController: LMCenteredCollectionViewDelegate {
+    func sizeOfItems(in centeredCollectionView: LMCenteredCollectionView) -> CGSize {
         return CGSize(width: 1, height: 20)
     }
     
-    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
+    func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {
         return 20
     }
 }
 
-// MARK: InfiniteCollectionViewDataSource
-extension DialViewController: InfiniteCollectionViewDataSource {
-    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
-        let cell = infiniteView.dequeueReusableCell(for: index)
+// MARK: LMCenteredCollectionViewDataSource
+extension DialViewController: LMCenteredCollectionViewDataSource {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
+        let cell = centeredCollectionView.dequeueReusableCell(for: index)
         if index == 0 {
             cell.backgroundColor = UIColor.black
         } else {
@@ -45,7 +45,7 @@ extension DialViewController: InfiniteCollectionViewDataSource {
         return cell
     }
     
-    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
+    func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
         return 50
     }
 }
@@ -58,8 +58,8 @@ private extension DialViewController {
 // MARK: init subviews
 private extension DialViewController {
     func setupPageSubviews() {
-        infiniteView.dataSource = self
-        infiniteView.delegate = self
-        infiniteView.register(InfiniteCollectionViewCell.self)
+        centeredCollectionView.dataSource = self
+        centeredCollectionView.delegate = self
+        centeredCollectionView.register(LMCenteredCollectionViewCell.self)
     }
 }

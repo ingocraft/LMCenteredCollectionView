@@ -1,6 +1,6 @@
 //
-//  InfiniteCollectionViewImageCell.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionViewImageCell.swift
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/10.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class InfiniteCollectionViewImageCell: InfiniteCollectionViewCell {
+open class LMCenteredCollectionViewImageCell: LMCenteredCollectionViewCell {
     
     open var imageView: UIImageView!
     open var label: UILabel!
@@ -25,7 +25,7 @@ open class InfiniteCollectionViewImageCell: InfiniteCollectionViewCell {
 }
 
 // MARK: UI
-private extension InfiniteCollectionViewImageCell {
+private extension LMCenteredCollectionViewImageCell {
     func setupSubviews() {
         // init
         imageView = {

@@ -1,6 +1,6 @@
 //
-//  InfiniteCollectionViewCell.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionViewCell.swift
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/3/11.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class InfiniteCollectionViewCell: UICollectionViewCell {
+open class LMCenteredCollectionViewCell: UICollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +24,7 @@ open class InfiniteCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: internal
-extension InfiniteCollectionViewCell {
+extension LMCenteredCollectionViewCell {
     
 }
 

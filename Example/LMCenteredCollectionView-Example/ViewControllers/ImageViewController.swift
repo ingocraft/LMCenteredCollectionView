@@ -1,6 +1,6 @@
 //
 //  ImageViewController.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/11.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -13,7 +13,7 @@ class ImageViewController: UIViewController {
     
     private var randomColors = [UIColor]()
     private var animals = [String]()
-    private var infiniteView: InfiniteCollectionView!
+    private var centeredCollectionView: LMCenteredCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,33 +25,33 @@ class ImageViewController: UIViewController {
     
 }
 
-extension ImageViewController: InfiniteCollectionViewDelegate {
-    func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToIndex index: Int) {
+extension ImageViewController: LMCenteredCollectionViewDelegate {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToIndex index: Int) {
 //        print(index)
     }
-    func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToOffset offset: CGFloat) {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToOffset offset: CGFloat) {
     }
-    func infiniteViewWillBeginDragging(_ infiniteView: InfiniteCollectionView) {
+    func centeredCollectionViewWillBeginDragging(_ centeredCollectionView: LMCenteredCollectionView) {
     }
-    func infiniteViewDidEndScroll(_ infiniteView: InfiniteCollectionView) {
+    func centeredCollectionViewDidEndScroll(_ centeredCollectionView: LMCenteredCollectionView) {
     }
     
-    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
+    func sizeOfItems(in centeredCollectionView: LMCenteredCollectionView) -> CGSize {
         let factor: CGFloat = 64.0 / 48.0
         let width: CGFloat = 64 * 4
         let height: CGFloat = width / factor
         return CGSize(width: width, height: height)
     }
     
-    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
+    func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {
         return 10
     }
 }
 
-extension ImageViewController: InfiniteCollectionViewDataSource {
-    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
-        guard let cell = infiniteView.dequeueReusableCell(for: index) as? InfiniteCollectionViewImageCell else {
-            return InfiniteCollectionViewImageCell()
+extension ImageViewController: LMCenteredCollectionViewDataSource {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
+        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? LMCenteredCollectionViewImageCell else {
+            return LMCenteredCollectionViewImageCell()
         }
         
         let fileName = self.animals[index] + ".jpg"
@@ -63,7 +63,7 @@ extension ImageViewController: InfiniteCollectionViewDataSource {
         return cell
     }
     
-    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
+    func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
         return animals.count
     }
 }
@@ -103,43 +103,43 @@ private extension ImageViewController {
     }
     
     func initHorizontalDialView() {
-        infiniteView = {
-            let view = InfiniteCollectionView(dialDirection: .horizontal)
+        centeredCollectionView = {
+            let view = LMCenteredCollectionView(dialDirection: .horizontal)
             view.dataSource = self
             view.delegate = self
-            view.register(InfiniteCollectionViewImageCell.self)
+            view.register(LMCenteredCollectionViewImageCell.self)
             return view
         }()
         
-        view.addSubview(infiniteView)
+        view.addSubview(centeredCollectionView)
         
-        infiniteView.translatesAutoresizingMaskIntoConstraints = false
+        centeredCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
-            infiniteView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            infiniteView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            infiniteView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            infiniteView.heightAnchor.constraint(equalToConstant: 200),
+            centeredCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            centeredCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            centeredCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            centeredCollectionView.heightAnchor.constraint(equalToConstant: 200),
         ]
         NSLayoutConstraint.activate(constraints)
     }
     
     func initVerticalDialView() {
-        infiniteView = {
-            let view = InfiniteCollectionView(dialDirection: .vertical)
+        centeredCollectionView = {
+            let view = LMCenteredCollectionView(dialDirection: .vertical)
             view.dataSource = self
             view.delegate = self
-            view.register(InfiniteCollectionViewImageCell.self)
+            view.register(LMCenteredCollectionViewImageCell.self)
             return view
         }()
         
-        view.addSubview(infiniteView)
+        view.addSubview(centeredCollectionView)
 
-        infiniteView.translatesAutoresizingMaskIntoConstraints = false
+        centeredCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
-            infiniteView.topAnchor.constraint(equalTo: view.topAnchor),
-            infiniteView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            infiniteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            infiniteView.widthAnchor.constraint(equalToConstant: 300),
+            centeredCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            centeredCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            centeredCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            centeredCollectionView.widthAnchor.constraint(equalToConstant: 300),
         ]
         NSLayoutConstraint.activate(constraints)
     }

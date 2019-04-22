@@ -1,6 +1,6 @@
 //
 //  WheelView.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/18.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -11,7 +11,7 @@ import LMCenteredCollectionView
 
 class WheelView: UIView {
     
-    private var infiniteView: InfiniteCollectionView!
+    private var centeredCollectionView: LMCenteredCollectionView!
     
     init() {
         super.init(frame: CGRect.zero)
@@ -29,25 +29,25 @@ class WheelView: UIView {
 
 }
 
-// MARK: InfiniteCollectionViewDelegate
-extension WheelView: InfiniteCollectionViewDelegate {
-    func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat {
+// MARK: LMCenteredCollectionViewDelegate
+extension WheelView: LMCenteredCollectionViewDelegate {
+    func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {
         return 10
     }
     
-    func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize {
+    func sizeOfItems(in centeredCollectionView: LMCenteredCollectionView) -> CGSize {
         return CGSize(width: 50, height: 50)
     }
 }
 
-// MARK: InfiniteCollectionViewDataSource
-extension WheelView: InfiniteCollectionViewDataSource {
-    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int {
+// MARK: LMCenteredCollectionViewDataSource
+extension WheelView: LMCenteredCollectionViewDataSource {
+    func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
         return 50
     }
     
-    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell {
-        guard let cell = infiniteView.dequeueReusableCell(for: index) as? WheelViewCell else {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
+        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? WheelViewCell else {
             return WheelViewCell()
         }
         cell.numberLabel.text = "\(index)"
@@ -60,8 +60,8 @@ extension WheelView: InfiniteCollectionViewDataSource {
 private extension WheelView {
     func setupSubviews() {
         // init
-        infiniteView = {
-            let view = InfiniteCollectionView()
+        centeredCollectionView = {
+            let view = LMCenteredCollectionView()
             view.delegate = self
             view.dataSource = self
             view.register(WheelViewCell.self)
@@ -69,17 +69,17 @@ private extension WheelView {
         }()
         
         // add
-        addSubview(infiniteView)
+        addSubview(centeredCollectionView)
         
         // layout
-        infiniteView.translatesAutoresizingMaskIntoConstraints = false
+        centeredCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         var constraints = [NSLayoutConstraint]()
         constraints += [
-            infiniteView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            infiniteView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            infiniteView.topAnchor.constraint(equalTo: topAnchor),
-            infiniteView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            centeredCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            centeredCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            centeredCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            centeredCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }

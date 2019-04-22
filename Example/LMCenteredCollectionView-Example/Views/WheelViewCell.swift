@@ -1,6 +1,6 @@
 //
 //  WheelViewCell.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/18.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import LMCenteredCollectionView
 
-class WheelViewCell: InfiniteCollectionViewCell {
+class WheelViewCell: LMCenteredCollectionViewCell {
     var numberLabel: UILabel!
     var lineView: UIView!
     

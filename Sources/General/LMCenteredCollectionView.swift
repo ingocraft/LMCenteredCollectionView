@@ -1,6 +1,6 @@
 //
-//  InfiniteCollectionView.swift
-//  InfiniteCollectionView
+//  LMCenteredCollectionView.swift
+//  LMCenteredCollectionView
 //
 //  Created by Liam on 2019/3/5.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,43 +8,41 @@
 
 import UIKit
 
-public protocol InfiniteCollectionViewDataSource: class {
-    /// Asks the data source for a cell to insert a paticular location of the dial view.
-    func infiniteView(_ infiniteView: InfiniteCollectionView, cellForItemAt index: Int) -> InfiniteCollectionViewCell
+public protocol LMCenteredCollectionViewDataSource: class {
+    /// Asks the data source for a cell to insert a paticular location of the collection view.
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell
     
     /// Tells the data source to return the number of items.
-    func numberOfItems(in infiniteView: InfiniteCollectionView) -> Int
+    func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int
 }
 
-@objc public protocol InfiniteCollectionViewDelegate: class {
-    /// Tell the delegate which index the dial has scroll to.
-    @objc optional func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToIndex index: Int)
+@objc public protocol LMCenteredCollectionViewDelegate: class {
+    /// Tell the delegate which index the collection view has scroll to.
+    @objc optional func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToIndex index: Int)
 
-    /// Tell the delegate when the user scrolls dial view within the receiver.
-    @objc optional func infiniteView(_ infiniteView: InfiniteCollectionView, didScrollToOffset offset: CGFloat)
+    /// Tell the delegate when the user scrolls collection view within the receiver.
+    @objc optional func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToOffset offset: CGFloat)
 
-    /// Tell the delegate when the scroll is about to start scroll the dial.
-    @objc optional func infiniteViewWillBeginDragging(_ infiniteView: InfiniteCollectionView)
+    /// Tell the delegate when the scroll is about to start scroll the collection view.
+    @objc optional func centeredCollectionViewWillBeginDragging(_ centeredCollectionView: LMCenteredCollectionView)
     
     /// Tell the delegate when the scroll stops scrolling completely.
-    @objc optional func infiniteViewDidEndScroll(_ infiniteView: InfiniteCollectionView)
+    @objc optional func centeredCollectionViewDidEndScroll(_ centeredCollectionView: LMCenteredCollectionView)
     
     /// Asks the delegate for the size of the specificd item's cell.
-    @objc optional func sizeOfItems(in infiniteView: InfiniteCollectionView) -> CGSize
+    @objc optional func sizeOfItems(in centeredCollectionView: LMCenteredCollectionView) -> CGSize
 
     /// Asks the delegate for the interitem spacing between successive items.
-    @objc optional func interitemSpacingBetweenItems(in infiniteView: InfiniteCollectionView) -> CGFloat
+    @objc optional func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat
 }
 
 /**
- The InfiniteCollectionView class.
+ The LMCenteredCollectionView class.
  
- This class was designed and implemented to show a dial in the display and edit scene.
- It look like a dial which can scroll circularly.
- The scales of the dial is fixed and the number of them are 48.
- 
+ This class was designed and implemented to show a infinite centered collection view.
+
  */
-open class InfiniteCollectionView: UIView {
+open class LMCenteredCollectionView: UIView {
     
     public enum Direction: Int {
         case horizontal
@@ -52,12 +50,12 @@ open class InfiniteCollectionView: UIView {
     }
 
     // MARK: Properties
-    open weak var delegate: InfiniteCollectionViewDelegate?
-    open weak var dataSource: InfiniteCollectionViewDataSource?
+    open weak var delegate: LMCenteredCollectionViewDelegate?
+    open weak var dataSource: LMCenteredCollectionViewDataSource?
 
     private var collectionView: UICollectionView!
 
-    private var dialManager: InfiniteCollectionViewManager?
+    private var dialManager: LMCenteredCollectionViewManager?
     private var latestIndex: Int = -1
     
     private(set) var itemSize = CGSize(width: 50, height: 50)
@@ -131,7 +129,7 @@ open class InfiniteCollectionView: UIView {
             let cellLength = generateItemSize()
             let interSpace = generateInteritemSpacing()
             let viewLength = generateViewLength()
-            dialManager = InfiniteCollectionViewManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
+            dialManager = LMCenteredCollectionViewManager(cycleCellCount: cycleCellCount, cellLength: cellLength, interSpace: interSpace, viewLength: viewLength)
         }
 
         // collectionView will perform `layoutSubview()` after this function,
@@ -142,11 +140,11 @@ open class InfiniteCollectionView: UIView {
 }
 
 // MARK: public
-public extension InfiniteCollectionView {
-    /// Sets the current dial index.
+public extension LMCenteredCollectionView {
+    /// Sets the current index.
     ///
     /// - Parameters:
-    ///   - index: The dial index.
+    ///   - index: The centered collection view index.
     ///   - animated: Scroll animate.
     func seek(toDialIndex index: Int, animated: Bool = false) {
         guard let dialManager = dialManager else { return }
@@ -154,10 +152,10 @@ public extension InfiniteCollectionView {
         seek(toDialOffset: dialOffset, animated: animated)
     }
     
-    /// Sets the current dial content offset.
+    /// Sets the current content offset.
     ///
     /// - Parameters:
-    ///   - offset: The dial content offset.
+    ///   - offset: The centered collection view content offset.
     ///   - animated: Scroll animate.
     func seek(toDialOffset offset: CGFloat, animated: Bool = false) {
         guard let dialManager = dialManager else { return }
@@ -165,12 +163,12 @@ public extension InfiniteCollectionView {
         collectionView.contentOffset = assembleContentOffsetFrom(scrollOffset: scrollOffset)
     }
     
-    func dequeueReusableCell(for index: Int) -> InfiniteCollectionViewCell {
+    func dequeueReusableCell(for index: Int) -> LMCenteredCollectionViewCell {
         let indexPath = IndexPath(item: index, section: 0)
         guard let cellClass = cellClass,
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? InfiniteCollectionViewCell else {
-            assertionFailure("Cell must be InfiniteCollectionViewCell")
-            return InfiniteCollectionViewCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? LMCenteredCollectionViewCell else {
+            assertionFailure("Cell must be LMCenteredCollectionViewCell")
+            return LMCenteredCollectionViewCell()
         }
         
         return cell
@@ -184,7 +182,7 @@ public extension InfiniteCollectionView {
 }
 
 // MARK: UICollectionViewDelegate
-extension InfiniteCollectionView: UICollectionViewDelegate {
+extension LMCenteredCollectionView: UICollectionViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let dialManager = dialManager else { return }
         let contentOffset = scrollView.contentOffset
@@ -197,19 +195,19 @@ extension InfiniteCollectionView: UICollectionViewDelegate {
             return
         }
         
-        // cycle dial offset
+        // centered collection view offset
         let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
-        delegate?.infiniteView?(self, didScrollToOffset: dialOffset)
+        delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
         
         // dial index
         let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
-        delegate?.infiniteView?(self, didScrollToIndex: index)
+        delegate?.centeredCollectionView?(self, didScrollToIndex: index)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        delegate?.infiniteViewWillBeginDragging?(self)
+        delegate?.centeredCollectionViewWillBeginDragging?(self)
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -222,14 +220,14 @@ extension InfiniteCollectionView: UICollectionViewDelegate {
 }
 
 // MARK: UICollectionViewDataSource
-extension InfiniteCollectionView: UICollectionViewDataSource {
+extension LMCenteredCollectionView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let dialManager = dialManager else { return 0 }
         return dialManager.cellCount
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cellClass = cellClass as? InfiniteCollectionViewCell.Type else {
+        guard let cellClass = cellClass as? LMCenteredCollectionViewCell.Type else {
             assertionFailure("cell must be registed")
             return UICollectionViewCell()
         }
@@ -237,7 +235,7 @@ extension InfiniteCollectionView: UICollectionViewDataSource {
         
         let dialIndex = dialManager.indexFromIndexPath(indexPath)
         let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
-        guard let cell = dataSource?.infiniteView(self, cellForItemAt: cycleDialIndex) else {
+        guard let cell = dataSource?.centeredCollectionView(self, cellForItemAt: cycleDialIndex) else {
             assertionFailure("dataSource must not be nil")
             return cellClass.init()
         }
@@ -247,7 +245,7 @@ extension InfiniteCollectionView: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-extension InfiniteCollectionView: UICollectionViewDelegateFlowLayout {
+extension LMCenteredCollectionView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let size = delegate?.sizeOfItems?(in: self) else {
             return CGSize(width: 20, height: 20)
@@ -268,7 +266,7 @@ extension InfiniteCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: private
-private extension InfiniteCollectionView {
+private extension LMCenteredCollectionView {
     func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
         let contentOffset: CGPoint
         switch dialDirection {
@@ -329,7 +327,7 @@ private extension InfiniteCollectionView {
 }
 
 // MARK: UI
-private extension InfiniteCollectionView {
+private extension LMCenteredCollectionView {
     func setupSubviews() {
         backgroundColor = UIColor.white
         

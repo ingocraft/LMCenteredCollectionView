@@ -1,6 +1,6 @@
 //
-//  InfiniteCollectionViewMapper.swift
-//  InfiniteCollectionView-Example
+//  LMCenteredCollectionViewMapper.swift
+//  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/3.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InfiniteCollectionViewMapper {
+class LMCenteredCollectionViewMapper {
     lazy var endDialOffset: CGFloat = {
         return cellInterval * CGFloat(endDialIndex)
     }()
@@ -52,7 +52,7 @@ class InfiniteCollectionViewMapper {
  And these maps can only return approximation,
  scrollOffset -> scrollIndex, dialOffset -> dialIndex
  */
-extension InfiniteCollectionViewMapper {
+extension LMCenteredCollectionViewMapper {
     func scrollOffsetFrom(scrollIndex: Int) -> CGFloat {
         return CGFloat(scrollIndex) * cellInterval
     }
@@ -74,7 +74,7 @@ extension InfiniteCollectionViewMapper {
  These maps are irreversible,
  dialOffset -> cycleDialOffset
  */
-extension InfiniteCollectionViewMapper {
+extension LMCenteredCollectionViewMapper {
     func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         var cycleDialOffset: CGFloat
         if dialOffset < 0 {
@@ -99,7 +99,7 @@ extension InfiniteCollectionViewMapper {
 }
 
 // MARK: utility
-extension InfiniteCollectionViewMapper {
+extension LMCenteredCollectionViewMapper {
     func cloestDividingLineOffsetX(from scrollOffsetX: CGFloat) -> CGFloat {
         let dialOffsetX = dialOffsetFrom(scrollOffset: scrollOffsetX)
         let prevIndex = CGFloat(floor(Double(dialOffsetX / cellInterval)))

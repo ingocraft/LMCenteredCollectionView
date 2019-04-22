@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		B6CB269B225F1F4900AF15E4 /* LMCenteredCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CB2699225F1F4900AF15E4 /* LMCenteredCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B6CB26BB225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */; };
+		B6CB26BB225F217D00AF15E4 /* LMCenteredCollectionViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B4225F217D00AF15E4 /* LMCenteredCollectionViewImageCell.swift */; };
 		B6CB26BC225F217D00AF15E4 /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B6225F217D00AF15E4 /* UIKit+Extension.swift */; };
-		B6CB26BD225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B7225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift */; };
-		B6CB26BE225F217D00AF15E4 /* InfiniteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B8225F217D00AF15E4 /* InfiniteCollectionViewCell.swift */; };
-		B6CB26BF225F217D00AF15E4 /* InfiniteCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B9225F217D00AF15E4 /* InfiniteCollectionView.swift */; };
-		B6CB26C0225F217D00AF15E4 /* InfiniteCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26BA225F217D00AF15E4 /* InfiniteCollectionViewManager.swift */; };
+		B6CB26BD225F217D00AF15E4 /* LMCenteredCollectionViewMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B7225F217D00AF15E4 /* LMCenteredCollectionViewMapper.swift */; };
+		B6CB26BE225F217D00AF15E4 /* LMCenteredCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B8225F217D00AF15E4 /* LMCenteredCollectionViewCell.swift */; };
+		B6CB26BF225F217D00AF15E4 /* LMCenteredCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26B9225F217D00AF15E4 /* LMCenteredCollectionView.swift */; };
+		B6CB26C0225F217D00AF15E4 /* LMCenteredCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB26BA225F217D00AF15E4 /* LMCenteredCollectionViewManager.swift */; };
 		B6CB26C4225F243C00AF15E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CB26C3225F243C00AF15E4 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,12 +21,12 @@
 		B6CB2696225F1F4900AF15E4 /* LMCenteredCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMCenteredCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CB2699225F1F4900AF15E4 /* LMCenteredCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMCenteredCollectionView.h; sourceTree = "<group>"; };
 		B6CB269A225F1F4900AF15E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewImageCell.swift; sourceTree = "<group>"; };
+		B6CB26B4225F217D00AF15E4 /* LMCenteredCollectionViewImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCenteredCollectionViewImageCell.swift; sourceTree = "<group>"; };
 		B6CB26B6225F217D00AF15E4 /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
-		B6CB26B7225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewMapper.swift; sourceTree = "<group>"; };
-		B6CB26B8225F217D00AF15E4 /* InfiniteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewCell.swift; sourceTree = "<group>"; };
-		B6CB26B9225F217D00AF15E4 /* InfiniteCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionView.swift; sourceTree = "<group>"; };
-		B6CB26BA225F217D00AF15E4 /* InfiniteCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewManager.swift; sourceTree = "<group>"; };
+		B6CB26B7225F217D00AF15E4 /* LMCenteredCollectionViewMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCenteredCollectionViewMapper.swift; sourceTree = "<group>"; };
+		B6CB26B8225F217D00AF15E4 /* LMCenteredCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCenteredCollectionViewCell.swift; sourceTree = "<group>"; };
+		B6CB26B9225F217D00AF15E4 /* LMCenteredCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCenteredCollectionView.swift; sourceTree = "<group>"; };
+		B6CB26BA225F217D00AF15E4 /* LMCenteredCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCenteredCollectionViewManager.swift; sourceTree = "<group>"; };
 		B6CB26C3225F243C00AF15E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -72,7 +72,7 @@
 		B6CB26B3225F217D00AF15E4 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB26B9225F217D00AF15E4 /* InfiniteCollectionView.swift */,
+				B6CB26B9225F217D00AF15E4 /* LMCenteredCollectionView.swift */,
 				B6D1BA552269A6BA00F6BD76 /* Cells */,
 				B6CB26B5225F217D00AF15E4 /* Tools */,
 			);
@@ -83,8 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				B6CB26B6225F217D00AF15E4 /* UIKit+Extension.swift */,
-				B6CB26BA225F217D00AF15E4 /* InfiniteCollectionViewManager.swift */,
-				B6CB26B7225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift */,
+				B6CB26BA225F217D00AF15E4 /* LMCenteredCollectionViewManager.swift */,
+				B6CB26B7225F217D00AF15E4 /* LMCenteredCollectionViewMapper.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -100,8 +100,8 @@
 		B6D1BA552269A6BA00F6BD76 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B6CB26B4225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift */,
-				B6CB26B8225F217D00AF15E4 /* InfiniteCollectionViewCell.swift */,
+				B6CB26B4225F217D00AF15E4 /* LMCenteredCollectionViewImageCell.swift */,
+				B6CB26B8225F217D00AF15E4 /* LMCenteredCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -185,12 +185,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6CB26BF225F217D00AF15E4 /* InfiniteCollectionView.swift in Sources */,
+				B6CB26BF225F217D00AF15E4 /* LMCenteredCollectionView.swift in Sources */,
 				B6CB26BC225F217D00AF15E4 /* UIKit+Extension.swift in Sources */,
-				B6CB26C0225F217D00AF15E4 /* InfiniteCollectionViewManager.swift in Sources */,
-				B6CB26BE225F217D00AF15E4 /* InfiniteCollectionViewCell.swift in Sources */,
-				B6CB26BD225F217D00AF15E4 /* InfiniteCollectionViewMapper.swift in Sources */,
-				B6CB26BB225F217D00AF15E4 /* InfiniteCollectionViewImageCell.swift in Sources */,
+				B6CB26C0225F217D00AF15E4 /* LMCenteredCollectionViewManager.swift in Sources */,
+				B6CB26BE225F217D00AF15E4 /* LMCenteredCollectionViewCell.swift in Sources */,
+				B6CB26BD225F217D00AF15E4 /* LMCenteredCollectionViewMapper.swift in Sources */,
+				B6CB26BB225F217D00AF15E4 /* LMCenteredCollectionViewImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

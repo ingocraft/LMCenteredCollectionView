@@ -97,7 +97,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBB-DY-eUB" customClass="InfiniteCollectionView" customModule="LMCenteredCollectionView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBB-DY-eUB" customClass="LMCenteredCollectionView" customModule="LMCenteredCollectionView">
                                 <rect key="frame" x="0.0" y="300" width="414" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -129,7 +129,7 @@
                         <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
                     </view>
                     <connections>
-                        <outlet property="infiniteView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
+                        <outlet property="centeredCollectionView" destination="nBB-DY-eUB" id="6H0-rE-TPm"/>
                         <outlet property="wheelView" destination="ZxG-0p-2r4" id="D6x-G6-W3O"/>
                     </connections>
                 </viewController>

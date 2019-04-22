@@ -1,6 +1,6 @@
 //
-//  InfiniteCollectionViewManager.swift
-//  InfiniteCollectionView
+//  LMCenteredCollectionViewManager.swift
+//  LMCenteredCollectionView
 //
 //  Created by Liam on 2019/3/5.
 //  Copyright © 2019 Liam. All rights reserved.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class InfiniteCollectionViewManager {
+class LMCenteredCollectionViewManager {
     private(set) var cycleCellCount: Int
     private(set) var cellLength: CGFloat
     private(set) var interitemSpacing: CGFloat
     private(set) var viewLength: CGFloat
 
-    private var dialMapper: InfiniteCollectionViewMapper!
+    private var dialMapper: LMCenteredCollectionViewMapper!
     var cellCount: Int {
         return dialMapper.cellCount
     }
@@ -48,13 +48,13 @@ class InfiniteCollectionViewManager {
 }
 
 // MARK: internal
-extension InfiniteCollectionViewManager {
+extension LMCenteredCollectionViewManager {
     func update(cycleCellCount: Int?, cellLength: CGFloat?, interSpace: CGFloat?, viewLength: CGFloat?) {
     }
 }
 
 // MARK: internal
-extension InfiniteCollectionViewManager {
+extension LMCenteredCollectionViewManager {
     func indexFromIndexPath(_ indexPath: IndexPath) -> Int {
         let item = indexPath.item
         if item < startIndex {
@@ -129,7 +129,7 @@ extension InfiniteCollectionViewManager {
     }
 }
 
-extension InfiniteCollectionViewManager {
+extension LMCenteredCollectionViewManager {
     func scrollOffsetFrom(scrollIndex: Int) -> CGFloat {
         return dialMapper.scrollOffsetFrom(scrollIndex: scrollIndex)
     }
@@ -152,7 +152,7 @@ extension InfiniteCollectionViewManager {
 }
 
 // MARK: private
-private extension InfiniteCollectionViewManager {
+private extension LMCenteredCollectionViewManager {
     func updateDialInfo(cycleCellCount: Int, cellLength: CGFloat, interSpace: CGFloat, viewLength: CGFloat) {
         let space = interSpace + cellLength
 
@@ -166,7 +166,7 @@ private extension InfiniteCollectionViewManager {
         let bias = 100
         let cellCount = cycleCellCount + cellsInWidth + bias
         
-        dialMapper = InfiniteCollectionViewMapper(cellInterval: space,
+        dialMapper = LMCenteredCollectionViewMapper(cellInterval: space,
                                   cellCount: cellCount,
                                   cellLength: cellLength,
                                   cycleCount: cycleCellCount,
