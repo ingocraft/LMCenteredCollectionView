@@ -55,10 +55,12 @@
 		B6E55C122269C3E2004CEFD0 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BDE2269C3E2004CEFD0 /* ImageViewController.swift */; };
 		B6E55C132269C3E2004CEFD0 /* DialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BDF2269C3E2004CEFD0 /* DialViewController.swift */; };
 		B6E55C142269C3E2004CEFD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BE02269C3E2004CEFD0 /* AppDelegate.swift */; };
-		B6E55C152269C3E2004CEFD0 /* WheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BE22269C3E2004CEFD0 /* WheelView.swift */; };
-		B6E55C162269C3E2004CEFD0 /* WheelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BE32269C3E2004CEFD0 /* WheelViewCell.swift */; };
+		B6E55C152269C3E2004CEFD0 /* DialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BE22269C3E2004CEFD0 /* DialView.swift */; };
+		B6E55C162269C3E2004CEFD0 /* DialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55BE32269C3E2004CEFD0 /* DialViewCell.swift */; };
 		B6E55C232269C59B004CEFD0 /* LMCenteredCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E55C212269C58E004CEFD0 /* LMCenteredCollectionView.framework */; };
 		B6E55C242269C59B004CEFD0 /* LMCenteredCollectionView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6E55C212269C58E004CEFD0 /* LMCenteredCollectionView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B6E55C27226D55ED004CEFD0 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E55C26226D55ED004CEFD0 /* ImageCell.swift */; };
+		B6E55C29226D5D13004CEFD0 /* DialViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E55C28226D5D13004CEFD0 /* DialViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,10 +127,12 @@
 		B6E55BDE2269C3E2004CEFD0 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		B6E55BDF2269C3E2004CEFD0 /* DialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialViewController.swift; sourceTree = "<group>"; };
 		B6E55BE02269C3E2004CEFD0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6E55BE22269C3E2004CEFD0 /* WheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WheelView.swift; sourceTree = "<group>"; };
-		B6E55BE32269C3E2004CEFD0 /* WheelViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WheelViewCell.swift; sourceTree = "<group>"; };
+		B6E55BE22269C3E2004CEFD0 /* DialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialView.swift; sourceTree = "<group>"; };
+		B6E55BE32269C3E2004CEFD0 /* DialViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialViewCell.swift; sourceTree = "<group>"; };
 		B6E55BE42269C3E2004CEFD0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6E55C212269C58E004CEFD0 /* LMCenteredCollectionView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LMCenteredCollectionView.framework; path = "../../../Library/Developer/Xcode/DerivedData/LMCenteredCollectionView-disygyclrctotybwgoimtettncaf/Build/Products/Debug-iphoneos/LMCenteredCollectionView.framework"; sourceTree = "<group>"; };
+		B6E55C26226D55ED004CEFD0 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		B6E55C28226D5D13004CEFD0 /* DialViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,8 +256,10 @@
 		B6E55BE12269C3E2004CEFD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B6E55BE22269C3E2004CEFD0 /* WheelView.swift */,
-				B6E55BE32269C3E2004CEFD0 /* WheelViewCell.swift */,
+				B6E55BE22269C3E2004CEFD0 /* DialView.swift */,
+				B6E55BE32269C3E2004CEFD0 /* DialViewCell.swift */,
+				B6E55C28226D5D13004CEFD0 /* DialViewCell.xib */,
+				B6E55C26226D55ED004CEFD0 /* ImageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6E55BF32269C3E2004CEFD0 /* pic139.jpg in Resources */,
+				B6E55C29226D5D13004CEFD0 /* DialViewCell.xib in Resources */,
 				B6E55BF92269C3E2004CEFD0 /* pic140.jpg in Resources */,
 				B6E55BF02269C3E2004CEFD0 /* pic106.jpg in Resources */,
 				B6E55BE92269C3E2004CEFD0 /* pic115.jpg in Resources */,
@@ -400,9 +407,10 @@
 			files = (
 				B6E55C142269C3E2004CEFD0 /* AppDelegate.swift in Sources */,
 				B6E55C122269C3E2004CEFD0 /* ImageViewController.swift in Sources */,
-				B6E55C152269C3E2004CEFD0 /* WheelView.swift in Sources */,
+				B6E55C152269C3E2004CEFD0 /* DialView.swift in Sources */,
 				B6E55C112269C3E2004CEFD0 /* MainViewController.swift in Sources */,
-				B6E55C162269C3E2004CEFD0 /* WheelViewCell.swift in Sources */,
+				B6E55C162269C3E2004CEFD0 /* DialViewCell.swift in Sources */,
+				B6E55C27226D55ED004CEFD0 /* ImageCell.swift in Sources */,
 				B6E55C132269C3E2004CEFD0 /* DialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

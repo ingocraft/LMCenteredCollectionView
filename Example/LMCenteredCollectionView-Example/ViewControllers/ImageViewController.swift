@@ -50,8 +50,8 @@ extension ImageViewController: LMCenteredCollectionViewDelegate {
 
 extension ImageViewController: LMCenteredCollectionViewDataSource {
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
-        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? LMCenteredCollectionViewImageCell else {
-            return LMCenteredCollectionViewImageCell()
+        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? ImageCell else {
+            return ImageCell()
         }
         
         let fileName = self.animals[index] + ".jpg"
@@ -107,7 +107,7 @@ private extension ImageViewController {
             let view = LMCenteredCollectionView(dialDirection: .horizontal)
             view.dataSource = self
             view.delegate = self
-            view.register(LMCenteredCollectionViewImageCell.self)
+            view.register(ImageCell.self)
             return view
         }()
         
@@ -128,7 +128,7 @@ private extension ImageViewController {
             let view = LMCenteredCollectionView(dialDirection: .vertical)
             view.dataSource = self
             view.delegate = self
-            view.register(LMCenteredCollectionViewImageCell.self)
+            view.register(ImageCell.self)
             return view
         }()
         

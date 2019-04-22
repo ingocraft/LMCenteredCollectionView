@@ -1,5 +1,5 @@
 //
-//  LMCenteredCollectionViewImageCell.swift
+//  ImageCell.swift
 //  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/10.
@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import LMCenteredCollectionView
 
-open class LMCenteredCollectionViewImageCell: LMCenteredCollectionViewCell {
+open class ImageCell: LMCenteredCollectionViewCell {
     
     open var imageView: UIImageView!
     open var label: UILabel!
@@ -25,7 +26,7 @@ open class LMCenteredCollectionViewImageCell: LMCenteredCollectionViewCell {
 }
 
 // MARK: UI
-private extension LMCenteredCollectionViewImageCell {
+private extension ImageCell {
     func setupSubviews() {
         // init
         imageView = {

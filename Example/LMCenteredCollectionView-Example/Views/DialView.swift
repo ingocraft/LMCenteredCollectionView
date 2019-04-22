@@ -1,5 +1,5 @@
 //
-//  WheelView.swift
+//  DialView.swift
 //  LMCenteredCollectionView-Example
 //
 //  Created by Liam on 2019/4/18.
@@ -9,7 +9,7 @@
 import UIKit
 import LMCenteredCollectionView
 
-class WheelView: UIView {
+class DialView: UIView {
     
     private var centeredCollectionView: LMCenteredCollectionView!
     
@@ -30,41 +30,47 @@ class WheelView: UIView {
 }
 
 // MARK: LMCenteredCollectionViewDelegate
-extension WheelView: LMCenteredCollectionViewDelegate {
+extension DialView: LMCenteredCollectionViewDelegate {
     func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {
-        return 10
+        return 5
     }
     
     func sizeOfItems(in centeredCollectionView: LMCenteredCollectionView) -> CGSize {
-        return CGSize(width: 50, height: 50)
+        return CGSize(width: 15, height: 50)
     }
 }
 
 // MARK: LMCenteredCollectionViewDataSource
-extension WheelView: LMCenteredCollectionViewDataSource {
+extension DialView: LMCenteredCollectionViewDataSource {
     func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
         return 50
     }
     
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
-        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? WheelViewCell else {
-            return WheelViewCell()
+        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? DialViewCell else {
+            return LMCenteredCollectionViewCell()
         }
         cell.numberLabel.text = "\(index)"
-        cell.lineView.backgroundColor = UIColor.lightGray
+        cell.numberLabel.textColor = UIColor.lightGray
+        if index == 0 {
+            cell.lineView.backgroundColor = UIColor.black
+        } else {
+            cell.lineView.backgroundColor = UIColor.lightGray
+        }
         return cell
     }
 }
 
 // MARK: UI
-private extension WheelView {
+private extension DialView {
     func setupSubviews() {
         // init
         centeredCollectionView = {
             let view = LMCenteredCollectionView()
             view.delegate = self
             view.dataSource = self
-            view.register(WheelViewCell.self)
+            let nibName = String(describing: DialViewCell.self)
+            view.register(UINib(nibName: nibName, bundle: nil))
             return view
         }()
         

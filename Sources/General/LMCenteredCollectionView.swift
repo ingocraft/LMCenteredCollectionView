@@ -61,7 +61,7 @@ open class LMCenteredCollectionView: UIView {
     private(set) var itemSize = CGSize(width: 50, height: 50)
     private(set) var interitemSpacing: CGFloat = 10.0
 
-    private var cellClass: AnyClass?
+    private var cellIdentifier: String?
     private(set) var dialDirection: Direction = .horizontal
     @IBInspectable private var dialDirectionAdapter: Int {
         get {
@@ -165,8 +165,8 @@ public extension LMCenteredCollectionView {
     
     func dequeueReusableCell(for index: Int) -> LMCenteredCollectionViewCell {
         let indexPath = IndexPath(item: index, section: 0)
-        guard let cellClass = cellClass,
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? LMCenteredCollectionViewCell else {
+        guard let cellIdentifier = cellIdentifier,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? LMCenteredCollectionViewCell else {
             assertionFailure("Cell must be LMCenteredCollectionViewCell")
             return LMCenteredCollectionViewCell()
         }
@@ -175,9 +175,15 @@ public extension LMCenteredCollectionView {
     }
     
     func register(_ cellClass: AnyClass) {
-        self.cellClass = cellClass
         let identifier = String(describing: cellClass)
         collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
+        cellIdentifier = identifier
+    }
+    
+    func register(_ nib: UINib) {
+        let identifier = String(describing: nib)
+        collectionView.register(nib, forCellWithReuseIdentifier: identifier)
+        cellIdentifier = identifier
     }
 }
 
@@ -227,17 +233,13 @@ extension LMCenteredCollectionView: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cellClass = cellClass as? LMCenteredCollectionViewCell.Type else {
-            assertionFailure("cell must be registed")
-            return UICollectionViewCell()
-        }
-        guard let dialManager = dialManager else { return cellClass.init() }
+        guard let dialManager = dialManager else { return UICollectionViewCell() }
         
         let dialIndex = dialManager.indexFromIndexPath(indexPath)
         let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
         guard let cell = dataSource?.centeredCollectionView(self, cellForItemAt: cycleDialIndex) else {
             assertionFailure("dataSource must not be nil")
-            return cellClass.init()
+            return UICollectionViewCell()
         }
         return cell
     }

@@ -14,12 +14,8 @@ open class LMCenteredCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
     }
     
-    required convenience public init() {
-        self.init(frame: CGRect.zero)
-    }
-    
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 }
 
