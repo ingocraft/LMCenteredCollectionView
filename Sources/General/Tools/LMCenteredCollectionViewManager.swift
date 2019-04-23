@@ -78,15 +78,18 @@ extension LMCenteredCollectionViewManager {
      */
     func calculateScrollOffsetFrom(scrollOffset: CGFloat) -> CGFloat {
         let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
-        let endDialOffset = dialMapper.endDialOffset
-        let lessThanStart = dialOffset < 0
-        let greaterThanEnd = dialOffset >= endDialOffset + cellInterval
+        let minimum = -cellInterval / 2
+        let maximum = CGFloat(cycleCellCount - 1) * cellInterval + cellInterval / 2
+        let lessThanStart = dialOffset < minimum
+        let greaterThanEnd = dialOffset >= maximum
 
         let offset: CGFloat
         if lessThanStart {
-            offset = endOffset + cellInterval + dialOffset
+            let diff = CGFloat(fabs(Double(dialOffset - minimum)))
+            offset = endOffset + cellInterval / 2 - diff
         } else if greaterThanEnd {
-            offset = startOffset + (dialOffset -  endDialOffset - cellInterval)
+            let diff = CGFloat(fabs(Double(dialOffset - maximum)))
+            offset = startOffset - cellInterval / 2 + diff
         } else {
             offset = scrollOffset
         }
@@ -114,7 +117,7 @@ extension LMCenteredCollectionViewManager {
     
     func middleScrollOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         let scrollOffset = dialMapper.scrollOffsetFrom(dialOffset: dialOffset)
-        let middleScrollOffset = scrollOffset + cellLength / 2
+        let middleScrollOffset = scrollOffset
         return middleScrollOffset
     }
     

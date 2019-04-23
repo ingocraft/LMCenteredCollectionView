@@ -194,26 +194,38 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         let contentOffset = scrollView.contentOffset
         let scrollOffset = disassembleContentOffset(contentOffset)
         let offsetScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: scrollOffset)
-        
-        let willScroll = offsetScrollTo != scrollOffset
+
+        let lastContentOffset = CGFloat(dialManager.cellCount) * (dialManager.cellLength + dialManager.interitemSpacing)
+        let willScroll = scrollOffset > lastContentOffset - dialManager.viewLength * 1
         if willScroll {
-            scrollView.contentOffset = assembleContentOffsetFrom(scrollOffset: offsetScrollTo)
+            adjustScrollViewOffsetIfNeed(in: scrollView)
             return
         }
-        
-        // centered collection view offset
-        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
-        delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
         
         // dial index
         let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.centeredCollectionView?(self, didScrollToIndex: index)
+
+        // centered collection view offset
+        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
+        delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
+
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         delegate?.centeredCollectionViewWillBeginDragging?(self)
+        adjustScrollViewOffsetIfNeed(in: scrollView)
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate { return }
+        adjustScrollViewOffsetIfNeed(in: scrollView)
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        adjustScrollViewOffsetIfNeed(in: scrollView)
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -269,6 +281,17 @@ extension LMCenteredCollectionView: UICollectionViewDelegateFlowLayout {
 
 // MARK: private
 private extension LMCenteredCollectionView {
+    func adjustScrollViewOffsetIfNeed(in scrollView: UIScrollView) {
+        guard let dialManager = dialManager else { return }
+        let contentOffset = scrollView.contentOffset
+        let scrollOffset = disassembleContentOffset(contentOffset)
+        let offsetScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: scrollOffset)
+        
+        let willScroll = offsetScrollTo != scrollOffset
+        guard willScroll else { return }
+        scrollView.contentOffset = assembleContentOffsetFrom(scrollOffset: offsetScrollTo)
+    }
+    
     func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
         let contentOffset: CGPoint
         switch dialDirection {

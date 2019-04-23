@@ -31,6 +31,14 @@ class DialView: UIView {
 
 // MARK: LMCenteredCollectionViewDelegate
 extension DialView: LMCenteredCollectionViewDelegate {
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToOffset offset: CGFloat) {
+//        print(offset)
+    }
+    
+    func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToIndex index: Int) {
+        print(index)
+    }
+    
     func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {
         return 5
     }

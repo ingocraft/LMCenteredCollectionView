@@ -104,12 +104,22 @@
                                     <constraint firstAttribute="height" constant="200" id="s96-Id-6hf"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWt-FD-n31">
+                                <rect key="frame" x="206.66666666666666" y="350" width="1" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="hyQ-C7-bTj"/>
+                                    <constraint firstAttribute="width" constant="1" id="oNb-2p-pYb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Uf-aa-emk" firstAttribute="trailing" secondItem="ZxG-0p-2r4" secondAttribute="trailing" id="Ozz-9p-haV"/>
                             <constraint firstItem="ZxG-0p-2r4" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" id="QDP-Pp-j49"/>
                             <constraint firstItem="ZxG-0p-2r4" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="VmA-CY-kA6"/>
+                            <constraint firstItem="SWt-FD-n31" firstAttribute="centerX" secondItem="6Uf-aa-emk" secondAttribute="centerX" id="qSY-WI-UXO"/>
+                            <constraint firstItem="SWt-FD-n31" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="yIy-W6-JZn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
                     </view>

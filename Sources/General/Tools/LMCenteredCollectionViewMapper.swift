@@ -21,7 +21,7 @@ class LMCenteredCollectionViewMapper {
     let cellLength: CGFloat
     let cycleCount: Int
     let viewLength: CGFloat
-    
+
     private(set) lazy var startIndex: Int = {
         return (cellCount - cycleCount) / 2
     }()
@@ -29,10 +29,10 @@ class LMCenteredCollectionViewMapper {
         return startIndex + cycleCount - 1
     }()
     private(set) lazy var startOffset: CGFloat = {
-        return CGFloat(startIndex) * cellInterval - viewLength / 2
+        return CGFloat(startIndex) * cellInterval - viewLength / 2 + cellLength / 2
     }()
     private(set) lazy var endOffset: CGFloat = {
-        return CGFloat(endIndex) * cellInterval - viewLength / 2
+        return CGFloat(endIndex) * cellInterval - viewLength / 2 + cellLength / 2
     }()
 
     init(cellInterval: CGFloat, cellCount: Int, cellLength: CGFloat, cycleCount: Int, viewLength: CGFloat) {
@@ -77,7 +77,7 @@ extension LMCenteredCollectionViewMapper {
 extension LMCenteredCollectionViewMapper {
     func cycleDialOffsetFrom(dialOffset: CGFloat) -> CGFloat {
         var cycleDialOffset: CGFloat
-        if dialOffset < 0 {
+        if dialOffset < -cellInterval {
             cycleDialOffset = endDialOffset - dialOffset
         } else {
             cycleDialOffset = dialOffset
@@ -110,9 +110,9 @@ extension LMCenteredCollectionViewMapper {
 
         let cloestOffsetX: CGFloat
         if distanceToPrev < distanceToNext {
-            cloestOffsetX = prevOffsetX + cellLength / 2
+            cloestOffsetX = prevOffsetX
         } else {
-            cloestOffsetX = nextOffsetX + cellLength / 2
+            cloestOffsetX = nextOffsetX
         }
         
         return scrollOffsetFrom(dialOffset: cloestOffsetX)
