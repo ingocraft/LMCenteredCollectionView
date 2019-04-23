@@ -193,24 +193,31 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         guard let dialManager = dialManager else { return }
         let contentOffset = scrollView.contentOffset
         let scrollOffset = disassembleContentOffset(contentOffset)
-        let offsetScrollTo = dialManager.calculateScrollOffsetFrom(scrollOffset: scrollOffset)
-
+        
+        // check the end of contentSize
         let lastContentOffset = CGFloat(dialManager.cellCount) * (dialManager.cellLength + dialManager.interitemSpacing)
-        let willScroll = scrollOffset > lastContentOffset - dialManager.viewLength * 1
+        let willScroll = scrollOffset > lastContentOffset - dialManager.viewLength
         if willScroll {
             adjustScrollViewOffsetIfNeed(in: scrollView)
             return
         }
         
+        // get the right index and offset
+        let dialIndex = dialManager.calculateIndexFrom(scrollOffset: scrollOffset)
+        let multiple = dialIndex / dialManager.cycleCellCount
+        let index = dialIndex - dialManager.cycleCellCount * multiple
+        
+        // filter reduplicated index and offset
         // dial index
-        let index = dialManager.calculateIndexFrom(scrollOffset: offsetScrollTo)
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.centeredCollectionView?(self, didScrollToIndex: index)
-
+        
         // centered collection view offset
-        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: offsetScrollTo)
+        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: scrollOffset)
         delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
+
+        
 
     }
     

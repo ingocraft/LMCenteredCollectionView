@@ -106,7 +106,7 @@ extension LMCenteredCollectionViewManager {
      */
     func calculateIndexFrom(scrollOffset: CGFloat) -> Int {
         let dialOffset = dialMapper.dialOffsetFrom(scrollOffset: scrollOffset)
-        let offset = dialOffset - cellLength / 2
+        let offset = dialOffset
         let floatDialIndex = offset / cellInterval
         var dialIndex = Int(floatDialIndex.rounded())
         if dialIndex == cycleCellCount {
