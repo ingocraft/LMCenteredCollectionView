@@ -36,7 +36,7 @@ extension DialView: LMCenteredCollectionViewDelegate {
     }
     
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToIndex index: Int) {
-        print(index)
+//        print(index)
     }
     
     func interitemSpacingBetweenItems(in centeredCollectionView: LMCenteredCollectionView) -> CGFloat {

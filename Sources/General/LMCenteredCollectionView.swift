@@ -208,23 +208,35 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         // get the right index and offset
         let dialIndex = dialManager.calculateIndexFrom(scrollOffset: scrollOffset)
         let multiple = dialIndex / dialManager.cycleCellCount
-        let remainer = dialIndex - dialManager.cycleCellCount * multiple
+        let remainerIndex = dialIndex - dialManager.cycleCellCount * multiple
+
         let index: Int
-        if remainer >= 0 {
-            index = remainer
+        if remainerIndex >= 0 {
+            index = remainerIndex
         } else {
-            index = remainer + dialManager.cycleCellCount
+            index = remainerIndex + dialManager.cycleCellCount
         }
 
+        // centered collection view offset
+        let dialOffset = dialManager.dialOffsetFrom(scrollOffset: scrollOffset)
+        let cellDistance = dialManager.cellLength + dialManager.interitemSpacing
+        let totalContentSize = cellDistance * CGFloat(dialManager.cycleCellCount)
+        let remainerOffset = dialOffset - cellDistance * CGFloat(multiple)
+        
+        let targetOffset: CGFloat
+        if remainerOffset >= 0 {
+            targetOffset = remainerOffset
+        } else {
+            targetOffset = remainerOffset + totalContentSize
+        }
+
+        delegate?.centeredCollectionView?(self, didScrollToOffset: targetOffset)
+        
         // filter reduplicated index and offset
         // dial index
         guard latestIndex != index else { return }
         latestIndex = index
         delegate?.centeredCollectionView?(self, didScrollToIndex: index)
-        
-        // centered collection view offset
-        let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: scrollOffset)
-        delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
