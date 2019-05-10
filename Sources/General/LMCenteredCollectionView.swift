@@ -194,10 +194,13 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         let contentOffset = scrollView.contentOffset
         let scrollOffset = disassembleContentOffset(contentOffset)
         
-        // check the end of contentSize
-        let lastContentOffset = CGFloat(dialManager.cellCount) * (dialManager.cellLength + dialManager.interitemSpacing)
-        let willScroll = scrollOffset > lastContentOffset - dialManager.viewLength
-        if willScroll {
+        // check the border of contentSize
+        let beginContentOffset = dialManager.viewLength
+        let endContentOffset = CGFloat(dialManager.cellCount) * (dialManager.cellLength + dialManager.interitemSpacing)
+        let willCrossEndBorder = scrollOffset > endContentOffset - dialManager.viewLength
+        let willCrossBeginBorder = scrollOffset < beginContentOffset
+        let shouldResetContentOffset = willCrossBeginBorder || willCrossEndBorder
+        if shouldResetContentOffset {
             adjustScrollViewOffsetIfNeed(in: scrollView)
             return
         }
