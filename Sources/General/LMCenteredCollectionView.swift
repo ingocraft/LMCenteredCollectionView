@@ -205,8 +205,14 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         // get the right index and offset
         let dialIndex = dialManager.calculateIndexFrom(scrollOffset: scrollOffset)
         let multiple = dialIndex / dialManager.cycleCellCount
-        let index = dialIndex - dialManager.cycleCellCount * multiple
-        
+        let remainer = dialIndex - dialManager.cycleCellCount * multiple
+        let index: Int
+        if remainer >= 0 {
+            index = remainer
+        } else {
+            index = remainer + dialManager.cycleCellCount
+        }
+
         // filter reduplicated index and offset
         // dial index
         guard latestIndex != index else { return }
@@ -216,9 +222,6 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         // centered collection view offset
         let dialOffset = dialManager.cycleDialOffsetFrom(scrollOffset: scrollOffset)
         delegate?.centeredCollectionView?(self, didScrollToOffset: dialOffset)
-
-        
-
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
