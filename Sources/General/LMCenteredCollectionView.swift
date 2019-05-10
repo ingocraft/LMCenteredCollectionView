@@ -235,10 +235,12 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate { return }
         adjustScrollViewOffsetIfNeed(in: scrollView)
+        correctContentOffsetAnimated()
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         adjustScrollViewOffsetIfNeed(in: scrollView)
+        correctContentOffsetAnimated()
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -303,6 +305,18 @@ private extension LMCenteredCollectionView {
         let willScroll = offsetScrollTo != scrollOffset
         guard willScroll else { return }
         scrollView.contentOffset = assembleContentOffsetFrom(scrollOffset: offsetScrollTo)
+    }
+    
+    func correctContentOffsetAnimated() {
+        guard let dialManager = dialManager else { return }
+        let current = disassembleContentOffset(collectionView.contentOffset)
+        let target = dialManager.cloestDividingLineOffsetX(from: current)
+        let offsetIsCorrect = current == target
+        if offsetIsCorrect { return }
+        let correctOffset = assembleContentOffsetFrom(scrollOffset: target)
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.allowUserInteraction], animations: { [weak self] in
+            self?.collectionView.contentOffset = correctOffset
+        }, completion: nil)
     }
     
     func assembleContentOffsetFrom(scrollOffset: CGFloat) -> CGPoint {
