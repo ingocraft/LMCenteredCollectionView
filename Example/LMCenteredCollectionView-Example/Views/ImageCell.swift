@@ -9,18 +9,18 @@
 import UIKit
 import LMCenteredCollectionView
 
-open class ImageCell: LMCenteredCollectionViewCell {
+class ImageCell: LMCenteredCollectionViewCell {
     
-    open var imageView: UIImageView!
-    open var label: UILabel!
+    var imageView: UIImageView!
+    var label: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
 }

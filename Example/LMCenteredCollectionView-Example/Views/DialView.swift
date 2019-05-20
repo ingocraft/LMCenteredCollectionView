@@ -55,9 +55,8 @@ extension DialView: LMCenteredCollectionViewDataSource {
     }
     
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, cellForItemAt index: Int) -> LMCenteredCollectionViewCell {
-        guard let cell = centeredCollectionView.dequeueReusableCell(for: index) as? DialViewCell else {
-            return LMCenteredCollectionViewCell()
-        }
+        let cell = centeredCollectionView.dequeueReusableCell(for: index) as! DialViewCell
+        
         cell.numberLabel.text = "\(index)"
         cell.numberLabel.textColor = UIColor.lightGray
         if index == 0 {

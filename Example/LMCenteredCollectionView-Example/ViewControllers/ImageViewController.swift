@@ -13,16 +13,18 @@ class ImageViewController: UIViewController {
     
     private var randomColors = [UIColor]()
     private var animals = [String]()
-    private var centeredCollectionView: LMCenteredCollectionView!
-    
+    private var centeredConstraints = [NSLayoutConstraint]()
+
+    @IBOutlet weak var indexLabel: UILabel!
+    @IBOutlet weak var offsetLabel: UILabel!
+    @IBOutlet weak var centeredCollectionView: LMCenteredCollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Images"
         generateAnimals()
         setupSubviews()
-
     }
-    
 }
 
 extension ImageViewController: LMCenteredCollectionViewDelegate {
@@ -64,7 +66,18 @@ extension ImageViewController: LMCenteredCollectionViewDataSource {
     }
     
     func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
-        return animals.count
+        return 10
+    }
+}
+
+// MARK: event response
+private extension ImageViewController {
+    @IBAction func switchAction(_ sender: Any) {
+        if centeredCollectionView.dialDirection == .horizontal {
+            layoutHorizontal()
+        } else {
+            layoutVertical()
+        }
     }
 }
 
@@ -98,21 +111,19 @@ private extension ImageViewController {
 // MARK: UI
 private extension ImageViewController {
     func setupSubviews() {
-        initHorizontalDialView()
-//        initVerticalDialView()
+        initDialView()
+        layoutHorizontal()
     }
     
-    func initHorizontalDialView() {
-        centeredCollectionView = {
-            let view = LMCenteredCollectionView(dialDirection: .horizontal)
-            view.dataSource = self
-            view.delegate = self
-            view.register(ImageCell.self)
-            return view
-        }()
-        
-        view.addSubview(centeredCollectionView)
-        
+    func layoutHorizontal() {
+        centeredCollectionView.dialDirection = .horizontal
+        if centeredConstraints.count > 0 {
+            NSLayoutConstraint.deactivate(centeredConstraints)
+            centeredConstraints.forEach {
+                centeredCollectionView.removeConstraint($0)
+            }
+        }
+
         centeredCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
             centeredCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -121,18 +132,18 @@ private extension ImageViewController {
             centeredCollectionView.heightAnchor.constraint(equalToConstant: 200),
         ]
         NSLayoutConstraint.activate(constraints)
+        centeredConstraints = constraints
     }
     
-    func initVerticalDialView() {
-        centeredCollectionView = {
-            let view = LMCenteredCollectionView(dialDirection: .vertical)
-            view.dataSource = self
-            view.delegate = self
-            view.register(ImageCell.self)
-            return view
-        }()
+    func layoutVertical() {
+        centeredCollectionView.dialDirection = .vertical
         
-        view.addSubview(centeredCollectionView)
+        if centeredConstraints.count > 0 {
+            NSLayoutConstraint.deactivate(centeredConstraints)
+            centeredConstraints.forEach {
+                centeredCollectionView.removeConstraint($0)
+            }
+        }
 
         centeredCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
@@ -142,5 +153,12 @@ private extension ImageViewController {
             centeredCollectionView.widthAnchor.constraint(equalToConstant: 300),
         ]
         NSLayoutConstraint.activate(constraints)
+        centeredConstraints = constraints
+    }
+    
+    func initDialView() {
+        centeredCollectionView.dataSource = self
+        centeredCollectionView.delegate = self
+        centeredCollectionView.register(ImageCell.self)
     }
 }

@@ -62,13 +62,10 @@ open class LMCenteredCollectionView: UIView {
     private(set) var interitemSpacing: CGFloat = 10.0
 
     private var cellIdentifier: String?
-    private(set) var dialDirection: Direction = .horizontal
-    @IBInspectable private var dialDirectionAdapter: Int {
-        get {
-            return dialDirection.rawValue
-        }
-        set {
-            dialDirection = Direction(rawValue: newValue) ?? .horizontal
+    public var dialDirection: Direction = .horizontal {
+        didSet {
+            setupSubviews()
+            collectionView.reloadData()
         }
     }
 
@@ -103,16 +100,12 @@ open class LMCenteredCollectionView: UIView {
         return latestIndex
     }
 
-    public init(frame: CGRect = CGRect.zero, dialDirection: Direction) {
+    public init(frame: CGRect = CGRect.zero, dialDirection: Direction = .horizontal) {
         self.dialDirection = dialDirection
         super.init(frame: frame)
         setupSubviews()
     }
     
-    required public convenience init() {
-        self.init(frame: CGRect.zero, dialDirection: .horizontal)
-    }
-
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -393,6 +386,11 @@ private extension LMCenteredCollectionView {
 // MARK: UI
 private extension LMCenteredCollectionView {
     func setupSubviews() {
+        // setupSubviews() will be revoked again if direction changes.
+        if let collectionView = collectionView {
+            collectionView.removeFromSuperview()
+        }
+        
         backgroundColor = UIColor.white
         
         let layout: UICollectionViewFlowLayout = {

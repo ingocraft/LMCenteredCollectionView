@@ -97,7 +97,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-0p-2r4" customClass="DialView" customModule="LMCenteredCollectionView_Example" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxG-0p-2r4" customClass="LMCenteredCollectionView" customModule="LMCenteredCollectionView">
                                 <rect key="frame" x="0.0" y="300" width="414" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -112,19 +112,37 @@
                                     <constraint firstAttribute="width" constant="1" id="oNb-2p-pYb"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Index" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHB-5t-lMf">
+                                <rect key="frame" x="20" y="248" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97V-Cb-jkx">
+                                <rect key="frame" x="20" y="279" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="jHB-5t-lMf" firstAttribute="leading" secondItem="97V-Cb-jkx" secondAttribute="leading" id="0Dy-xg-QPt"/>
+                            <constraint firstItem="97V-Cb-jkx" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" constant="20" id="Cx7-Lx-He7"/>
                             <constraint firstItem="6Uf-aa-emk" firstAttribute="trailing" secondItem="ZxG-0p-2r4" secondAttribute="trailing" id="Ozz-9p-haV"/>
                             <constraint firstItem="ZxG-0p-2r4" firstAttribute="leading" secondItem="6Uf-aa-emk" secondAttribute="leading" id="QDP-Pp-j49"/>
                             <constraint firstItem="ZxG-0p-2r4" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="VmA-CY-kA6"/>
+                            <constraint firstItem="97V-Cb-jkx" firstAttribute="top" secondItem="jHB-5t-lMf" secondAttribute="bottom" constant="10" id="ldo-qf-Djy"/>
+                            <constraint firstItem="ZxG-0p-2r4" firstAttribute="top" secondItem="97V-Cb-jkx" secondAttribute="bottom" id="nt0-ef-cYL"/>
                             <constraint firstItem="SWt-FD-n31" firstAttribute="centerX" secondItem="6Uf-aa-emk" secondAttribute="centerX" id="qSY-WI-UXO"/>
                             <constraint firstItem="SWt-FD-n31" firstAttribute="centerY" secondItem="6Uf-aa-emk" secondAttribute="centerY" id="yIy-W6-JZn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Uf-aa-emk"/>
                     </view>
                     <connections>
-                        <outlet property="wheelView" destination="ZxG-0p-2r4" id="D6x-G6-W3O"/>
+                        <outlet property="centeredCollectionView" destination="ZxG-0p-2r4" id="MYf-Fb-STG"/>
+                        <outlet property="indexLabel" destination="jHB-5t-lMf" id="pXJ-xj-lIL"/>
+                        <outlet property="offsetLabel" destination="97V-Cb-jkx" id="f1i-7j-Yto"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcz-PL-gUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -138,9 +156,53 @@
                     <view key="view" contentMode="scaleToFill" id="Nbs-Hf-cWb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Index" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6e-ms-0kn">
+                                <rect key="frame" x="10" y="127" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgw-1O-riC">
+                                <rect key="frame" x="10" y="158" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4u-8n-uK8" customClass="LMCenteredCollectionView" customModule="LMCenteredCollectionView">
+                                <rect key="frame" x="0.0" y="300" width="414" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" placeholder="YES" id="GGx-Ej-Uge"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYj-WS-q13">
+                                <rect key="frame" x="10" y="87" width="47" height="30"/>
+                                <state key="normal" title="Switch"/>
+                                <connections>
+                                    <action selector="switchAction:" destination="R3Z-my-Pfp" eventType="touchUpInside" id="8wu-X4-35b"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="LYj-WS-q13" firstAttribute="top" secondItem="64n-fp-dgm" secondAttribute="top" constant="23" id="5ke-Xg-DN6"/>
+                            <constraint firstItem="W4u-8n-uK8" firstAttribute="centerY" secondItem="64n-fp-dgm" secondAttribute="centerY" placeholder="YES" id="8aI-sZ-vJv"/>
+                            <constraint firstItem="Z6e-ms-0kn" firstAttribute="leading" secondItem="LYj-WS-q13" secondAttribute="leading" id="A3m-IL-DIM"/>
+                            <constraint firstItem="Kgw-1O-riC" firstAttribute="leading" secondItem="LYj-WS-q13" secondAttribute="leading" id="FX1-WV-MR4"/>
+                            <constraint firstItem="LYj-WS-q13" firstAttribute="leading" secondItem="64n-fp-dgm" secondAttribute="leading" constant="10" id="TGR-vo-1C0"/>
+                            <constraint firstItem="Kgw-1O-riC" firstAttribute="top" secondItem="Z6e-ms-0kn" secondAttribute="bottom" constant="10" id="WHF-YQ-W7f"/>
+                            <constraint firstItem="W4u-8n-uK8" firstAttribute="leading" secondItem="64n-fp-dgm" secondAttribute="leading" placeholder="YES" id="a5S-r9-ku9"/>
+                            <constraint firstItem="64n-fp-dgm" firstAttribute="trailing" secondItem="W4u-8n-uK8" secondAttribute="trailing" placeholder="YES" id="mKO-cb-DJj"/>
+                            <constraint firstItem="Z6e-ms-0kn" firstAttribute="top" secondItem="LYj-WS-q13" secondAttribute="bottom" constant="10" id="xkZ-HW-Izy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="64n-fp-dgm"/>
                     </view>
+                    <connections>
+                        <outlet property="centeredCollectionView" destination="W4u-8n-uK8" id="XUy-MJ-ljI"/>
+                        <outlet property="indexLabel" destination="Z6e-ms-0kn" id="HkC-83-uwj"/>
+                        <outlet property="offsetLabel" destination="Kgw-1O-riC" id="BTQ-gj-jY5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0I-Qt-WFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

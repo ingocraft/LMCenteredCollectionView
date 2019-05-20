@@ -10,10 +10,11 @@ import UIKit
 import LMCenteredCollectionView
 
 class DialViewCell: LMCenteredCollectionViewCell {
+    
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var lineView: UIView!
     
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
