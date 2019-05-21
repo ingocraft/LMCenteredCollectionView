@@ -226,10 +226,12 @@ extension LMCenteredCollectionView: UICollectionViewDelegate {
         let remainerOffset = dialOffset - cellDistance * CGFloat(multiple)
         
         let targetOffset: CGFloat
-        if remainerOffset >= 0 {
-            targetOffset = remainerOffset
-        } else {
+        if remainerOffset < 0 {
             targetOffset = remainerOffset + totalContentSize
+        } else if remainerOffset >= totalContentSize{
+            targetOffset = remainerOffset - totalContentSize
+        } else {
+            targetOffset = remainerOffset
         }
 
         delegate?.centeredCollectionView?(self, didScrollToOffset: targetOffset)
