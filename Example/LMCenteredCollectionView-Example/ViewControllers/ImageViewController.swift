@@ -66,7 +66,7 @@ extension ImageViewController: LMCenteredCollectionViewDataSource {
     }
     
     func numberOfItems(in centeredCollectionView: LMCenteredCollectionView) -> Int {
-        return 10
+        return animals.count
     }
 }
 
@@ -74,9 +74,9 @@ extension ImageViewController: LMCenteredCollectionViewDataSource {
 private extension ImageViewController {
     @IBAction func switchAction(_ sender: Any) {
         if centeredCollectionView.dialDirection == .horizontal {
-            layoutHorizontal()
-        } else {
             layoutVertical()
+        } else {
+            layoutHorizontal()
         }
     }
 }

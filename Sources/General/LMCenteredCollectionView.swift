@@ -54,6 +54,16 @@ open class LMCenteredCollectionView: UIView {
     open weak var dataSource: LMCenteredCollectionViewDataSource?
 
     private var collectionView: UICollectionView!
+    private var collectionViewLayout: UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        switch dialDirection {
+        case .horizontal:
+            layout.scrollDirection = .horizontal
+        case .vertical:
+            layout.scrollDirection = .vertical
+        }
+        return layout
+    }
 
     private var dialManager: LMCenteredCollectionViewManager?
     private var latestIndex: Int = -1
@@ -64,8 +74,7 @@ open class LMCenteredCollectionView: UIView {
     private var cellIdentifier: String?
     public var dialDirection: Direction = .horizontal {
         didSet {
-            setupSubviews()
-            collectionView.reloadData()
+            updateLayout()
         }
     }
 
@@ -386,27 +395,10 @@ private extension LMCenteredCollectionView {
 // MARK: UI
 private extension LMCenteredCollectionView {
     func setupSubviews() {
-        // setupSubviews() will be revoked again if direction changes.
-        if let collectionView = collectionView {
-            collectionView.removeFromSuperview()
-        }
-        
         backgroundColor = UIColor.white
         
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            switch dialDirection {
-            case .horizontal:
-                layout.scrollDirection = .horizontal
-            case .vertical:
-                layout.scrollDirection = .vertical
-            }
-
-            return layout
-        }()
-        
         collectionView = {
-            let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+            let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: collectionViewLayout)
             view.delegate = self
             view.dataSource = self
             view.scrollsToTop = false
@@ -430,5 +422,9 @@ private extension LMCenteredCollectionView {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
+    }
+    
+    func updateLayout() {
+        collectionView.collectionViewLayout = collectionViewLayout
     }
 }
