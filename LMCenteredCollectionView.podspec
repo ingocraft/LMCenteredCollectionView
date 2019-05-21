@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LMCenteredCollectionView"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "infinite, centered, collection view."
 
   s.homepage     = "https://github.com/ingocraft/LMCenteredCollectionView"
