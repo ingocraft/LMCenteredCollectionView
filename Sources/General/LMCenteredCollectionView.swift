@@ -279,8 +279,16 @@ extension LMCenteredCollectionView: UICollectionViewDataSource {
         guard let dialManager = dialManager else { return UICollectionViewCell() }
         
         let dialIndex = dialManager.indexFromIndexPath(indexPath)
-        let cycleDialIndex = dialManager.cycleDialIndexFrom(dialIndex: dialIndex)
-        guard let cell = dataSource?.centeredCollectionView(self, cellForItemAt: cycleDialIndex) else {
+        let multiple = dialIndex / dialManager.cycleCellCount
+        let remainerIndex = dialIndex - dialManager.cycleCellCount * multiple
+        
+        let index: Int
+        if remainerIndex >= 0 {
+            index = remainerIndex
+        } else {
+            index = remainerIndex + dialManager.cycleCellCount
+        }
+        guard let cell = dataSource?.centeredCollectionView(self, cellForItemAt: index) else {
             assertionFailure("dataSource must not be nil")
             return UICollectionViewCell()
         }
