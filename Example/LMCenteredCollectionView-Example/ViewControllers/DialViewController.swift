@@ -25,7 +25,7 @@ class DialViewController: UIViewController {
 // MARK: LMCenteredCollectionViewDelegate
 extension DialViewController: LMCenteredCollectionViewDelegate {
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToOffset offset: CGFloat) {
-        offsetLabel.text = "currentOffset = \(offset)"
+        offsetLabel.text = "currentOffset = \(Int(offset))"
     }
     
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToIndex index: Int) {

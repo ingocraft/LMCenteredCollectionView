@@ -33,7 +33,7 @@ extension ImageViewController: LMCenteredCollectionViewDelegate {
         indexLabel.text = "\(index)"
     }
     func centeredCollectionView(_ centeredCollectionView: LMCenteredCollectionView, didScrollToOffset offset: CGFloat) {
-        offsetLabel.text = "\(offset)"
+        offsetLabel.text = "\(Int(offset))"
     }
     func centeredCollectionViewWillBeginDragging(_ centeredCollectionView: LMCenteredCollectionView) {
     }
