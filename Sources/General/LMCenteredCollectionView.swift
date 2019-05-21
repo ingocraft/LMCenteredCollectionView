@@ -72,7 +72,7 @@ open class LMCenteredCollectionView: UIView {
     private(set) var interitemSpacing: CGFloat = 10.0
 
     private var cellIdentifier: String?
-    public var dialDirection: Direction = .horizontal {
+    private var dialDirection: Direction = .horizontal {
         didSet {
             updateLayout()
         }
@@ -109,8 +109,8 @@ open class LMCenteredCollectionView: UIView {
         return latestIndex
     }
 
-    public init(frame: CGRect = CGRect.zero, dialDirection: Direction = .horizontal) {
-        self.dialDirection = dialDirection
+    public init(frame: CGRect = CGRect.zero, direction: Direction = .horizontal) {
+        self.dialDirection = direction
         super.init(frame: frame)
         setupSubviews()
     }

@@ -169,13 +169,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4u-8n-uK8" customClass="LMCenteredCollectionView" customModule="LMCenteredCollectionView">
-                                <rect key="frame" x="0.0" y="300" width="414" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" placeholder="YES" id="GGx-Ej-Uge"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYj-WS-q13">
                                 <rect key="frame" x="10" y="87" width="47" height="30"/>
                                 <state key="normal" title="Switch"/>
@@ -187,19 +180,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LYj-WS-q13" firstAttribute="top" secondItem="64n-fp-dgm" secondAttribute="top" constant="23" id="5ke-Xg-DN6"/>
-                            <constraint firstItem="W4u-8n-uK8" firstAttribute="centerY" secondItem="64n-fp-dgm" secondAttribute="centerY" placeholder="YES" id="8aI-sZ-vJv"/>
                             <constraint firstItem="Z6e-ms-0kn" firstAttribute="leading" secondItem="LYj-WS-q13" secondAttribute="leading" id="A3m-IL-DIM"/>
                             <constraint firstItem="Kgw-1O-riC" firstAttribute="leading" secondItem="LYj-WS-q13" secondAttribute="leading" id="FX1-WV-MR4"/>
                             <constraint firstItem="LYj-WS-q13" firstAttribute="leading" secondItem="64n-fp-dgm" secondAttribute="leading" constant="10" id="TGR-vo-1C0"/>
                             <constraint firstItem="Kgw-1O-riC" firstAttribute="top" secondItem="Z6e-ms-0kn" secondAttribute="bottom" constant="10" id="WHF-YQ-W7f"/>
-                            <constraint firstItem="W4u-8n-uK8" firstAttribute="leading" secondItem="64n-fp-dgm" secondAttribute="leading" placeholder="YES" id="a5S-r9-ku9"/>
-                            <constraint firstItem="64n-fp-dgm" firstAttribute="trailing" secondItem="W4u-8n-uK8" secondAttribute="trailing" placeholder="YES" id="mKO-cb-DJj"/>
                             <constraint firstItem="Z6e-ms-0kn" firstAttribute="top" secondItem="LYj-WS-q13" secondAttribute="bottom" constant="10" id="xkZ-HW-Izy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="64n-fp-dgm"/>
                     </view>
                     <connections>
-                        <outlet property="centeredCollectionView" destination="W4u-8n-uK8" id="XUy-MJ-ljI"/>
                         <outlet property="indexLabel" destination="Z6e-ms-0kn" id="HkC-83-uwj"/>
                         <outlet property="offsetLabel" destination="Kgw-1O-riC" id="BTQ-gj-jY5"/>
                     </connections>
