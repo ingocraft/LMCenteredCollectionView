@@ -9,6 +9,11 @@
 
 `LMCenteredCollectionView` is a infinite scroll view. 
 
+## Example
+
+![](dialExample.gif) 
+![](imageExample.gif)
+
 ## Installation
 
 ### CocoaPods
